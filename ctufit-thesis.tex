@@ -34,13 +34,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FILL IN THIS INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ctufittitle{Název příkladné závěrečné práce} % replace with the title of your thesis
-\ctufitauthorfull{Bc. Jiří Nebozíz} % replace with your full name (first name(s) and then family name(s) / surname(s)) including academic degrees
-\ctufitauthorsurnames{Nebozíz} % replace with your surname(s) / family name(s)
-\ctufitauthorgivennames{Jiří} % replace with your first name(s) / given name(s)
-\ctufitsupervisor{doc.\,Ing.\,Damien Zlo,\,Ph.D.} % replace with name of your supervisor/advisor (include academic degrees)
-\ctufitdepartment{Katedra teoretické informatiky} % replace with the department of your defence
-\ctufityear{2021} % replace with the year of your defence
+\ctufittitle{Physical unclonable functions on ESP32} % replace with the title of your thesis
+\ctufitauthorfull{Ondřej Staníček} % replace with your full name (first name(s) and then family name(s) / surname(s)) including academic degrees
+\ctufitauthorsurnames{Staníček} % replace with your surname(s) / family name(s)
+\ctufitauthorgivennames{Ondřej} % replace with your first name(s) / given name(s)
+\ctufitsupervisor{Ing.\,Jiří Buček,\,Ph.D.} % replace with name of your supervisor/advisor (include academic degrees)
+\ctufitdepartment{Department of Computer Systems} % replace with the department of your defence % TODO neni to informacni bezpecnost katedra?
+\ctufityear{2022} % replace with the year of your defence
 \ctufitdeclarationplace{Praze} % replace with the place where you sign the declaration
 \ctufitdeclarationdate{\today} % replace with the date of signature of the declaration
 \ctufitabstractCZE{Fill in abstract of this thesis in Czech language. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue.}
@@ -93,6 +93,17 @@
 \usepackage{listings} % typesetting of sources
 % \usepackage{minted} % typesetting of sources
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OWN PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[nopostdot,style=super,nonumberlist,nogroupskip,toc]{glossaries}
+\makeglossaries{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OWN PACKAGES END
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %theorems, definitions, etc.
 \theoremstyle{plain}
 \newtheorem{theorem}{Věta}
@@ -112,6 +123,8 @@
 %%%%%%%%%%%%%%%%%%%%%%
 % DEMO CONTENTS SETTINGS END
 %%%%%%%%%%%%%%%%%%%%%%
+\setacronymstyle{long-short}
+\loadglsentries{glossary.tex}
 
 \begin{document} 
 \frontmatter\frontmatterinit % do not remove these two commands
@@ -169,59 +182,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hen
 
 \printabstractpage % do not remove this command
 
-%%%%%%%%%%%%%%%%%%%
-% SUMMARY
-% FILL IN / MODIFY
-% OR REMOVE ENTIRELY (upon agreement with your supervisor)
-% (appropriate to remove in most theses)
-%%%%%%%%%%%%%%%%%%%
-\begin{summarypage}
-\section*{Summary section}
-
-\lipsum[1][1-8]
-
-\section*{Summary section}
-
-\lipsum[2][1-6]
-
-\section*{Summary section}
-
-\lipsum[3]
-
-\section*{Summary section}
-
-\lipsum[2]
-
-\section*{Summary section}
-
-\lipsum[1][1-8] Lorem lorem lorem.
-\end{summarypage}
-%%%%%%%%%%%%%%%%%%%
-% SUMMARY END
-%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%
-% ABBREVIATIONS
-% FILL IN / MODIFY
-% OR REMOVE ENTIRELY
-% List the abbreviations in lexicography order.
-%%%%%%%%%%%%%%%%%%%
-\chapter{Seznam zkratek}
-	
-\begin{tabular}{rl}
-DFA & Deterministic Finite Automaton\\
-FA & Finite Automaton\\
-LPS & Labelled Prüfer Sequence\\
-NFA & Nondeterministic Finite Automaton\\
-NPS & Numbered Prüfer Sequence\\
-XML & Extensible Markup Language\\
-XPath & XML Path Language\\
-XSLT & eXtensible Stylesheet Language Transformations\\
-W3C & World Wide Web Consortium
-\end{tabular}
-%%%%%%%%%%%%%%%%%%%
-% ABBREVIATIONS END
-%%%%%%%%%%%%%%%%%%%
+\printglossary[type=\acronymtype,title={List of Acronyms}] % TODO ma to byt tady a ne u dalsich listu?
 
 \mainmatter\mainmatterinit % do not remove these two commands
 
