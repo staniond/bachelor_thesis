@@ -68,8 +68,8 @@
 % colors
  \definecolor{decoration}{RGB}{0, 122, 195} %CTU blue
  \definecolor{heading}{RGB}{0, 122, 195}
- \definecolor{headbackgroundgray}{RGB}{255, 255, 255} %light blue
- \definecolor{backgroundgray}{RGB}{255,255,255} %CTU light blue
+ \definecolor{headbackgroundgray}{RGB}{199, 219, 241} %light blue
+ \definecolor{backgroundgray}{RGB}{199, 219, 241} %CTU light blue
  \definecolor{headgray}{rgb}{0.50,0.50,0.51}
  \definecolor{enumgray}{RGB}{0, 122, 195} %CTU blue
 % colors end
@@ -385,7 +385,7 @@
 
 %vzhled nadpisů sekcí
 \titleformat{\section}
-  {\Large\bfseries\color{heading}}{\colorbox{headbackgroundgray}{{\color{black}\thesection}}}{1em}{}%[\vskip -1em]
+  {\Large\bfseries\color{heading}}{{\color{black}\thesection}}{1em}{}%[\vskip -1em]
   
 \titleformat{\subsection}
   {\Large\bfseries\color{heading}}{{{\color{black}\thesubsection}}}{1em}{}%[\vskip -1em]
