@@ -4,13 +4,107 @@
 
     This is an introduction to my thesis\ldots
 
-%---------------------------------------------------------------
+%--------------------------------
 \section{Objectives}
-%---------------------------------------------------------------
+%--------------------------------
 
 The research part of the thesis will describe what is a \gls{puf} and what are the uses of this technology, focusing mainly on \gls{sram} based \glspl{puf}. Furthemore, the parameters used to evaluate performance of \glspl{puf} will be defined.
 
 The main objective of the practical part of this thesis is to analyze the possibility of implementing a \gls{sram} based \gls{puf} on the ESP32 family of microcontrollers. This means finding a suitable mechanism of \gls{sram} power control and establishing a way to gather \gls{puf} response data reliably. Next, stability and uniqueness of the obtained \gls{puf} data using the defined parameters will be evaluated. An analysis of the \gls{sram} data depending on different operating temperature and power-off time will be performed as well.
 
 The next goal will be to implement a simple \gls{sram} based \gls{puf} based on the knowledge gained in the previous experiments. Several different models of devices from the ESP32 family will be used to test the function and performance of the resulting \gls{puf} implementation.\cite{Sestakova2018}
+
+%---------------------------------------------------------------
+\chapter{Physical unclonable functions}
+%---------------------------------------------------------------
+
+%--------------------------------
+\section{PUF description}
+%--------------------------------
+
+\subsection{PUF classification}
+
+%--------------------------------
+\section{PUF properties}
+%--------------------------------
+
+%--------------------------------
+\section{PUF evaluation parameters}
+%--------------------------------
+
+\subsection{Uniformity}
+\subsection{Uniqueness}
+\subsection{Reliability}
+\subsection{?Randomness}
+
+%--------------------------------
+\section{PUF applications}
+%--------------------------------
+
+\subsection{Identification}
+\subsection{Authentication}
+\subsection{Key generation}
+
+%--------------------------------
+\section{PUF implementations}
+%--------------------------------
+
+\subsection{?other PUFs}
+\subsection{SRAM PUF}
+
+%---------------------------------------------------------------
+\chapter{ESP32 platform}
+%---------------------------------------------------------------
+
+%---------------------------------------------------------------
+\chapter{SRAM PUF implementation on ESP32}
+%---------------------------------------------------------------
+
+%--------------------------------
+\section{RTC SRAM based PUF}
+%--------------------------------
+
+\subsection{RTC SRAM power control}
+\subsection{Behaviour based on temperature and SRAM power off time}
+\subsection{PUF evaluation parameters}
+
+%--------------------------------
+\section{Deep sleep based PUF}
+%--------------------------------
+
+\subsection{Deep sleep SRAM power control}
+\subsection{Behaviour based on temperature and SRAM power off time}
+\subsection{PUF evaluation parameters}
+
+%--------------------------------
+\section{?PUF response data image} % TODO how to name this section?
+%--------------------------------
+
+%---------------------------------------------------------------
+\chapter{Reliable PUF response extraction} % TODO should this be its own section or part of the previous one?
+%---------------------------------------------------------------
+
+%--------------------------------
+\section{Error correction code}
+%--------------------------------
+
+%--------------------------------
+\section{Provisioning}
+%--------------------------------
+
+%--------------------------------
+\section{Combining power control methods}
+%--------------------------------
+
+%--------------------------------
+\section{Reliability testing}
+%--------------------------------
+
+%---------------------------------------------------------------
+\chapter{ESP32 SRAM PUF library}
+%---------------------------------------------------------------
+
+%---------------------------------------------------------------
+\chapter{Conclusion}
+%---------------------------------------------------------------
 
