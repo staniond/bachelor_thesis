@@ -27,22 +27,33 @@ The next goal will be to implement a simple \gls{sram} based \gls{puf} based on 
 As \glspl{puf} are the main subject of this thesis, it is important to provide a thorough explanation of what a \gls{puf} is, what types and classes exist and what are
 the applications of this technology.
 
-Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be expressed as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a very similar way to how humans have their own fingerprints.\cite{Maes2013}
+Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be expressed as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a comparable way to how humans have their own fingerprints.\cite{Maes2013}
 
-The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \gls{powf}, which he described as a function operating on a physical system which could be easily computed but not easily inverted.\cite{Pappu2001} The first mention of the term \gls{puf} was by Gassend et al in 2002. He talks about \glspl{prf} and a \gls{puf} implementation using \glspl{fpga}.\cite{Gassend2002}
+The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \gls{powf}, which he described as a function operating on a physical system that could be easily computed but not easily inverted.\cite{Pappu2001} The first mention of the term \gls{puf} was by Gassend et al.\ in 2002. He talks about \glspl{prf} and a \gls{puf} implementation using \glspl{fpga}.\cite{Gassend2002}
 
 As \gls{puf} is a function, it has inputs and outputs. However, it is not a function in a true mathematical way. It could be described as a procedure performed on a particular device. Its inputs consist of a challenge and a physical state of the device. Given the input, the \gls{puf} produces an output (called a response). Together, they form challenge-response pairs.   
 
-A very important property of \glspl{puf} is unclonability. It is achieved by the physical state of the device which acts as the input to the function and influences the responses produced by the \gls{puf}. The concrete details of the physical state used is what distinguishes different \gls{puf} implementations. These physical properties could be for example propagation delay in the chip circuit or bias of uninitialized memory cells to 1 or 0 state. The latter is a basis for \gls{sram} \gls{puf}, which is a topic of this thesis. These properties are fundamentally random, since they are created by uncontrollable physical processes during manufacturing. This makes them physically unclonable.
+A hugely important property of \glspl{puf} is unclonability. It is achieved by the physical state of the device which acts as the input to the function and influences the responses produced by the \gls{puf}. The concrete details of the physical state used is what distinguishes different \gls{puf} implementations. These physical properties could be for example propagation delay in the chip circuit or bias of uninitialized memory cells to 1 or 0 state. The latter is a basis for \gls{sram} \gls{puf}, which is a topic of this thesis. These properties are fundamentally random since they are created by uncontrollable physical processes during manufacturing. This makes them physically unclonable.
 
 Since the physical state of the device can change with time and environment (for example temperature or input voltage variations), the challenge-response pairs can change as well. The requirement is, that for the same challenge, the responses should be similar enough for us to be able to recognize that they belong to the same challenge. The \gls{puf} responses are also required to differ from device to device even with the same challenge.\cite{Kodytek2020}
 
-Because of these properties, \glspl{puf} can be used in devices to enable secure identification, authentication as well as for cryptographic key generation. More of the required properties of \glspl{puf}, their classification, possible applications and implementations will be discussed in more detail in the next sections.
+Because of these properties, \glspl{puf} can be used in devices to enable secure identification, authentication as well as cryptographic key generation. More of the required properties of \glspl{puf}, their classification, possible applications and implementations will be discussed in more detail in the next sections.
 
 %--------------------------------
 \section{PUF properties}
 %--------------------------------
 
+In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is described. Some of the properties are fundamental to all \gls{puf} constructions. However, not all \glspl{puf} must necessarily exhibit all of the discussed properties. Focus will be given to \gls{sram} \glspl{puf}, since they are the main topic of this thesis.
+
+\subsection*{Constructibility}
+\subsection*{Evaluability}
+\subsection*{Reproducibility}
+\subsection*{Uniqueness}
+\subsection*{Identifiability}
+\subsection*{Unclonability}
+\subsection*{Unpredictability}
+\subsection*{One-Wayness}
+\subsection*{Tamper Evidence}
 
 %--------------------------------
 \section{PUF classification}
