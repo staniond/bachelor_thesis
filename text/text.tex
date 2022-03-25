@@ -43,36 +43,72 @@ Because of these properties, \glspl{puf} can be used in devices to enable secure
 \section{PUF properties}
 %--------------------------------
 
-In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is described. Some of the properties are fundamental to all \gls{puf} constructions. However, not all \glspl{puf} must necessarily exhibit all of the discussed properties. Focus will be given to \gls{sram} \glspl{puf}, since they are the main topic of this thesis.
+In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is described. Some of them are fundamental to all \gls{puf} constructions (the first six listed). However, not all \glspl{puf} must necessarily exhibit all of the discussed properties. In Section~\ref{sec:srampuf_properties}, properties of \gls{sram} \glspl{puf} are discussed as they are a topic of this thesis.
 
-\subsection*{Constructibility}
-\subsection*{Evaluability}
-\subsection*{Reproducibility}
-\subsection*{Uniqueness}
-\subsection*{Identifiability}
-\subsection*{Unclonability}
-\subsection*{Unpredictability}
-\subsection*{One-Wayness}
-\subsection*{Tamper Evidence}
+\subsubsection*{Constructibility}
+
+Constructibility states, that the specific \gls{puf} instance must be `easy' to construct. This means that the laws of physics allow for such \gls{puf} implementation in the first place. The construction cost of such \gls{puf} needs to also be adequate for its application.
+
+\subsubsection*{Evaluability}
+
+The evaluability property discusses the challenge-response mechanism of \glspl{puf}. For specific challenge, it should be `easy' to obtain the corresponding response. Practically this requires that the response is acquired with respect to time, space, cost and power budget of the application.
+
+\subsubsection*{Reproducibility}
+
+Reproducibility requires that for a specific \gls{puf} instance, responses produced by the same challenge must be similar enough. The metric that measures the similarity of the responses used is the intra-Hamming distance (which will be defined later in Section~\ref{sec:reliability}). Practically it must be possible to recognize that the responses belong to the same challenge.
+
+\subsubsection*{Uniqueness}
+
+While reproducibility talks about the behaviour of a specific \gls{puf}, uniqueness is defined with respect to a set of different \gls{puf} instances. Given the same challenge, two \glspl{puf} must produce a response that is different enough in the given metric. The metric used is the inter-Hamming distance (which will be defined later in Section~\ref{sec:uniqueness}).
+
+\subsubsection*{Identifiability}
+
+Identifiability is tied to both uniqueness and reproducibility. Given a single challenge, if the responses from the same \gls{puf} are similar and responses from different \glspl{puf} are different enough, the responses can be used as a means of identification of each \gls{puf}. More formal characterization of the words `similar' and `different' as well as a concrete protocol for \gls{puf} identification is explained in Sections~\ref{sec:puf_evaluation} and~\ref{sec:identification}. % TODO link the chapters
+
+\subsubsection*{Physical unclonability}
+ 
+Physical unclonability enforces that it is hard to break the uniqueness property. The `hardness' is expressed as a technical and physical feasibility of creating two nearly identical \gls{puf} instances. In practice, even the manufacturer is unable to break uniqueness due to the uncontrollable physical laws on which the \gls{puf} implementation relies.
+
+\subsubsection*{Unpredictability}
+
+A \gls{puf} is said to be unpredictable, if given a limited set of challenge-response pairs, it is impossible to create an algorithm that predicts the remaining responses based on a challenge. This means that the challenge-response pair space is sufficiently random.
+
+\subsubsection*{Mathematical unclonability}
+
+Mathematical unclonability is a stronger model of unpredictability. It assumes unlimited physical access to a specific \gls{puf} instance. The potential adversary can learn as many challenge-response pairs as he is capable of storing and can potentially make use of other \gls{puf} observations. Even in this situation, it should be impossible for the adversary to create a prediction algorithm capable of outputting a response based on a given challenge. 
+
+Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability. % TODO mention strong PUFs?
+
+\subsubsection*{True unclonability}
+
+\gls{puf} is considered truly unclonable, if it is physically and mathematically unclonable. True unclonability thus implies mathematical and physical unclonability.
+
+\subsubsection*{One-Wayness}
+
+The one-wayness property is similar to the requirement of cryptographic one-way functions (for example hash function). Given a \gls{puf} instance and a response, its should be impossible to create an inversion algorithm, that can find a corresponding challenge to the response.
+
+Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise it would be possible to construct a complete lookup table and find the wanted challenge.
+
+\subsubsection*{Tamper Evidence}
 
 %--------------------------------
 \section{PUF classification}
 %--------------------------------
 
 %--------------------------------
-\section{PUF evaluation parameters}
+\section{PUF evaluation parameters}\label{sec:puf_evaluation}
 %--------------------------------
 
 \subsection{Uniformity}
-\subsection{Uniqueness}
-\subsection{Reliability}
+\subsection{Uniqueness}\label{sec:uniqueness}
+\subsection{Reliability}\label{sec:reliability}
 \subsection{?Randomness}
 
 %--------------------------------
 \section{PUF applications}
 %--------------------------------
 
-\subsection{Identification}
+\subsection{Identification}\label{sec:identification}
 \subsection{Authentication}
 \subsection{Key generation}
 
@@ -82,6 +118,7 @@ In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is 
 
 \subsection{?other PUFs}
 \subsection{SRAM PUF}
+\subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
 
 %---------------------------------------------------------------
 \chapter{ESP32 platform}
