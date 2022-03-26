@@ -67,13 +67,15 @@ Identifiability is tied to both uniqueness and reproducibility. Given a single c
 
 \subsubsection*{Physical unclonability}
  
-Physical unclonability enforces that it is hard to break the uniqueness property. The `hardness' is expressed as a technical and physical feasibility of creating two nearly identical \gls{puf} instances. In practice, even the manufacturer is unable to break uniqueness due to the uncontrollable physical laws on which the \gls{puf} implementation relies.
+Physical unclonability enforces that it is hard to break the uniqueness property. The `hardness' is expressed as a technical and physical infeasibility of creating two nearly identical \gls{puf} instances. In practice, even the manufacturer is unable to break uniqueness due to the uncontrollable physical laws on which the \gls{puf} implementation relies.
 
 \subsubsection*{Unpredictability}
 
 A \gls{puf} is said to be unpredictable, if given a limited set of challenge-response pairs, it is impossible to create an algorithm that predicts the remaining responses based on a challenge. This means that the challenge-response pair space is sufficiently random.
 
 \subsubsection*{Mathematical unclonability}
+
+While physical unclonability talks about the impossibility of creating a real-world clone of a specific \gls{puf}, mathematical unclonability requires that no algorithm can predict the \gls{puf} behaviour.
 
 Mathematical unclonability is a stronger model of unpredictability. It assumes unlimited physical access to a specific \gls{puf} instance. The potential adversary can learn as many challenge-response pairs as he is capable of storing and can potentially make use of other \gls{puf} observations. Even in this situation, it should be impossible for the adversary to create a prediction algorithm capable of outputting a response based on a given challenge. 
 
@@ -90,6 +92,12 @@ The one-wayness property is similar to the requirement of cryptographic one-way 
 Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise it would be possible to construct a complete lookup table and find the wanted challenge.
 
 \subsubsection*{Tamper Evidence}
+
+Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
+
+Tamper evidence helps to mitigate such attack vectors. The \gls{puf} must detect the attempt to tamper with the system and change its challenge-response pairs to a different set, as if the \gls{puf} instance transforms itself to a completely different one.
+
+In order to achieve this property, the \gls{puf} implementation needs to rely on physical properties that will necessarily change if the device is tampered with. This change will inherently transform the \gls{puf}.
 
 %--------------------------------
 \section{PUF classification}
