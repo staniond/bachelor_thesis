@@ -47,11 +47,11 @@ In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is 
 
 \subsubsection*{Constructibility}
 
-Constructibility states, that the specific \gls{puf} instance must be `easy' to construct. This means that the laws of physics allow for such \gls{puf} implementation in the first place. The construction cost of such \gls{puf} needs to also be adequate for its application.
+Constructibility states, that the specific \gls{puf} instance must be `easy' to construct. This means that the laws of physics enable such \gls{puf} implementation in the first place. The construction cost of such \gls{puf} needs to also be adequate for its application.
 
 \subsubsection*{Evaluability}
 
-The evaluability property discusses the challenge-response mechanism of \glspl{puf}. For specific challenge, it should be `easy' to obtain the corresponding response. Practically this requires that the response is acquired with respect to time, space, cost and power budget of the application.
+The evaluability property discusses the challenge-response mechanism of \glspl{puf}. For a specific challenge, it should be `easy' to obtain the corresponding response. Practically this requires that the response is acquired with respect to time, space, cost and power budget of the application.
 
 \subsubsection*{Reproducibility}
 
@@ -79,25 +79,25 @@ While physical unclonability talks about the impossibility of creating a real-wo
 
 Mathematical unclonability is a stronger model of unpredictability. It assumes unlimited physical access to a specific \gls{puf} instance. The potential adversary can learn as many challenge-response pairs as he is capable of storing and can potentially make use of other \gls{puf} observations. Even in this situation, it should be impossible for the adversary to create a prediction algorithm capable of outputting a response based on a given challenge. 
 
-Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability. % TODO mention strong PUFs?
+Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, a simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability. % TODO mention strong PUFs?
 
 \subsubsection*{True unclonability}
 
-\gls{puf} is considered truly unclonable, if it is physically and mathematically unclonable. True unclonability thus implies mathematical and physical unclonability.
+\gls{puf} is considered truly unclonable if it is physically and mathematically unclonable. True unclonability thus implies mathematical and physical unclonability.
 
 \subsubsection*{One-Wayness}
 
-The one-wayness property is similar to the requirement of cryptographic one-way functions (for example hash function). Given a \gls{puf} instance and a response, its should be impossible to create an inversion algorithm, that can find a corresponding challenge to the response.
+The one-wayness property is similar to the requirement of cryptographic one-way functions (for example hash functions). Given a \gls{puf} instance and a response, it should be impossible to create an inversion algorithm that can find a corresponding challenge to the response.
 
-Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise it would be possible to construct a complete lookup table and find the wanted challenge.
+Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise, it would be possible to construct a complete lookup table and find the wanted challenge.
 
 \subsubsection*{Tamper Evidence}
 
-Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
+Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example, invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
 
-Tamper evidence helps to mitigate such attack vectors. The \gls{puf} must detect the attempt to tamper with the system and change its challenge-response pairs to a different set, as if the \gls{puf} instance transforms itself to a completely different one.
+Tamper evidence helps to mitigate such attack vectors. The \gls{puf} must detect the attempt to tamper with the system and change its challenge-response pairs to a different set as if the \gls{puf} instance transforms itself to a completely different one.
 
-In order to achieve this property, the \gls{puf} implementation needs to rely on physical properties that will necessarily change if the device is tampered with. This change will inherently transform the \gls{puf}.
+To achieve this property, the \gls{puf} implementation needs to rely on physical properties that will necessarily change if the device is tampered with. This change will inherently transform the \gls{puf}.
 
 %--------------------------------
 \section{PUF classification}
