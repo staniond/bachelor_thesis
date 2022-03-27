@@ -45,35 +45,39 @@ Because of these properties, \glspl{puf} can be used in devices to enable secure
 
 In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is described. Some of them are fundamental to all \gls{puf} constructions (the first six listed). However, not all \glspl{puf} must necessarily exhibit all of the discussed properties. In Section~\ref{sec:srampuf_properties}, properties of \gls{sram} \glspl{puf} are discussed as they are a topic of this thesis.
 
-\subsubsection*{Constructibility}
+\subsection*{Constructibility}
 
 Constructibility states, that the specific \gls{puf} instance must be `easy' to construct. This means that the laws of physics enable such \gls{puf} implementation in the first place. The construction cost of such \gls{puf} needs to also be adequate for its application.
 
-\subsubsection*{Evaluability}
+\subsection*{Evaluability}
 
 The evaluability property discusses the challenge-response mechanism of \glspl{puf}. For a specific challenge, it should be `easy' to obtain the corresponding response. Practically this requires that the response is acquired with respect to time, space, cost and power budget of the application.
 
-\subsubsection*{Reproducibility}
+\subsection*{Reproducibility}
 
 Reproducibility requires that for a specific \gls{puf} instance, responses produced by the same challenge must be similar enough. The metric that measures the similarity of the responses used is the intra-Hamming distance (which will be defined later in Section~\ref{sec:reliability}). Practically it must be possible to recognize that the responses belong to the same challenge.
 
-\subsubsection*{Uniqueness}
+% TODO obrazek
+
+\subsection*{Uniqueness}
 
 While reproducibility talks about the behaviour of a specific \gls{puf}, uniqueness is defined with respect to a set of different \gls{puf} instances. Given the same challenge, two \glspl{puf} must produce a response that is different enough in the given metric. The metric used is the inter-Hamming distance (which will be defined later in Section~\ref{sec:uniqueness}).
 
-\subsubsection*{Identifiability}
+% TODO obrazek
+
+\subsection*{Identifiability}
 
 Identifiability is tied to both uniqueness and reproducibility. Given a single challenge, if the responses from the same \gls{puf} are similar and responses from different \glspl{puf} are different enough, the responses can be used as a means of identification of each \gls{puf}. More formal characterization of the words `similar' and `different' as well as a concrete protocol for \gls{puf} identification is explained in Sections~\ref{sec:puf_evaluation} and~\ref{sec:identification}. % TODO link the chapters
 
-\subsubsection*{Physical unclonability}
+\subsection*{Physical unclonability}
  
 Physical unclonability enforces that it is hard to break the uniqueness property. The `hardness' is expressed as a technical and physical infeasibility of creating two nearly identical \gls{puf} instances. In practice, even the manufacturer is unable to break uniqueness due to the uncontrollable physical laws on which the \gls{puf} implementation relies.
 
-\subsubsection*{Unpredictability}
+\subsection*{Unpredictability}
 
 A \gls{puf} is said to be unpredictable, if given a limited set of challenge-response pairs, it is impossible to create an algorithm that predicts the remaining responses based on a challenge. This means that the challenge-response pair space is sufficiently random.
 
-\subsubsection*{Mathematical unclonability}
+\subsection*{Mathematical unclonability}
 
 While physical unclonability talks about the impossibility of creating a real-world clone of a specific \gls{puf}, mathematical unclonability requires that no algorithm can predict the \gls{puf} behaviour.
 
@@ -81,17 +85,17 @@ Mathematical unclonability is a stronger model of unpredictability. It assumes u
 
 Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, a simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability. % TODO mention strong PUFs?
 
-\subsubsection*{True unclonability}
+\subsection*{True unclonability}
 
 \gls{puf} is considered truly unclonable if it is physically and mathematically unclonable. True unclonability thus implies mathematical and physical unclonability.
 
-\subsubsection*{One-Wayness}
+\subsection*{One-Wayness}
 
 The one-wayness property is similar to the requirement of cryptographic one-way functions (for example hash functions). Given a \gls{puf} instance and a response, it should be impossible to create an inversion algorithm that can find a corresponding challenge to the response.
 
 Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise, it would be possible to construct a complete lookup table and find the wanted challenge.
 
-\subsubsection*{Tamper Evidence}
+\subsection*{Tamper Evidence}
 
 Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example, invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
 
@@ -102,6 +106,38 @@ To achieve this property, the \gls{puf} implementation needs to rely on physical
 %--------------------------------
 \section{PUF classification}
 %--------------------------------
+
+A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation.\cite{Shital2017}\cite{McGrath2019}
+
+% TODO obrazek
+
+\subsection*{Electronic, silicon and hybrid PUFs}
+
+Electronic \glspl{puf} source their randomness from electronic components. This means that they rely on properties such as capacitance, resistance or propagation delay of a circuit.
+
+A large subclass of electronic \glspl{puf} are silicon \glspl{puf}. They can be constructed only using \gls{cmos} technology, therefore they can be implemented on the same die together with the main chip. This prevents the need to interface with additional circuitry using external buses, lowering cost and limiting the possibility of leaking sensitive data.\cite{Maes2013}
+
+Examples of electronic \glspl{puf} are \gls{sram} \gls{puf}, \gls{ropuf} or arbiter \gls{puf}.
+
+Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-response pairs. While randomness introduced into the system is of non-electronic nature, the signal is usually processed and stored using electronic components. Hence the name hybrid \glspl{puf}. They can be based on optics (optical \gls{puf}), magnetism (magnetic \gls{puf}) or quantum effects (quantum \gls{puf}\cite{Koustubh2021}).
+
+
+\subsection*{Intrinsic and non-intrinsic PUFs}
+
+A \gls{puf} implementation is said to be intrinsic, if it satisfies the following two conditions:
+
+\begin{enumerate}
+    \item responses are evaluated internally
+    \item instance-specific random features are introduced implicitly during the manufacturing process
+\end{enumerate}
+
+Internal evaluation requires the measurement equipment of the \gls{puf} to be embedded in the device. This, similar to silicon \glspl{puf}, lowers cost and is more secure.
+
+The second condition discusses the introduction of randomness into the system. Implicit randomness relies on process variations taking place during normal manufacturing, while explicit randomness needs to be created by special procedures which would have not been needed otherwise (such as doping with random dielectric particles for the construction of a coating \gls{puf}\cite{Kori2006}).
+
+\gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-instrisic. For example optical or coating \glspl{puf} are non-intrinsic.\cite{Maes2012}
+
+\subsection*{Strong and weak PUFs}
 
 %--------------------------------
 \section{PUF evaluation parameters}\label{sec:puf_evaluation}
@@ -124,7 +160,7 @@ To achieve this property, the \gls{puf} implementation needs to rely on physical
 \section{PUF implementations}
 %--------------------------------
 
-\subsection{?other PUFs}
+\subsection{Optical PUF}\label{sec:optical_puf}
 \subsection{SRAM PUF}
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
 
