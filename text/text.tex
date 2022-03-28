@@ -2,17 +2,15 @@
 \chapter{Introduction}
 %---------------------------------------------------------------
 
-    This is an introduction to my thesis\ldots
-
 %--------------------------------
 \section{Objectives of the thesis}
 %--------------------------------
 
-The research part of the thesis will describe what is a \gls{puf} and what are the uses of this technology, focusing mainly on \gls{sram} based \glspl{puf}. Furthermore, the parameters used to evaluate performance of \glspl{puf} will be defined.
+%The research part of the thesis will describe what is a \gls{puf} and what are the uses of this technology, focusing mainly on \gls{sram} based \glspl{puf}. Furthermore, the parameters used to evaluate performance of \glspl{puf} will be defined.
 
-The main objective of the practical part of this thesis is to analyze the possibility of implementing a \gls{sram} based \gls{puf} on the ESP32 family of microcontrollers. This means finding a suitable mechanism of \gls{sram} power control and establishing a way to gather \gls{puf} response data reliably. Next, stability and uniqueness of the obtained \gls{puf} data using the defined parameters will be evaluated. An analysis of the \gls{sram} data depending on different operating temperature and power-off time will be performed as well.
+%The main objective of the practical part of this thesis is to analyze the possibility of implementing a \gls{sram} based \gls{puf} on the ESP32 family of microcontrollers. This means finding a suitable mechanism of \gls{sram} power control and establishing a way to gather \gls{puf} response data reliably. Next, stability and uniqueness of the obtained \gls{puf} data using the defined parameters will be evaluated. An analysis of the \gls{sram} data depending on different operating temperature and power-off time will be performed as well.
 
-The next goal will be to implement a simple \gls{sram} based \gls{puf} based on the knowledge gained in the previous experiments. Several different models of devices from the ESP32 family will be used to test the function and performance of the resulting \gls{puf} implementation.
+%The next goal will be to implement a simple \gls{sram} based \gls{puf} based on the knowledge gained in the previous experiments. Several different models of devices from the ESP32 family will be used to test the function and performance of the resulting \gls{puf} implementation.
 
 \section{Structure of the thesis}
 
@@ -57,17 +55,29 @@ The evaluability property discusses the challenge-response mechanism of \glspl{p
 
 Reproducibility requires that for a specific \gls{puf} instance, responses produced by the same challenge must be similar enough. The metric that measures the similarity of the responses used is the intra-Hamming distance (which will be defined later in Section~\ref{sec:reliability}). Practically it must be possible to recognize that the responses belong to the same challenge.
 
-% TODO obrazek
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.75\textwidth]{images/reproducibility}
+    \caption{reproducibility: responses to the same PUF challenge need to be similar}
+    \label{fig:reproducibility}
+\end{figure}
 
 \subsection*{Uniqueness}
 
 While reproducibility talks about the behaviour of a specific \gls{puf}, uniqueness is defined with respect to a set of different \gls{puf} instances. Given the same challenge, two \glspl{puf} must produce a response that is different enough in the given metric. The metric used is the inter-Hamming distance (which will be defined later in Section~\ref{sec:uniqueness}).
 
-% TODO obrazek
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.75\textwidth]{images/uniqueness}
+    \caption{uniqueness: two PUF instances must produce different responses if given the same challenge}
+    \label{fig:uniqueness}
+\end{figure}
 
 \subsection*{Identifiability}
 
-Identifiability is tied to both uniqueness and reproducibility. Given a single challenge, if the responses from the same \gls{puf} are similar and responses from different \glspl{puf} are different enough, the responses can be used as a means of identification of each \gls{puf}. More formal characterization of the words `similar' and `different' as well as a concrete protocol for \gls{puf} identification is explained in Sections~\ref{sec:puf_evaluation} and~\ref{sec:identification}. % TODO link the chapters
+Identifiability is tied to both uniqueness and reproducibility. Given a single challenge, if the responses from the same \gls{puf} are similar and responses from different \glspl{puf} are different enough, the responses can be used as a means of identification of each \gls{puf}. More formal characterization of the words `similar' and `different' as well as a concrete protocol for \gls{puf} identification is explained in Sections~\ref{sec:puf_evaluation} and~\ref{sec:identification}.
 
 \subsection*{Physical unclonability}
  
@@ -95,6 +105,14 @@ The one-wayness property is similar to the requirement of cryptographic one-way 
 
 Similar to mathematical unclonability, the \gls{puf} needs to have a sufficiently large set of possible challenges and resulting responses in order to meet this property. Otherwise, it would be possible to construct a complete lookup table and find the wanted challenge.
 
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.75\textwidth]{images/one-wayness}
+    \caption{one-wayness: it is impossible to find a challenge corresponding to a given response}
+    \label{fig:one-wayness}
+\end{figure}
+
 \subsection*{Tamper Evidence}
 
 Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example, invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
@@ -107,9 +125,15 @@ To achieve this property, the \gls{puf} implementation needs to rely on physical
 \section{PUF classification}
 %--------------------------------
 
-A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation.\cite{Shital2017}\cite{McGrath2019}
+A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation\cite{Shital2017}\cite{McGrath2019}. A diagram of the discussed \gls{puf} classes is depicted in figure~\ref{fig:classification}.
 
-% TODO obrazek
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=\textwidth]{images/classification}
+    \caption{classification of PUFs}
+    \label{fig:classification}
+\end{figure}
 
 \subsection*{Electronic, silicon and hybrid PUFs}
 
@@ -135,9 +159,17 @@ Internal evaluation requires the measurement equipment of the \gls{puf} to be em
 
 The second condition discusses the introduction of randomness into the system. Implicit randomness relies on process variations taking place during normal manufacturing, while explicit randomness needs to be created by special procedures which would have not been needed otherwise (such as doping with random dielectric particles for the construction of a coating \gls{puf}\cite{Kori2006}).
 
-\gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-instrisic. For example optical or coating \glspl{puf} are non-intrinsic.\cite{Maes2012}
+\gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-intrinsic. For example optical or coating \glspl{puf} are non-intrinsic.\cite{Maes2012}
 
 \subsection*{Strong and weak PUFs}
+
+Security based classification distinguishes \gls{puf} implementations according to the size of their challenge-response pair sets.
+
+In order for a \gls{puf} to be classified as strong, its challenge-response pair set needs to be sufficiently large to prevent exhaustive search by a possible attacker. The challenge-response pair size thus scales well (preferably exponentially) with some construction parameter.\cite{Guajardo2007}
+
+On the other hand, weak \glspl{puf} have only a limited set of challenge-response pairs. Some \glspl{puf} can only have one pair. They are sometimes called \gls{pok}.
+
+As the naming implies, strong \gls{puf} constructions possess, in some sense, greater security. Weak \glspl{puf} cannot be mathematically unclonable (and consequently cannot be truly unclonable or unpredictable). Strong \glspl{puf} can also be used in more applications as explained in Section~\ref{sec:puf_applications}. However, it turns out that constructing a strong \gls{puf} is a very hard problem.\cite{Maes2013}
 
 %--------------------------------
 \section{PUF evaluation parameters}\label{sec:puf_evaluation}
@@ -149,7 +181,7 @@ The second condition discusses the introduction of randomness into the system. I
 \subsection{?Randomness}
 
 %--------------------------------
-\section{PUF applications}
+\section{PUF applications}\label{sec:puf_applications}
 %--------------------------------
 
 \subsection{Identification}\label{sec:identification}
