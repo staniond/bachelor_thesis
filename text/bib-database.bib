@@ -5,10 +5,10 @@
     year="2013",
     publisher="Springer Berlin Heidelberg",
     address="Berlin, Heidelberg",
-    pages="11--48",
     abstract="In the first part of this chapter, the author discusses all the security-related qualities attributed to PUF constructions over time and investigates to what extent these are inherent PUF-related properties, or merely advantages of one particular type of PUF. An unambiguous definition for each of the discussed properties is presented, and a comparative study on a representative subset of PUF proposals identifies the truly PUF-defining characteristics. The second part of this chapter presents the details of a very formal framework for describing PUFs and related physical primitives in a cryptographic manner. This allows cryptographers to use PUFs more easily as building blocks in theoretical constructions, while simultaneously enabling hardware designers and engineers to build constructions which actually comply with this framework.",
     isbn="978-3-642-41395-7",
     doi="10.1007/978-3-642-41395-7_3",
+    urldate      = {2022-03-24},
     url="https://doi.org/10.1007/978-3-642-41395-7_3"
 }
 
@@ -47,6 +47,7 @@
     booktitle = {Proceedings of the 9th ACM Conference on Computer and Communications Security},
     keywords = {smartcard, unclonability, physical random function, tamper resistance, identification, physical security},
     location = {Washington, DC, USA},
+    urldate      = {2022-03-23},
     series = {CCS '02},
 }
 
@@ -137,3 +138,80 @@
     urldate      = {2022-03-28},
 }
 
+@phdthesis{Mispan2018,
+           month = {July},
+           title = {Towards reliable and secure physical unclonable functions},
+          school = {University of Southampton},
+          author = {Mohd Syafiq Mispan},
+       publisher = {University of Southampton},
+            year = {2018},
+            urldate      = {2022-03-30},
+             url = {https://eprints.soton.ac.uk/424534/},
+        abstract = {Physical Unclonable Functions (PUFs) have emerged as a promising primitive that can be used to provide a hardware root of trust for integrated circuit (IC) applications. PUFs exploit the random intrinsic manufacturing process variations that map a set of challenges to a set of responses. The mapping of challenge-response pairs (CRPs) is unique and random to each PUF instance, which makes PUFs a very promising technology for robust security devices. PUFs have been proposed for lightweight IC identification and authentication, and cryptographic key generation. However, as CMOS technology scales down, device ageing becomes more pronounced and introduces reliability issues for PUF circuits. When PUFs undergo ageing, the response changes. As a consequence, the trustworthy identity of the ICs can be violated. The area overhead of an error correction code (ECC) in a PUF-based system needed to generate error-free cryptographic keys also increases. Furthermore, a PUF is physically unclonable but its function is susceptible to modelling attacks from machine learning (ML) techniques. Therefore, providing reliable and secure PUFs for lightweight applications is a major challenge. This thesis studies the reliability of PUFs for lightweight applications under ageing. It also considers the susceptibility of PUFs to ML-based attacks. This thesis presents three major contributions. The context of the first and second contributions is within the lightweight IC {\ensuremath{<}}br/{\ensuremath{>}}identification and authentication, and the third contribution is within the cryptographic key generation. The first contribution presents an analysis of the impact of ageing on PUF-based differential architectures. The simulation results demonstrate that a differential design technique to build a PUF can be a mechanism to mitigate the first-order dependencies of ageing such as the duty{\ensuremath{<}}br/{\ensuremath{>}}cycle and supply voltage. The second contribution proposes a challenge permutation technique to increase the complexity of the CRP mapping. The technique has been implemented on an Arbiter-PUF using a TSMC 65-nm technology. The simulation results show that using a challenge permutation technique can alter the output transition probability of Arbiter-PUF, resulting in the reduction of its predictability from 99\% to 65\%. The challenge permutation technique introduces no extra overhead as it can be implemented by routing obfuscation. Finally, the third contribution proposes a bit selection technique in a dual use of SRAM as a memory and PUF to mitigate the ageing impact and reduce the area overhead of the ECC. The results show that the proposed technique can effectively reduce the bit errors due to ageing and the area overhead of the ECC is reduced by about 6 times compared to that without bit selection.}
+}
+
+@inproceedings{Leest2010,
+    author = {van der Leest, Vincent and Schrijen, Geert-Jan and Handschuh, Helena and Tuyls, Pim},
+    title = {Hardware Intrinsic Security from D Flip-Flops},
+    year = {2010},
+    isbn = {9781450300957},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    urldate      = {2022-03-30},
+    url = {https://doi.org/10.1145/1867635.1867644},
+    doi = {10.1145/1867635.1867644},
+    abstract = {In this paper we describe the results of our investigations Supported by EU FP7 project UNIQUE on the randomness and reliability of D flip-flops when used as a Physically Unclonable Function (PUF). These D flip-flops are hardware components which present a random start-up value when powered up. We show that against all odds, enough randomness exists in such elements when implemented on an Application-Specific Integrated Circuit (ASIC) to turn the responses of a number of D flip-flops into a secret random sequence allowing to derive keys for use in conjunction with cryptographic algorithms. In addition to being unpredictable, these flip-flops have the advantage that they can be spread over random locations in an ASIC. This makes them very difficult to reverse-engineer when used to hide a secret key in a design at a relatively small cost in resources.},
+    booktitle = {Proceedings of the Fifth ACM Workshop on Scalable Trusted Computing},
+    keywords = {physically unclonable functions, d flip-flops, secret key storage},
+    location = {Chicago, Illinois, USA},
+    series = {STC '10}
+}
+
+@article{Maiti2011,
+  title={A Systematic Method to Evaluate and Compare the Performance of Physical Unclonable Functions},
+  author={Abhranil Maiti and Vikash Gunreddy and Patrick Schaumont},
+  journal={IACR Cryptol. ePrint Arch.},
+  year={2011},
+  urldate = {2022-03-30},
+  url = {https://eprint.iacr.org/2011/657.pdf},
+}
+
+@inproceedings{Maiti2010,
+  author={Maiti, Abhranil and Casarona, Jeff and McHale, Luke and Schaumont, Patrick},
+  booktitle={2010 IEEE International Symposium on Hardware-Oriented Security and Trust (HOST)}, 
+  title={A large scale characterization of RO-PUF}, 
+  year={2010},
+  pages={94-99},
+  urldate = {2022-04-02},
+  doi={10.1109/HST.2010.5513108}
+}
+
+@online{Kodytek2017,
+  author={Filip Kodýtek},
+  title={HW Bezpečnost - Fyzicky neklonovatelné funkce}, 
+  year={2017},
+  urldate = {2022-04-02},
+  url = {https://courses.fit.cvut.cz/BI-HWB/@B172/media/lectures/07/prednaska-puf-cz.pdf},
+}
+
+@misc{NIST2010,
+  author = {Lawrence Bassham and Andrew Rukhin and Juan Soto and James Nechvatal and Miles Smid and Stefan Leigh and M Levenson and M Vangel and Nathanael Heckert and D Banks},
+  title = {A Statistical Test Suite for Random and Pseudorandom Number Generators for Cryptographic Applications},
+  year = {2010},
+  month = {2010-09-16},
+  publisher = {Special Publication (NIST SP), National Institute of Standards and Technology, Gaithersburg, MD},
+  urldate = {2022-04-02},
+  url = {https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=906762},
+  language = {en},
+}
+
+@article{Yun2008,
+    author = {Yun, Gao and Kontoyiannis, Ioannis and Elie, Bienenstock},
+    year = {2008},
+    month = {06},
+    title = {Estimating the Entropy of Binary Time Series: Methodology, Some Theory and a Simulation Study},
+    volume = {10},
+    journal = {Entropy: International and Interdisciplinary Journal of Entropy and Information Studies},
+    urldate = {2022-04-02},
+    doi = {10.3390/entropy-e10020071}
+}

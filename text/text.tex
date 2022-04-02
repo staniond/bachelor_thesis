@@ -37,8 +37,10 @@ Since the physical state of the device can change with time and environment (for
 
 Because of these properties, \glspl{puf} can be used in devices to enable secure identification, authentication as well as cryptographic key generation. More of the required properties of \glspl{puf}, their classification, possible applications and implementations will be discussed in more detail in the next sections.
 
+% TODO zero and one states or 0 and 1 states everywhere? Now is mixed!!!
+
 %--------------------------------
-\section{PUF properties}
+\section{PUF properties}\label{sec:properties}
 %--------------------------------
 
 In this section, a list of \gls{puf} properties according to~\cite{Maes2012} is described. Some of them are fundamental to all \gls{puf} constructions (the first six listed). However, not all \glspl{puf} must necessarily exhibit all of the discussed properties. In Section~\ref{sec:srampuf_properties}, properties of \gls{sram} \glspl{puf} are discussed as they are a topic of this thesis.
@@ -51,7 +53,7 @@ Constructibility states, that the specific \gls{puf} instance must be `easy' to 
 
 The evaluability property discusses the challenge-response mechanism of \glspl{puf}. For a specific challenge, it should be `easy' to obtain the corresponding response. Practically this requires that the response is acquired with respect to time, space, cost and power budget of the application.
 
-\subsection*{Reproducibility}
+\subsection*{Reproducibility}\label{sec:reproducibility}
 
 Reproducibility requires that for a specific \gls{puf} instance, responses produced by the same challenge must be similar enough. The metric that measures the similarity of the responses used is the intra-Hamming distance (which will be defined later in Section~\ref{sec:reliability}). Practically it must be possible to recognize that the responses belong to the same challenge.
 
@@ -59,7 +61,7 @@ Reproducibility requires that for a specific \gls{puf} instance, responses produ
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/reproducibility}
-    \caption{reproducibility: responses to the same PUF challenge need to be similar}
+    \caption[reproducibility: responses to the same PUF challenge need to be similar]{reproducibility: responses to the same PUF challenge need to be similar~\cite{Kodytek2017}}
     \label{fig:reproducibility}
 \end{figure}
 
@@ -71,8 +73,9 @@ While reproducibility talks about the behaviour of a specific \gls{puf}, uniquen
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/uniqueness}
-    \caption{uniqueness: two PUF instances must produce different responses if given the same challenge}
+    \caption[uniqueness: two PUF instances must produce different responses if given the same challenge]{uniqueness: two PUF instances must produce different responses if given the same challenge~\cite{Kodytek2017}}
     \label{fig:uniqueness}
+    % TODO cite
 \end{figure}
 
 \subsection*{Identifiability}
@@ -175,12 +178,148 @@ As the naming implies, strong \gls{puf} constructions possess, in some sense, gr
 \section{PUF evaluation parameters}\label{sec:puf_evaluation}
 %--------------------------------
 
-\subsection{Uniformity}
-\subsection{Uniqueness}\label{sec:uniqueness}
-\subsection{Reliability}\label{sec:reliability}
-\subsection{?Randomness}
+As \glspl{puf} rely on uncontrollable physical processes to produce their responses, it is crucial to perform an analysis of their quality. Several evaluation parameters were defined by~\cite{Mispan2018},~\cite{Leest2010} and~\cite{Maiti2011} and they will be discussed here.
 
-%--------------------------------
+These parameters enable us to quantify the performance of \glspl{puf} and compare them. Some of them will be used to evaluate the \gls{sram} \gls{puf} implemented in this thesis in Sections~\ref{sec:rtc_evaluation} and~\ref{sec:deepsleep_evaluation}.
+
+\noindent\newline
+The following evaluation parameters will be defined:
+\begin{itemize}
+    \item Uniformity
+    \item Reliability
+    \item Uniqueness
+    \item Bit-aliasing
+    \item Randomness
+\end{itemize}
+
+Before the parameters can be defined, a notation used in the following text is described here and in Table~\ref{table:notation} to avoid possible confusion.
+
+The Hamming weight $\textrm{HW}(x)$ of a bit string x is defined as the number of one bits in the string. 
+
+The Hamming distance $\textrm{HD}(x, y)$ of two bit strings x and y is defined as a number of positions where the bits of x and y differ.
+
+The reference response $R_{i}^{'}(n)$ is the expected response of n bits produced by the chip i. It is usually computed as a bitwise average between m response samples taken in normal operating conditions. However, some works choose the reference response as the first measured sample.\cite{Kodytek2020}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c l} 
+     Notation & Description\\
+     \hline
+     k & The number of devices\\ 
+     m & The number of response samples\\
+     n & The number of bits in a response\\ 
+     $R_{i,j}(n)$ & The j-th response (containing n bits) of i-th chip\\ 
+     $R_{i}^{'}(n)$ & The reference response of i-th chip, containing n bits\\ 
+     $r_{i,j}^{'}$ & The j-th bit of a reference response of chip i\\
+     $\textrm{HW}(x)$ & The Hamming weight of x\\
+     $\textrm{HD}(x, y)$ & The Hamming distance between x and y\\
+     \hline
+    \end{tabular}
+    \captionsetup{justification=centering,margin=0.5cm}
+    \caption{Notation used in evaluation parameters definitions}
+    \label{table:notation}
+\end{table}
+
+\subsection{Uniformity}\label{sec:uniformity}
+
+Uniformity represents a proportion of zero and one states of the response bits. It is useful to determine if there exists a global bias towards any of these states. Since the \gls{puf} responses need to be unpredictable, there should not be any bias. Thus, the ideal value of uniformity is 50\%.
+
+The uniformity property for one response of chip i is defined by the Equation~\ref{eq:uniformity}:
+
+\begin{equation}\label{eq:uniformity}
+    U_{i} = \frac{1}{n}\sum_{j=1}^{n}r_{i,j}^{'} = \frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\% 
+\end{equation}
+
+Uniformity can also be calculated as an average value between k \gls{puf} instances of the same type by the Equation~\ref{eq:avg_uniformity}\cite{Maiti2011}:
+
+\begin{equation}\label{eq:avg_uniformity}
+    U_{\textrm{avg}} = \frac{1}{k}\sum_{i=1}^{k}U_{i} = \frac{1}{k}\sum_{i=1}^{k}\frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\%
+\end{equation}
+
+Since uniformity only measures a global proportion of the response bit states, it is not a perfect tool to detect a possible local bias. A trivial example could be a response defined in the following way:
+
+\begin{equation}
+    r_{i, j}^{'} =
+    \begin{cases*}
+        1 & if $j < \frac{m}{2}$ \\
+        0 & otherwise
+    \end{cases*}
+\end{equation}
+
+That is the first half of the response bits are ones, the second half are all zero bits. Uniformity $U_{i}$ for such a response is close to the ideal value of $50\%$ though the response is certainly not unpredictable.
+
+\subsection{Reliability}\label{sec:reliability}
+
+Reliability is a parameter that measures a consistency of \gls{puf} responses to the same challenge. It is tied to the reproducibility property from Section~\ref{sec:reproducibility}.
+
+In order to calculate reliability, the intra-Hamming distance for a chip i needs to be defined first\cite{Maiti2011}: 
+
+\begin{equation}\label{eq:hd_intra}
+    \textrm{HD-intra}_{i} = \frac{1}{m} \sum_{j=1}^{m}\frac{\textrm{HD}(R_{i,j}(n), R_{i}^{'}(n))}{n} \cdot 100 \%
+\end{equation}
+
+The reference $R_{i}^{'}(n)$ is obtained at nominal operating conditions (room temperature and normal voltage). The responses $R_{i, j}(n)$ are then taken at different conditions and the result is calculated. It essentially represents the percentage of bits that change compared to the reference response.
+
+Reliability is then defined by the Equation~\ref{eq:reliability}:
+
+\begin{equation}\label{eq:reliability}
+    \textrm{Reliability} = 100\% - \textrm{HD-intra}
+\end{equation}
+
+Since the reproducibility property requires \glspl{puf} to produce similar responses to the same challenge, the ideal $\textrm{HD-intra}_{i}$ value is $0\%$ and thus reliability needs to be close to $100\%$.
+
+\subsection{Uniqueness}\label{sec:uniqueness}
+
+Uniqueness measures how much responses from different \glspl{puf} vary. It is estimated by the inter-Hamming distance defined by Equation~\ref{eq:uniqueness}:
+
+\begin{equation}\label{eq:uniqueness}
+    \textrm{HD-inter} = \frac{2}{k(k-1)}\sum_{i=i}^{k-1} \sum_{j=i+1}^{k} \frac{\textrm{HD}(R_{i}^{'}(n),R_{j}^{'}(n))}{n} \cdot 100\%
+\end{equation}
+
+The original definition of $\textrm{HD-inter}$ by~\cite{Maiti2010} does not specify how to choose the responses to calculate the Hamming distance from. However,~\cite{Kodytek2020} uses the reference responses and this definition will be used in future calculations in this thesis.
+
+The inter-Hamming distance takes all combinations of pairs of devices and computes the average Hamming distance of their responses. The uniqueness property of \glspl{puf} in Section~\ref{sec:properties} requires that the responses should differ as much as possible. This is achieved when $\textrm{HD-inter}$ is close to its ideal value of $50\%$.
+
+\subsection{Bit-aliasing}\label{sec:bit_aliasing}
+
+Uniformity in Section~\ref{sec:uniformity} looks at the global bias of \gls{puf} responses from a single device. On the other hand, bit-aliasing measures the proportion of zero and one state of a single bit across different devices.
+
+Bit-aliasing is calculated as the percentage Hamming weight of the j-th bit, as defined by the Equation~\ref{eq:bit_aliasing}:
+
+\begin{equation}\label{eq:bit_aliasing}
+    \textrm{Bit-aliasing}_{j} = \frac{1}{k}\sum_{i=1}^{k}r_{i, j}^{'} \cdot 100\%
+\end{equation}
+
+Same as for uniformity, the ideal value for bit-aliasing is $50\%$. Values close to 0 or 100\% would indicate bits that stay the same across different \gls{puf} instances, violating the uniqueness property.
+
+\subsection{Randomness}
+
+As \gls{puf} responses need to be unpredictable, they are required to contain sufficient entropy. According to~\cite{Leest2010}, there are several ways to test whether the response data is sufficiently random. Two are described here, the compression test and the \acrshort{nist} randomness test:
+
+\subsubsection*{NIST randomness test}
+
+The \acrshort{nist} randomness test uses the \acrshort{nist} statistical test suite to determine if the data is sufficiently random. Each test from the battery is tested for the null hypothesis that the response data is truly random on some set significance level.
+
+Furthermore, each test is executed multiple times on different sequences of the data and p-value for each run is calculated. These p-values are then tested for the null hypothesis that they are from a uniform distribution, as would be the case for truly random data.\cite{NIST2010}
+
+However, not all test can be used as they require more input data than is practically possible to generate by the \gls{puf}. Tests for which only 170 bit string suffices are listed here\cite{Leest2010}:
+
+\begin{itemize}
+    \item Frequency (monobit) test
+    \item Frequency test within a block
+    \item Runs test
+    \item Test for longest run of ones in block
+    \item Serial test
+    \item Approximate entropy test
+    \item Cumulative sums (Cusum) test
+\end{itemize}
+
+\subsubsection*{Compression test}
+
+The idea behind compression test is simple. If a lossless compression algorithm is able to reduce size of the tested data, it does not have full entropy\footnote{Meaning the entropy in bits is the same as the length of the data in bits.}.
+
+The compression algorithm used by~\cite{Leest2010} is the \gls{ctw} algorithm as it was shown to produce the best results out of the commonly used entropy estimators\cite{Yun2008}.
+
 \section{PUF applications}\label{sec:puf_applications}
 %--------------------------------
 
@@ -195,6 +334,7 @@ As the naming implies, strong \gls{puf} constructions possess, in some sense, gr
 \subsection{Optical PUF}\label{sec:optical_puf}
 \subsection{SRAM PUF}
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
+% TODO mozna neco o SRAM aging? (intrinsicID meli nejaky whitepaper)
 
 %---------------------------------------------------------------
 \chapter{ESP32 platform}
@@ -210,7 +350,7 @@ As the naming implies, strong \gls{puf} constructions possess, in some sense, gr
 
 \subsection{RTC SRAM power control}
 \subsection{SRAM analysis based on temperature and power off time}
-\subsection{PUF evaluation parameters}
+\subsection{PUF evaluation parameters}\label{sec:rtc_evaluation}
 
 %--------------------------------
 \section{Deep sleep based PUF}
@@ -218,7 +358,7 @@ As the naming implies, strong \gls{puf} constructions possess, in some sense, gr
 
 \subsection{Deep sleep SRAM power control}
 \subsection{SRAM analysis based on temperature and power off time}
-\subsection{PUF evaluation parameters}
+\subsection{PUF evaluation parameters}\label{sec:deepsleep_evaluation}
 
 %--------------------------------
 \section{?PUF response data image} % TODO how to name this section?
