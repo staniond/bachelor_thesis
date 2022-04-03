@@ -194,11 +194,11 @@ The following evaluation parameters will be defined:
 
 Before the parameters can be defined, a notation used in the following text is described here and in Table~\ref{table:notation} to avoid possible confusion.
 
-The Hamming weight $\textrm{HW}(x)$ of a bit string x is defined as the number of one bits in the string. 
+The Hamming weight $\textrm{HW}(x)$ of a bit string \emph{x} is defined as the number of one bits in the string. 
 
-The Hamming distance $\textrm{HD}(x, y)$ of two bit strings x and y is defined as a number of positions where the bits of x and y differ.
+The Hamming distance $\textrm{HD}(x, y)$ of two bit strings \emph{x} and \emph{y} is defined as a number of positions where the bits of \emph{x} and \emph{y} differ.
 
-The reference response $R_{i}^{'}(n)$ is the expected response of n bits produced by the chip i. It is usually computed as a bitwise average between m response samples taken in normal operating conditions. However, some works choose the reference response as the first measured sample.\cite{Kodytek2020}
+The reference response $R_{i}^{'}(n)$ is the expected response of \emph{n} bits produced by the chip \emph{i}. It is usually computed as a bitwise average between \emph{m} response samples taken in normal operating conditions. However, some works choose the reference response as the first measured sample.\cite{Kodytek2020}
 
 \begin{table}[h!]
 \centering
@@ -208,11 +208,11 @@ The reference response $R_{i}^{'}(n)$ is the expected response of n bits produce
      k & The number of devices\\ 
      m & The number of response samples\\
      n & The number of bits in a response\\ 
-     $R_{i,j}(n)$ & The j-th response (containing n bits) of i-th chip\\ 
-     $R_{i}^{'}(n)$ & The reference response of i-th chip, containing n bits\\ 
-     $r_{i,j}^{'}$ & The j-th bit of a reference response of chip i\\
-     $\textrm{HW}(x)$ & The Hamming weight of x\\
-     $\textrm{HD}(x, y)$ & The Hamming distance between x and y\\
+     $R_{i,j}(n)$ & The \emph{j}-th response (containing \emph{n} bits) of \emph{i}-th chip\\ 
+     $R_{i}^{'}(n)$ & The reference response of \emph{i}-th chip, containing \emph{n} bits\\ 
+     $r_{i,j}^{'}$ & The \emph{j}-th bit of a reference response of chip \emph{i}\\
+     $\textrm{HW}(x)$ & The Hamming weight of \emph{x}\\
+     $\textrm{HD}(x, y)$ & The Hamming distance between \emph{x} and \emph{y}\\
      \hline
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
@@ -224,13 +224,13 @@ The reference response $R_{i}^{'}(n)$ is the expected response of n bits produce
 
 Uniformity represents a proportion of zero and one states of the response bits. It is useful to determine if there exists a global bias towards any of these states. Since the \gls{puf} responses need to be unpredictable, there should not be any bias. Thus, the ideal value of uniformity is 50\%.
 
-The uniformity property for one response of chip i is defined by the Equation~\ref{eq:uniformity}:
+The uniformity property for one response of chip \emph{i} is defined by Equation~\ref{eq:uniformity}:
 
 \begin{equation}\label{eq:uniformity}
     U_{i} = \frac{1}{n}\sum_{j=1}^{n}r_{i,j}^{'} = \frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\% 
 \end{equation}
 
-Uniformity can also be calculated as an average value between k \gls{puf} instances of the same type by the Equation~\ref{eq:avg_uniformity}\cite{Maiti2011}:
+Uniformity can also be calculated as an average value between k \gls{puf} instances of the same type by Equation~\ref{eq:avg_uniformity}\cite{Maiti2011}:
 
 \begin{equation}\label{eq:avg_uniformity}
     U_{\textrm{avg}} = \frac{1}{k}\sum_{i=1}^{k}U_{i} = \frac{1}{k}\sum_{i=1}^{k}\frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\%
@@ -246,13 +246,13 @@ Since uniformity only measures a global proportion of the response bit states, i
     \end{cases*}
 \end{equation}
 
-That is the first half of the response bits are ones, the second half are all zero bits. Uniformity $U_{i}$ for such a response is close to the ideal value of $50\%$ though the response is certainly not unpredictable.
+That is the first half of the response bits are ones and the second half are all zero bits. Uniformity $U_{i}$ for such a response is close to the ideal value of $50\%$ though the response is clearly not unpredictable.
 
 \subsection{Reliability}\label{sec:reliability}
 
-Reliability is a parameter that measures a consistency of \gls{puf} responses to the same challenge. It is tied to the reproducibility property from Section~\ref{sec:reproducibility}.
+Reliability is a parameter that measures the consistency of \gls{puf} responses to the same challenge. It is tied to the reproducibility property from Section~\ref{sec:reproducibility}.
 
-In order to calculate reliability, the intra-Hamming distance for a chip i needs to be defined first\cite{Maiti2011}: 
+In order to calculate reliability, the intra-Hamming distance for a chip \emph{i} needs to be defined first\cite{Maiti2011}: 
 
 \begin{equation}\label{eq:hd_intra}
     \textrm{HD-intra}_{i} = \frac{1}{m} \sum_{j=1}^{m}\frac{\textrm{HD}(R_{i,j}(n), R_{i}^{'}(n))}{n} \cdot 100 \%
@@ -260,7 +260,7 @@ In order to calculate reliability, the intra-Hamming distance for a chip i needs
 
 The reference $R_{i}^{'}(n)$ is obtained at nominal operating conditions (room temperature and normal voltage). The responses $R_{i, j}(n)$ are then taken at different conditions and the result is calculated. It essentially represents the percentage of bits that change compared to the reference response.
 
-Reliability is then defined by the Equation~\ref{eq:reliability}:
+Reliability is then defined by Equation~\ref{eq:reliability}:
 
 \begin{equation}\label{eq:reliability}
     \textrm{Reliability} = 100\% - \textrm{HD-intra}
@@ -284,7 +284,7 @@ The inter-Hamming distance takes all combinations of pairs of devices and comput
 
 Uniformity in Section~\ref{sec:uniformity} looks at the global bias of \gls{puf} responses from a single device. On the other hand, bit-aliasing measures the proportion of zero and one state of a single bit across different devices.
 
-Bit-aliasing is calculated as the percentage Hamming weight of the j-th bit, as defined by the Equation~\ref{eq:bit_aliasing}:
+Bit-aliasing is calculated as the percentage Hamming weight of the \emph{j}-th bit, as defined by Equation~\ref{eq:bit_aliasing}:
 
 \begin{equation}\label{eq:bit_aliasing}
     \textrm{Bit-aliasing}_{j} = \frac{1}{k}\sum_{i=1}^{k}r_{i, j}^{'} \cdot 100\%
@@ -294,15 +294,15 @@ Same as for uniformity, the ideal value for bit-aliasing is $50\%$. Values close
 
 \subsection{Randomness}
 
-As \gls{puf} responses need to be unpredictable, they are required to contain sufficient entropy. According to~\cite{Leest2010}, there are several ways to test whether the response data is sufficiently random. Two are described here, the compression test and the \acrshort{nist} randomness test:
+As \gls{puf} responses need to be unpredictable, they are required to contain sufficient entropy. According to~\cite{Leest2010}, there are several ways to test whether the response data is sufficiently random. Two are described here, the compression test and the \acrshort{nist} randomness test.
 
 \subsubsection*{NIST randomness test}
 
 The \acrshort{nist} randomness test uses the \acrshort{nist} statistical test suite to determine if the data is sufficiently random. Each test from the battery is tested for the null hypothesis that the response data is truly random on some set significance level.
 
-Furthermore, each test is executed multiple times on different sequences of the data and p-value for each run is calculated. These p-values are then tested for the null hypothesis that they are from a uniform distribution, as would be the case for truly random data.\cite{NIST2010}
+Furthermore, each test is executed multiple times on different sequences of the data and a p-value for each run is calculated. These p-values are then tested for the null hypothesis that they are from a uniform distribution, as would be the case for truly random data.\cite{NIST2010}
 
-However, not all test can be used as they require more input data than is practically possible to generate by the \gls{puf}. Tests for which only 170 bit string suffices are listed here\cite{Leest2010}:
+However, not all tests can be used as they require more input data than is practically possible to generate by the \gls{puf}. Tests for which only 170-bit string suffices are listed here\cite{Leest2010}:
 
 \begin{itemize}
     \item Frequency (monobit) test
@@ -316,9 +316,9 @@ However, not all test can be used as they require more input data than is practi
 
 \subsubsection*{Compression test}
 
-The idea behind compression test is simple. If a lossless compression algorithm is able to reduce size of the tested data, it does not have full entropy\footnote{Meaning the entropy in bits is the same as the length of the data in bits.}.
+The idea behind compression test is simple. If a lossless compression algorithm is able to reduce the size of the tested data, it does not have full entropy\footnote{Meaning the entropy in bits is the same as the length of the data in bits.}\cite{Leest2010}.
 
-The compression algorithm used by~\cite{Leest2010} is the \gls{ctw} algorithm as it was shown to produce the best results out of the commonly used entropy estimators\cite{Yun2008}.
+A good example of a compression algorithm to use is the \gls{ctw} algorithm as it was shown to produce the best results out of the commonly used entropy estimators\cite{Yun2008}.
 
 \section{PUF applications}\label{sec:puf_applications}
 %--------------------------------
