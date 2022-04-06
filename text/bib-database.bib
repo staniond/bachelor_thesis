@@ -191,6 +191,7 @@
   title={HW Bezpečnost - Fyzicky neklonovatelné funkce}, 
   year={2017},
   urldate = {2022-04-02},
+  publisher  = {Faculty of Information Technology, Czech Technical University in Prague},
   url = {https://courses.fit.cvut.cz/BI-HWB/@B172/media/lectures/07/prednaska-puf-cz.pdf},
 }
 
@@ -214,4 +215,68 @@
     journal = {Entropy: International and Interdisciplinary Journal of Entropy and Information Studies},
     urldate = {2022-04-02},
     doi = {10.3390/entropy-e10020071}
+}
+
+@ARTICLE{Herder2014,
+  author={Herder, Charles and Yu, Meng-Day and Koushanfar, Farinaz and Devadas, Srinivas},
+  journal={Proceedings of the IEEE}, 
+  title={Physical Unclonable Functions and Applications: A Tutorial}, 
+  year={2014},
+  volume={102},
+  number={8},
+  urldate = {2022-06-02},
+  doi={10.1109/JPROC.2014.2320516},
+}
+
+@INPROCEEDINGS{Hori2013,
+    author={Hori, Yohei and Kang, Hyunho and Katashita, Toshihiro and Satoh, Akashi},
+    booktitle={2011 International Conference on Reconfigurable Computing and FPGAs},
+    publisher = {Research Center for Information Security, National Institute of Advanced Industrial Science and Technology},
+    title={Pseudo-LFSR PUF: A Compact, Efficient and Reliable Physical Unclonable Function},
+    year={2011},
+    urldate = {2022-06-02},
+    doi={10.1109/ReConFig.2011.72}
+}
+
+@article{Barbareschi2018,
+    title = {A PUF-based hardware mutual authentication protocol},
+    journal = {Journal of Parallel and Distributed Computing},
+    volume = {119},
+    year = {2018},
+    issn = {0743-7315},
+    urldate = {2022-06-02},
+    doi = {https://doi.org/10.1016/j.jpdc.2018.04.007},
+    url = {https://www.sciencedirect.com/science/article/pii/S0743731518302582},
+    author = {Mario Barbareschi and Alessandra {De Benedictis} and Nicola Mazzocca},
+    keywords = {PUF, Mutual authentication, FPGA, Hardware security},
+    abstract = {Physically Unclonable Functions (PUFs) represent a promising security primitive due to their unclonability, uniqueness and tamper-evident properties, and have been recently exploited for device identification and authentication, and for secret key generation and storage purposes. In this paper, we present PHEMAP (Physical Hardware-Enabled Mutual Authentication Protocol), that allows to achieve mutual authentication in a one-to-many communication scenario, where multiple devices are connected to a sink node. The protocol exploits the recursive invocation of the PUF embedded on the devices to generate sequences (chains) of values that are used to achieve synchronization among communicating parties. We demonstrate that, under reasonable assumptions, PHEMAP is secure and robust against man-in-the-middle attacks and other common physical attacks. We discuss PHEMAP performance in several operation conditions, by measuring the efficiency of the protocol when varying some of the underlying parameters. Finally, we present an implementation of PHEMAP on devices hosting an FPGA belonging to the Xilinx Zynq-7000 family and embedding an Anderson PUF architecture, and show that the computation and hardware overhead introduced by the protocol makes it feasible for commercial mid-range devices.}
+}
+
+@INPROCEEDINGS{Devadas2008,
+    author={Devadas, Srinivas and Suh, Edward and Paral, Sid and Sowell, Richard and Ziola, Tom and Khandelwal, Vivek},
+    booktitle={2008 IEEE International Conference on RFID},
+    title={Design and Implementation of PUF-Based "Unclonable" RFID ICs for Anti-Counterfeiting and Security Applications},
+    year={2008},
+    urldate = {2022-06-02},
+    doi={10.1109/RFID.2008.4519377},
+}
+
+@ARTICLE{Rostami2014,
+    author={Rostami, Masoud and Majzoobi, Mehrdad and Koushanfar, Farinaz and Wallach, Dan S. and Devadas, Srinivas},
+    journal={IEEE Transactions on Emerging Topics in Computing},
+    title={Robust and Reverse-Engineering Resilient PUF Authentication and Key-Exchange by Substring Matching},
+    year={2014},
+    volume={2},
+    number={1},
+    urldate = {2022-06-02},
+    doi={10.1109/TETC.2014.2300635},
+}
+
+@article{Gao2017,
+    author = {Gao, Yansong and Ma, Hua and Li, Geifei and Zeitouni, Shaza and Al-Sarawi, Said and Abbott, Derek and Sadeghi, Ahmad-Reza and Ranasinghe, Damith},
+    year = {2017},
+    month = {01},
+    urldate = {2022-06-02},
+    doi={10.48550/arXiv.1701.08241},
+    title = {Exploiting PUF Models for Error Free Response Generation},
 }

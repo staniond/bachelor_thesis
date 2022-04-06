@@ -78,7 +78,7 @@ While reproducibility talks about the behaviour of a specific \gls{puf}, uniquen
     % TODO cite
 \end{figure}
 
-\subsection*{Identifiability}
+\subsection*{Identifiability}\label{sec:identifiability}
 
 Identifiability is tied to both uniqueness and reproducibility. Given a single challenge, if the responses from the same \gls{puf} are similar and responses from different \glspl{puf} are different enough, the responses can be used as a means of identification of each \gls{puf}. More formal characterization of the words `similar' and `different' as well as a concrete protocol for \gls{puf} identification is explained in Sections~\ref{sec:puf_evaluation} and~\ref{sec:identification}.
 
@@ -284,7 +284,7 @@ The inter-Hamming distance takes all combinations of pairs of devices and comput
 
 Uniformity in Section~\ref{sec:uniformity} looks at the global bias of \gls{puf} responses from a single device. On the other hand, bit-aliasing measures the proportion of zero and one state of a single bit across different devices.
 
-Bit-aliasing is calculated as the percentage Hamming weight of the \emph{j}-th bit, as defined by Equation~\ref{eq:bit_aliasing}:
+Bit-aliasing is calculated as the percentage Hamming weight of the \emph{j}-th bit. It is defined by Equation~\ref{eq:bit_aliasing}\cite{Maiti2011}:
 
 \begin{equation}\label{eq:bit_aliasing}
     \textrm{Bit-aliasing}_{j} = \frac{1}{k}\sum_{i=1}^{k}r_{i, j}^{'} \cdot 100\%
@@ -323,9 +323,80 @@ A good example of a compression algorithm to use is the \gls{ctw} algorithm as i
 \section{PUF applications}\label{sec:puf_applications}
 %--------------------------------
 
+Thanks to the properties described in Section~\ref{sec:properties}, \glspl{puf} are suitable for several cryptographic applications. Three main uses of \glspl{puf} according to~\cite{Maes2012} will be described here: identification, authentication and cryptographic key generation.
+
+Focus will be put on cryptographic key generation as it is the typical application of weak \glspl{puf} and the \gls{sram} \gls{puf} implemented in this thesis is classified as weak\cite{Herder2014}.
+
 \subsection{Identification}\label{sec:identification}
+
+A \gls{puf} can be compared to a device's fingerprint. The \gls{puf} provides an inherent identifying feature\footnote{Inherent identity is a unique characteristic of the device itself (a \gls{puf} response), while assigned identity is an artificially made up property (a serial number).} to the entity encapsulating it.  Therefore, device identification is a natural application for \glspl{puf}. A simple identification protocol using the device's \gls{puf} is described.
+
+The process of device identification consist of two phases: enrollment and identification\cite{Maes2012}.
+
+\begin{description}
+    \item[Enrollment phase:] \hfill \\ In this phase, the inherent identifying feature of every considered device is collected. This means saving a \gls{puf} response from each device to a database.
+    \item[Identification phase:] \hfill \\ When the device needs to be identified, it generates its \gls{puf} response. The response is then compared to other responses stored in the database.
+\end{description}
+
+However, the comparison of the presented \gls{puf} response is not straightforward. Since the \gls{puf} relies on physical state of the system, errors can arise while generating responses. For this reason, comparison is based on the \gls{hd} rather than on equality.
+
+The property of identifiability (discussed in Section~\ref{sec:identifiability}) tells us that responses from a specific device will be similar (have low \gls{hd}) and responses from different devices will be far apart (have high \gls{hd}). Thus, a threshold value of \gls{hd} needs to be chosen. Responses with lower \gls{hd} than the threshold will be considered to have originated from the same device.
+
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[scale=0.25]{images/identification_histogram.png}
+    \caption[PUF identification: intra and inter HD distributions]{PUF identification: intra and inter HD distributions\cite{Hori2013}}
+    \label{fig:puf_inter_intra_hd}
+\end{figure}
+
+The threshold can be chosen based on the distributions of inter and intra \glspl{hd}. While the inter-\gls{hd} is a measure of how responses from different devices differ, the intra-\gls{hd} indicates the similarity of responses from the same device.
+
+If the distributions of inter and intra \glspl{hd} do not overlap, threshold value between the distributions is optimal. The \gls{far} (a probability of falsely identifying a device) and \gls{frr} (the probability of falsely rejecting a device) are zero.
+
+If the distributions overlap, a compromise between \gls{far} and \gls{frr} must be made. Reducing \gls{far} will inevitably increase \gls{frr} and vice versa. Figure~\ref{fig:puf_inter_intra_hd} illustrates a possible intra and inter \gls{hd} distributions and a chosen threshold.
+
 \subsection{Authentication}
+
+Authentication requires the entity, which wants to authenticate itself to a verifier, to provide a proof of its identity. The entity also needs to convince the verifier that it actively participated in the creation of the proof.\cite{Maes2012}
+
+A simple protocol based on the challenge-response pairs of \glspl{puf} will be presented here. It is divided into two distinct phases: enrollment and authentication.\cite{Devadas2008}
+
+\begin{description}
+    \item[Enrollment phase:] \hfill \\ During this phase, a trusted third party (the verifier) is in possession of the device which will later be authenticated. A sufficient number of randomly generated challenges along with the corresponding responses (obtained from the device) is saved to a database.
+    \item[Authentication phase:] \hfill \\ When the device needs to be authenticated, the verifier chooses a challenge from the database and sends it to the device. The device then responds with the corresponding response. Finally, the obtained and the previously recorded responses are compared. If they are sufficiently similar, the device is authenticated successfully. This challenge-response pair is then deleted from the database and never used again.
+\end{description}
+
+The whole process of this \gls{puf}-based authentication protocol is illustrated in Figure~\ref{fig:authentication_process}.
+
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.7\textwidth]{images/authentication_process.png}
+    \caption[PUF-based authentication protocol]{PUF-based authentication protocol\cite{Barbareschi2018}}
+    \label{fig:authentication_process}
+\end{figure}
+
+The comparison of the responses is done in the same way as in \gls{puf}-based identification (Section~\ref{sec:identification}). The \gls{hd} is used as a distance metric and a threshold for accepting the response must be chosen appropriately.
+
+The challenge-response pairs are deleted from the database and never reused to prevent a potential man-in-the-middle attack. Since this is not a threat, the communication between the device and the verifier does not need to be secured.
+
+This protocol is simple and has its drawbacks. It only provides a limited number of authentications for the verifier given by the number of stored challenge-response pairs. The authentication is only one-way, the verifier is never authenticated to the device. It requires the \gls{puf} to be strong (to have a large number of available challenge-response pairs).
+
+More advanced \gls{puf}-based authentication protocols that address some of the aforementioned drawbacks have been developed by~\cite{Maes2013},~\cite{Barbareschi2018} and~\cite{Rostami2014}.
+
 \subsection{Key generation}
+
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=\textwidth]{images/key_generation.pdf}
+    \caption[PUF-based key-generation mechanism]{PUF-based key-generation mechanism, inspired by~\cite{Gao2017}}
+    \label{fig:key_generation}
+\end{figure}
+
+% TODO tady by mel byt ECC a vysvetleni reseni nestability pufu
+% TODO napsat ze z key muzeme udelat autentizaci existujici kryptografii viz ... A tutorial
 
 %--------------------------------
 \section{PUF implementations}
