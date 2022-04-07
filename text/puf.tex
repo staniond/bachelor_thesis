@@ -1,20 +1,4 @@
 %---------------------------------------------------------------
-\chapter{Introduction}
-%---------------------------------------------------------------
-
-%--------------------------------
-\section{Objectives of the thesis}
-%--------------------------------
-
-%The research part of the thesis will describe what is a \gls{puf} and what are the uses of this technology, focusing mainly on \gls{sram} based \glspl{puf}. Furthermore, the parameters used to evaluate performance of \glspl{puf} will be defined.
-
-%The main objective of the practical part of this thesis is to analyze the possibility of implementing a \gls{sram} based \gls{puf} on the ESP32 family of microcontrollers. This means finding a suitable mechanism of \gls{sram} power control and establishing a way to gather \gls{puf} response data reliably. Next, stability and uniqueness of the obtained \gls{puf} data using the defined parameters will be evaluated. An analysis of the \gls{sram} data depending on different operating temperature and power-off time will be performed as well.
-
-%The next goal will be to implement a simple \gls{sram} based \gls{puf} based on the knowledge gained in the previous experiments. Several different models of devices from the ESP32 family will be used to test the function and performance of the resulting \gls{puf} implementation.
-
-\section{Structure of the thesis}
-
-%---------------------------------------------------------------
 \chapter{Physical unclonable functions}
 %---------------------------------------------------------------
 
@@ -138,7 +122,7 @@ A lot of different \gls{puf} implementations have been proposed. They can be cla
     \label{fig:classification}
 \end{figure}
 
-\subsection*{Electronic, silicon and hybrid PUFs}
+\subsection{Electronic, silicon and hybrid PUFs}
 
 Electronic \glspl{puf} source their randomness from electronic components. This means that they rely on properties such as capacitance, resistance or propagation delay of a circuit.
 
@@ -149,7 +133,7 @@ Examples of electronic \glspl{puf} are \gls{sram} \gls{puf}, \gls{ropuf} or arbi
 Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-response pairs. While randomness introduced into the system is of non-electronic nature, the signal is usually processed and stored using electronic components. Hence the name hybrid \glspl{puf}. They can be based on optics (optical \gls{puf}), magnetism (magnetic \gls{puf}) or quantum effects (quantum \gls{puf}\cite{Koustubh2021}).
 
 
-\subsection*{Intrinsic and non-intrinsic PUFs}
+\subsection{Intrinsic and non-intrinsic PUFs}
 
 A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions:
 
@@ -164,7 +148,7 @@ The second condition discusses the introduction of randomness into the system. I
 
 \gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-intrinsic. For example, optical or coating \glspl{puf} are non-intrinsic.\cite{Maes2012}
 
-\subsection*{Strong and weak PUFs}
+\subsection{Strong and weak PUFs}
 
 Security based classification distinguishes \gls{puf} implementations according to the size of their challenge-response pair sets.
 
@@ -426,64 +410,4 @@ It is even possible for a weak \gls{puf} to provide authentication without the n
 \subsection{SRAM PUF}
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
 % TODO mozna neco o SRAM aging? (intrinsicID meli nejaky whitepaper)
-
-%---------------------------------------------------------------
-\chapter{ESP32 platform}
-%---------------------------------------------------------------
-
-%---------------------------------------------------------------
-\chapter{SRAM PUF implementation on ESP32}
-%---------------------------------------------------------------
-
-%--------------------------------
-\section{RTC SRAM based PUF}
-%--------------------------------
-
-\subsection{RTC SRAM power control}
-\subsection{SRAM analysis based on temperature and power off time}
-\subsection{PUF evaluation parameters}\label{sec:rtc_evaluation}
-
-%--------------------------------
-\section{Deep sleep based PUF}
-%--------------------------------
-
-\subsection{Deep sleep SRAM power control}
-\subsection{SRAM analysis based on temperature and power off time}
-\subsection{PUF evaluation parameters}\label{sec:deepsleep_evaluation}
-
-%--------------------------------
-\section{?PUF response data image} % TODO how to name this section?
-%--------------------------------
-
-%---------------------------------------------------------------
-\chapter{Reliable PUF response extraction} % TODO should this be its own section or part of the previous one?
-%---------------------------------------------------------------
-
-%--------------------------------
-\section{Stable bits selection}
-%--------------------------------
-
-%--------------------------------
-\section{Error correction code}
-%--------------------------------
-
-%--------------------------------
-\section{Provisioning}
-%--------------------------------
-
-%--------------------------------
-\section{Combining power control methods}
-%--------------------------------
-
-%--------------------------------
-\section{Reliability testing}
-%--------------------------------
-
-%---------------------------------------------------------------
-\chapter{ESP32 SRAM PUF library}
-%---------------------------------------------------------------
-
-%---------------------------------------------------------------
-\chapter{Conclusion}
-%---------------------------------------------------------------
 
