@@ -135,7 +135,7 @@ Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-respon
 
 \subsection{Intrinsic and non-intrinsic PUFs}
 
-A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions:
+A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions\cite{Maes2010}:
 
 \begin{enumerate}
     \item responses are evaluated internally
@@ -407,6 +407,52 @@ It is even possible for a weak \gls{puf} to provide authentication without the n
 %--------------------------------
 
 \subsection{Optical PUF}\label{sec:optical_puf}
+
+A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and called it a \glsdesc{powf}.
+
+The heart of the \gls{puf} is a optical token which contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
+
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.65\textwidth]{images/optical_puf.png}
+    \caption[Operation of the optical PUF]{Operation of the optical PUF}
+    \label{fig:optical_puf}
+\end{figure}
+
+Experiments showed, that this optical \gls{puf} has the one-wayness property and the optical tokens are tamper evident.\cite{Pappu2002} Together with the fact that it is classified as strong (has a large number of challenge-response pairs) makes this \gls{puf} construction the only one with these properties. However, it is also expensive and laborious to use because of its rather large and mechanical setup.\cite{Maes2012}
+
+More integrated implementation of an optical \gls{puf} was proposed by~\cite{Rhrmair2013}.
+
+\subsection{Arbiter PUF}
+
+The arbiter \gls{puf} was first proposed by~\cite{Lee2004}. It is a delay-based silicon \gls{puf} implementation. The idea behind this construction is to create a race condition for two digital signal paths which end in an arbiter circuit. The arbiter determines which of the two digital lines finished the race first and outputs a bit.
+
+If the two paths have an identically designed delay in the chip, the two following cases can happen\cite{Maes2013}:
+
+\begin{enumerate}
+    \item The delay for one of the paths is shorter due to the manufacturing variations and the arbiter circuit will decide the race accordingly. This effect is the basis of the arbiter \gls{puf}, since the variations are random for every device and stay static after fabrication of the circuit.
+    \item By chance, the two paths have nearly identical delay. The arbiter circuit then enters a metastable state and its output is essentially random. This randomness is however not device specific and is the source of unreliability of the \gls{puf}.
+\end{enumerate}
+
+The initial design of the arbiter \gls{puf} by~\cite{Lee2004} used serially connected switch boxes to implement the two delay paths. A switch box connects two inputs to two output lines based on a parameter bit. The connection is either straight or switched, creating a configurable delay for the two paths.
+
+Connecting \emph{n} switch boxes results in $2^n$ possible delay configurations. These configuration bits are then considered to be the challenge of the \gls{puf}. The schematic of the described arbiter \gls{puf} is shown in Figure~\ref{fig:arbiter_puf}.
+
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=\textwidth]{images/arbiter_puf.pdf}
+    \caption[Construction of an arbiter PUF]{Construction of an arbiter PUF as proposed by~\cite{Lee2004}, image from~\cite{Maes2012}}
+    \label{fig:arbiter_puf}
+\end{figure}
+
+However, the $2^n$ possible challenges are not unpredictable with this design. The final delay of the path is the sum of delays on each switch box. This fact makes it possible to create a highly accurate mathematical model of the \gls{puf} while only observing a limited amount of challenge-response pairs.\cite{Lee2004}
+
+In order to prevent the model building attacks, extensions to the original design were proposed by introducing non-linear features. One example is a feed-forward arbiter \gls{puf}, where some of the configuration bits are set by evaluating the race at an intermediate point of the path rather than by the challenge.\cite{Lee2005}
+
+\subsection{TERO PUF}
+\subsection{Ring oscillator PUF}
 \subsection{SRAM PUF}
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
 % TODO mozna neco o SRAM aging? (intrinsicID meli nejaky whitepaper)
