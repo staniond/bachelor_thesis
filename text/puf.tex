@@ -45,7 +45,7 @@ Reproducibility requires that for a specific \gls{puf} instance, responses produ
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/reproducibility}
-    \caption[reproducibility: responses to the same PUF challenge need to be similar]{reproducibility: responses to the same PUF challenge need to be similar~\cite{Kodytek2017}}
+    \caption[Reproducibility: responses to the same PUF challenge need to be similar.]{reproducibility: responses to the same PUF challenge need to be similar~\cite{Kodytek2017}.}
     \label{fig:reproducibility}
 \end{figure}
 
@@ -57,7 +57,7 @@ While reproducibility talks about the behaviour of a specific \gls{puf}, uniquen
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/uniqueness}
-    \caption[uniqueness: two PUF instances must produce different responses if given the same challenge]{uniqueness: two PUF instances must produce different responses if given the same challenge~\cite{Kodytek2017}}
+    \caption[Uniqueness: two PUF instances must produce different responses if given the same challenge.]{uniqueness: two PUF instances must produce different responses if given the same challenge~\cite{Kodytek2017}.}
     \label{fig:uniqueness}
     % TODO cite
 \end{figure}
@@ -96,7 +96,7 @@ Similar to mathematical unclonability, the \gls{puf} needs to have a sufficientl
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/one-wayness}
-    \caption{one-wayness: it is impossible to find a challenge corresponding to a given response}
+    \caption{One-wayness: it is impossible to find a challenge corresponding to a given response.}
     \label{fig:one-wayness}
 \end{figure}
 
@@ -112,13 +112,13 @@ To achieve this property, the \gls{puf} implementation needs to rely on physical
 \section{PUF classification}
 %--------------------------------
 
-A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation\cite{Shital2017}\cite{McGrath2019}. A diagram of the discussed \gls{puf} classes is depicted in figure~\ref{fig:classification}.
+A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation\cite{Shital2017}\cite{McGrath2019}. A diagram of the discussed \gls{puf} classes is depicted in Figure~\ref{fig:classification}.
 
 \begin{figure}[ht!]
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/classification}
-    \caption{classification of PUFs}
+    \caption{Classification of PUFs.}
     \label{fig:classification}
 \end{figure}
 
@@ -133,7 +133,7 @@ Examples of electronic \glspl{puf} are \gls{sram} \gls{puf}, \gls{ropuf} or arbi
 Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-response pairs. While randomness introduced into the system is of non-electronic nature, the signal is usually processed and stored using electronic components. Hence the name hybrid \glspl{puf}. They can be based on optics (optical \gls{puf}), magnetism (magnetic \gls{puf}) or quantum effects (quantum \gls{puf}\cite{Koustubh2021}).
 
 
-\subsection{Intrinsic and non-intrinsic PUFs}
+\subsection{Intrinsic and non-intrinsic PUFs}\label{sec:intrinsic_nonintrinsic}
 
 A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions\cite{Maes2010}:
 
@@ -329,7 +329,7 @@ The property of identifiability (discussed in Section~\ref{sec:identifiability})
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[scale=0.25]{images/identification_histogram.png}
-    \caption[PUF identification: intra and inter HD distributions]{PUF identification: intra and inter HD distributions\cite{Hori2013}}
+    \caption[PUF identification: intra and inter HD distributions.]{PUF identification: intra and inter HD distributions\cite{Hori2013}.}
     \label{fig:puf_inter_intra_hd}
 \end{figure}
 
@@ -356,7 +356,7 @@ The whole process of this \gls{puf}-based authentication protocol is illustrated
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.7\textwidth]{images/authentication_process.png}
-    \caption[PUF-based authentication protocol]{PUF-based authentication protocol\cite{Barbareschi2018}}
+    \caption[PUF-based authentication protocol.]{PUF-based authentication protocol\cite{Barbareschi2018}.}
     \label{fig:authentication_process}
 \end{figure}
 
@@ -380,7 +380,7 @@ Since the \gls{puf} responses are noisy and not 100\% reliable, care needs to be
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/key_generation.pdf}
-    \caption[PUF-based key generation mechanism]{PUF-based key generation mechanism, inspired by~\cite{Gao2017}}
+    \caption[PUF-based key generation mechanism.]{PUF-based key generation mechanism, inspired by~\cite{Gao2017}.}
     \label{fig:key_generation}
 \end{figure}
 
@@ -406,19 +406,21 @@ It is even possible for a weak \gls{puf} to provide authentication without the n
 \section{PUF implementations}
 %--------------------------------
 
+A large number of various \gls{puf} implementations have been proposed. Four examples of these implementations have been chosen and a brief description of how they operate will be provided. This section will describe an optical \gls{puf}, an arbiter \gls{puf}, a coating \gls{puf} and a \gls{sram} \gls{puf}. Focus will be given to the description of \gls{sram} \gls{puf}, as it will be implemented in this thesis on the ESP32 microcontroller.
+
 \subsection{Optical PUF}\label{sec:optical_puf}
 
 A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and called it a \glsdesc{powf}.
-
-The heart of the \gls{puf} is a optical token which contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
 
 \begin{figure}[h!]
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.65\textwidth]{images/optical_puf.png}
-    \caption[Operation of the optical PUF]{Operation of the optical PUF}
+    \caption[Operation of the optical PUF.]{Operation of the optical PUF.}
     \label{fig:optical_puf}
 \end{figure}
+
+The heart of the \gls{puf} is a optical token which contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
 
 Experiments showed, that this optical \gls{puf} has the one-wayness property and the optical tokens are tamper evident.\cite{Pappu2002} Together with the fact that it is classified as strong (has a large number of challenge-response pairs) makes this \gls{puf} construction the only one with these properties. However, it is also expensive and laborious to use because of its rather large and mechanical setup.\cite{Maes2012}
 
@@ -435,25 +437,95 @@ If the two paths have an identically designed delay in the chip, the two followi
     \item By chance, the two paths have nearly identical delay. The arbiter circuit then enters a metastable state and its output is essentially random. This randomness is however not device specific and is the source of unreliability of the \gls{puf}.
 \end{enumerate}
 
-The initial design of the arbiter \gls{puf} by~\cite{Lee2004} used serially connected switch boxes to implement the two delay paths. A switch box connects two inputs to two output lines based on a parameter bit. The connection is either straight or switched, creating a configurable delay for the two paths.
-
-Connecting \emph{n} switch boxes results in $2^n$ possible delay configurations. These configuration bits are then considered to be the challenge of the \gls{puf}. The schematic of the described arbiter \gls{puf} is shown in Figure~\ref{fig:arbiter_puf}.
-
 \begin{figure}[h!]
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/arbiter_puf.pdf}
-    \caption[Construction of an arbiter PUF]{Construction of an arbiter PUF as proposed by~\cite{Lee2004}, image from~\cite{Maes2012}}
+    \caption[Construction of an arbiter PUF.]{Construction of an arbiter PUF as proposed by~\cite{Lee2004}, image from~\cite{Maes2012}.}
     \label{fig:arbiter_puf}
 \end{figure}
+
+The initial design of the arbiter \gls{puf} by~\cite{Lee2004} used serially connected switch boxes to implement the two delay paths. A switch box connects two inputs to two output lines based on a parameter bit. The connection is either straight or switched, creating a configurable delay for the two paths.
+
+Connecting \emph{n} switch boxes results in $2^n$ possible delay configurations. These configuration bits are then considered to be the challenge of the \gls{puf}. The schematic of the described arbiter \gls{puf} is shown in Figure~\ref{fig:arbiter_puf}.
 
 However, the $2^n$ possible challenges are not unpredictable with this design. The final delay of the path is the sum of delays on each switch box. This fact makes it possible to create a highly accurate mathematical model of the \gls{puf} while only observing a limited amount of challenge-response pairs.\cite{Lee2004}
 
 In order to prevent the model building attacks, extensions to the original design were proposed by introducing non-linear features. One example is a feed-forward arbiter \gls{puf}, where some of the configuration bits are set by evaluating the race at an intermediate point of the path rather than by the challenge.\cite{Lee2005}
 
-\subsection{TERO PUF}
-\subsection{Ring oscillator PUF}
+\subsection{Coating PUF}
+
+The design of a coating \gls{puf} was first proposed by~\cite{Tuyls2006}. It gathers its randomness from measuring the capacitance by a comb-shaped sensors placed in the top metal layer of an integrated circuit. The randomness is introduced into the system by spraying a passive dielectric coating on top of the sensors. The need for a special step during manufacturing to create the coating classifies this \gls{puf} construction as non-intrinsic (it breaks the second necessary condition of intrinsic \glspl{puf} as discussed in Section~\ref{sec:intrinsic_nonintrinsic}).\cite{Maes2010}
+
+Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_puf}.
+
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \includegraphics[width=0.85\textwidth]{images/coating_puf.png}
+    \caption[Construction of a coating PUF.]{Construction of a coating PUF~\cite{Maes2012}.}
+    \label{fig:coating_puf}
+\end{figure}
+
+As the coating is inert and opaque, it provides a strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.\cite{Tuyls2006}
+
+% \subsection{Glitch PUF} % TODO glitch puf, Maes has a nice picture
+
 \subsection{SRAM PUF}
+
+\gls{sram} \gls{puf} is based on a random startup behaviour of individual \gls{sram} cells. It was first proposed by~\cite{Guajardo2007} in 2007.
+
+In a \gls{cmos} implementation (which is used to create integrated circuits) a \gls{sram} cell is made up of two cross-coupled inverters. The inverters reinforce each other of their state, thus creating a bistable circuit---a circuit with only two stable states. This enables the cell to save exactly one logical bit. Each inverter is implemented using two transistors and additional two transistors are used to enable read and write operations. This means that storage of a single bit costs six transistors in hardware.\cite{Maes2010}
+
+The logical diagram of a \gls{sram} cell containing the two inverters is illustrated in Figure~\ref{fig:sram_cell_logic} and a diagram with the transistor layout of the cell is shown in Figure~\ref{fig:sram_cell_cmos}.
+
+\begin{figure}[h!]
+    \centering
+    \captionsetup{justification=centering,margin=0.5cm}
+    \begin{subfigure}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.85\linewidth]{images/transistor_sram_cell.pdf}
+        \caption{A CMOS diagram of a SRAM cell.}
+        \label{fig:sram_cell_cmos}
+    \end{subfigure}%
+    \begin{subfigure}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.6728\linewidth]{images/logic_sram_cell.pdf}
+        \caption{A logic circuit diagram of a SRAM cell.}
+        \label{fig:sram_cell_logic}
+    \end{subfigure}
+    \caption[CMOS and logic circuit diagrams of a SRAM cell.]{CMOS and logic circuit diagrams of a SRAM cell.\cite{Maes2012}}
+    \label{fig:sram_cell}
+\end{figure}
+
+The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either `1' or a `0' state. Which state the cell stabilizes on is dependant on a relative strength\footnote{strength here means the properties of the underlying \gls{mosfet} transistors (such as delay)} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
+
+For each cell independently, the two following cases can happen:
+
+\begin{enumerate}
+    \item One of the inverters has far greater strength than the other. The cell has a significant preference for one initial state. Meaning it will either be in the `0' or the `1' state most of the time after power-up. This case is crucial for the \gls{puf} construction.
+    \item By chance, strengths of the two inverters are nearly identical. The resulting initial state depends on random noise in the circuit. This is the source of unreliability of the \gls{puf}.
+\end{enumerate}
+
+During fabrication, each cell acquires its specific properties and thus its startup state stability according to the cases mentioned above. However, stability is not a discrete property. One cell can be less stable than some other. An illustration of this can be seen in Figure~\ref{fig:sram_puf_stability}.
+
+\begin{figure}[ht!]
+    \centering
+    \captionsetup{justification=left,margin=0.5cm}
+    \includegraphics[width=0.5\textwidth]{images/sram_puf_stability.jpg}
+    \caption[Illustration of SRAM cell stability.]{Illustration of SRAM cell stability. A small area of SRAM cells is shown. The lightness of each cells indicates the probability that the cell's startup state will be `1'. Note that most of the cells are either nearly black or nearly white. Meaning they are stable and their preferred state is `0` or `1` respectively.~\cite{Holcomb2009}.}
+    \label{fig:sram_puf_stability}
+\end{figure}
+
+It turns out, that the process variations are significant enough that most \gls{sram} cells tend to be stable. This enables the startup values of the memory to be used as \gls{puf} responses. Challenge can be interpreted as a concrete address of memory to read the startup values from.\cite{Maes2013}
+
+For the construction of a \gls{sram} \gls{puf}, the stable cells are important. The unstable ones can be considered harmful as they decrease reliability. However, thanks to their unknown initial state which is determined randomly after every startup, they are useful for the construction of \glspl{trng}.\cite{Holcomb2009}
+
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
+
+\subsubsection*{SRAM aging}
+
+\subsubsection*{Stable bit selection}
+
 % TODO mozna neco o SRAM aging? (intrinsicID meli nejaky whitepaper)
 
