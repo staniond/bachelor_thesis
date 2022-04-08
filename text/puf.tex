@@ -314,14 +314,14 @@ Thanks to the properties described in Section~\ref{sec:properties}, \glspl{puf} 
 
 A \gls{puf} can be compared to a device's fingerprint. The \gls{puf} provides an inherent identifying feature\footnote{Inherent identity is a unique characteristic of the device itself (a \gls{puf} response), while assigned identity is an artificially made up property (a serial number).} to the entity encapsulating it.  Therefore, device identification is a natural application for \glspl{puf}. A simple identification protocol using the device's \gls{puf} is described.
 
-The process of device identification consist of two phases: enrollment and identification\cite{Maes2012}.
+The process of device identification consists of two phases: enrollment and identification\cite{Maes2012}.
 
 \begin{description}
     \item[Enrollment phase:] \hfill \\ In this phase, the inherent identifying feature of every considered device is collected. This means saving a \gls{puf} response from each device to a database.
     \item[Identification phase:] \hfill \\ When the device needs to be identified, it generates its \gls{puf} response. The response is then compared to other responses stored in the database.
 \end{description}
 
-However, the comparison of the presented \gls{puf} response is not straightforward. Since the \gls{puf} relies on physical state of the system, errors can arise while generating responses. For this reason, comparison is based on the \gls{hd} rather than on equality.
+However, the comparison of the presented \gls{puf} response is not straightforward. Since the \gls{puf} relies on a physical state of the system, errors can arise while generating responses. For this reason, the comparison is based on the \gls{hd} rather than on equality.
 
 The property of identifiability (discussed in Section~\ref{sec:identifiability}) tells us that responses from a specific device will be similar (have low \gls{hd}) and responses from different devices will be far apart (have high \gls{hd}). Thus, a threshold value of \gls{hd} needs to be chosen. Responses with lower \gls{hd} than the threshold will be considered to have originated from the same device.
 
@@ -335,13 +335,13 @@ The property of identifiability (discussed in Section~\ref{sec:identifiability})
 
 The threshold can be chosen based on the distributions of inter and intra \glspl{hd}. While the inter-\gls{hd} is a measure of how responses from different devices differ, the intra-\gls{hd} indicates the similarity of responses from the same device.
 
-If the distributions of inter and intra \glspl{hd} do not overlap, threshold value between the distributions is optimal. The \gls{far} (a probability of falsely identifying a device) and \gls{frr} (the probability of falsely rejecting a device) are zero.
+If the distributions of inter and intra \glspl{hd} do not overlap, the threshold value between the distributions is optimal. The \gls{far} (the probability of falsely identifying a device) and \gls{frr} (the probability of falsely rejecting a device) are zero.
 
-If the distributions overlap, a compromise between \gls{far} and \gls{frr} must be made. Reducing \gls{far} will inevitably increase \gls{frr} and vice versa. Figure~\ref{fig:puf_inter_intra_hd} illustrates a possible intra and inter \gls{hd} distributions and a chosen threshold.
+If the distributions overlap, a compromise between \gls{far} and \gls{frr} must be made. Reducing \gls{far} will inevitably increase \gls{frr} and vice versa. Figure~\ref{fig:puf_inter_intra_hd} illustrates possible intra and inter \gls{hd} distributions and a chosen threshold.
 
 \subsection{Authentication}
 
-Authentication requires the entity, which wants to authenticate itself to a verifier, to provide a proof of its identity. The entity also needs to convince the verifier that it actively participated in the creation of the proof.\cite{Maes2012}
+Authentication requires the entity, which wants to authenticate itself to a verifier, to provide proof of its identity. The entity also needs to convince the verifier that it actively participated in the creation of the proof.\cite{Maes2012}
 
 A simple protocol based on the challenge-response pairs of \glspl{puf} will be presented here. It is divided into two distinct phases: enrollment and authentication.\cite{Devadas2008}
 
@@ -380,14 +380,14 @@ Since the \gls{puf} responses are noisy and not 100\% reliable, care needs to be
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/key_generation.pdf}
-    \caption[PUF-based key-generation mechanism]{PUF-based key-generation mechanism, inspired by~\cite{Gao2017}}
+    \caption[PUF-based key generation mechanism]{PUF-based key generation mechanism, inspired by~\cite{Gao2017}}
     \label{fig:key_generation}
 \end{figure}
 
 The process of \gls{puf}-based key generation is divided into two phases: enrollment and key reconstruction\cite{Mispan2018}. It is illustrated in Figure~\ref{fig:key_generation}.
 
 \begin{description}
-    \item[Enrollment phase:] \hfill \\ In this phase, \gls{puf} responses are generated and processed by the \gls{ecc} algorithm to construct the cryptographic key. The \gls{ecc} calculates helper data from the key and saves it to a non-volatile memory. This data will later be used to reconstruct the key. The helper data can also contain a \gls{puf} configuration.
+    \item[Enrollment phase:] \hfill \\ In this phase, \gls{puf} responses are generated and processed by the \gls{ecc} algorithm to construct the cryptographic key. The \gls{ecc} calculates helper data from the key and saves it to non-volatile memory. This data will later be used to reconstruct the key. The helper data can also contain a \gls{puf} configuration.
     \item[Key regeneration phase:] \hfill \\ When the key is needed, the \gls{puf} produces a response and feeds it to the \gls{ecc} algorithm. The key is then reconstructed by the \gls{ecc} using the response and the corresponding helper data saved in the non-volatile memory.
 \end{description}
 
@@ -397,7 +397,7 @@ After key regeneration, a raw bit string key is obtained. It can be used immedia
 
 Key generation is a typical application of weak \glspl{puf}\cite{Herder2014}. As the \gls{sram} \gls{puf} implemented in this thesis is classified as weak, a simple key generation algorithm will be tested on top of the \gls{puf}.
 
-It is even possible for a weak \gls{puf} to provide authentication without the need for a large number challenge-response pairs. Once the key is generated by the weak \gls{puf}, it can be used in other cryptographic algorithms which provide authentication such as \gls{mac} or digital signatures (at the cost of additional hardware/software).\cite{Herder2014}
+It is even possible for a weak \gls{puf} to provide authentication without the need for a large number of challenge-response pairs. Once the key is generated by the weak \gls{puf}, it can be used in other cryptographic algorithms which provide authentication such as \gls{mac} or digital signatures (at the cost of additional hardware/software).\cite{Herder2014}
 
 
 % TODO hash po rekonstrukci klice? (zdroj FPGA Intrinsic PUFs and Their Use for IP Protection jako privacy amplification)
