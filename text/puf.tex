@@ -410,7 +410,7 @@ A large number of various \gls{puf} implementations have been proposed. Four exa
 
 \subsection{Optical PUF}\label{sec:optical_puf}
 
-A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and called it a \glsdesc{powf}.
+A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and was called a \glsdesc{powf}.
 
 \begin{figure}[h!]
     \centering
@@ -420,11 +420,11 @@ A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and
     \label{fig:optical_puf}
 \end{figure}
 
-The heart of the \gls{puf} is a optical token which contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
+The heart of the \gls{puf} is an optical token that contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
 
 Experiments showed, that this optical \gls{puf} has the one-wayness property and the optical tokens are tamper evident.\cite{Pappu2002} Together with the fact that it is classified as strong (has a large number of challenge-response pairs) makes this \gls{puf} construction the only one with these properties. However, it is also expensive and laborious to use because of its rather large and mechanical setup.\cite{Maes2012}
 
-More integrated implementation of an optical \gls{puf} was proposed by~\cite{Rhrmair2013}.
+A more integrated implementation of an optical \gls{puf} was proposed by~\cite{Rhrmair2013}.
 
 \subsection{Arbiter PUF}
 
@@ -433,8 +433,8 @@ The arbiter \gls{puf} was first proposed by~\cite{Lee2004}. It is a delay-based 
 If the two paths have an identically designed delay in the chip, the two following cases can happen\cite{Maes2013}:
 
 \begin{enumerate}
-    \item The delay for one of the paths is shorter due to the manufacturing variations and the arbiter circuit will decide the race accordingly. This effect is the basis of the arbiter \gls{puf}, since the variations are random for every device and stay static after fabrication of the circuit.
-    \item By chance, the two paths have nearly identical delay. The arbiter circuit then enters a metastable state and its output is essentially random. This randomness is however not device specific and is the source of unreliability of the \gls{puf}.
+    \item The delay for one of the paths is shorter due to the manufacturing variations and the arbiter circuit will decide the race accordingly. This effect is the basis of the arbiter \gls{puf} since the variations are random for every device and stay static after fabrication of the circuit.
+    \item By chance, the two paths have a nearly identical delay. The arbiter circuit then enters a metastable state and its output is essentially random. This randomness is however not device-specific and is the source of unreliability of the \gls{puf}.
 \end{enumerate}
 
 \begin{figure}[h!]
@@ -455,7 +455,7 @@ In order to prevent the model building attacks, extensions to the original desig
 
 \subsection{Coating PUF}
 
-The design of a coating \gls{puf} was first proposed by~\cite{Tuyls2006}. It gathers its randomness from measuring the capacitance by a comb-shaped sensors placed in the top metal layer of an integrated circuit. The randomness is introduced into the system by spraying a passive dielectric coating on top of the sensors. The need for a special step during manufacturing to create the coating classifies this \gls{puf} construction as non-intrinsic (it breaks the second necessary condition of intrinsic \glspl{puf} as discussed in Section~\ref{sec:intrinsic_nonintrinsic}).\cite{Maes2010}
+The design of a coating \gls{puf} was first proposed by~\cite{Tuyls2006}. It gathers its randomness from measuring the capacitance by comb-shaped sensors placed in the top metal layer of an integrated circuit. The randomness is introduced into the system by spraying a passive dielectric coating on top of the sensors. The need for a special step during manufacturing to create the coating classifies this \gls{puf} construction as non-intrinsic (it breaks the second necessary condition of intrinsic \glspl{puf} as discussed in Section~\ref{sec:intrinsic_nonintrinsic}).\cite{Maes2010}
 
 Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_puf}.
 
@@ -467,7 +467,7 @@ Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_pu
     \label{fig:coating_puf}
 \end{figure}
 
-As the coating is inert and opaque, it provides a strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.\cite{Tuyls2006}
+As the coating is inert and opaque, it provides strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.\cite{Tuyls2006}
 
 % \subsection{Glitch PUF} % TODO glitch puf, Maes has a nice picture
 
@@ -498,7 +498,7 @@ The logical diagram of a \gls{sram} cell containing the two inverters is illustr
     \label{fig:sram_cell}
 \end{figure}
 
-The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either `1' or a `0' state. Which state the cell stabilizes on is dependant on a relative strength\footnote{strength here means the properties of the underlying \gls{mosfet} transistors (such as delay)} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
+The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either a `1' or a `0' state. Which state the cell stabilizes on is dependent on a relative strength\footnote{strength here means the properties of the underlying \gls{mosfet} transistors (such as delay)} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
 
 For each cell independently, the two following cases can happen:
 
@@ -513,15 +513,15 @@ During fabrication, each cell acquires its specific properties and thus its star
     \centering
     \captionsetup{justification=justified,margin=0.5cm}
     \includegraphics[width=0.5\textwidth]{images/sram_puf_stability.jpg}
-    \caption[Illustration of SRAM cell stability.]{Illustration of SRAM cell stability. A small area of SRAM cells is shown. The lightness of each cells indicates the probability that the cell's startup state will be `1'. Note that most of the cells are either nearly black or nearly white. Meaning they are stable and their preferred state is `0` or `1` respectively.~\cite{Holcomb2009}.}
+    \caption[Illustration of SRAM cell stability.]{Illustration of SRAM cell stability. A small area of SRAM cells is shown. The lightness of each cell indicates the probability that the cell's startup state will be `1'. Note that most of the cells are either nearly black or nearly white. Meaning they are stable and their preferred state is `0` or `1` respectively.~\cite{Holcomb2009}.}
     \label{fig:sram_puf_stability}
 \end{figure}
 
-It turns out, that the process variations are significant enough that most \gls{sram} cells tend to be stable. This enables the startup values of the memory to be used as \gls{puf} responses. Challenge can be interpreted as a concrete address of memory to read the startup values from.\cite{Maes2013}
+It turns out, that the process variations are significant enough that most \gls{sram} cells tend to be stable. This enables the startup values of memory to be used as \gls{puf} responses. Challenge can be interpreted as a concrete address in memory. The response is then read from this address.\cite{Maes2013}
 
-For the construction of a \gls{sram} \gls{puf}, the stable cells are important. The unstable ones can be considered harmful as they decrease reliability. However, thanks to their unknown initial state which is determined randomly after every startup, they are useful for the construction of \glspl{trng}.\cite{Holcomb2009}
+For the construction of a \gls{sram} \gls{puf}, stable cells are important. The unstable ones can be considered harmful as they decrease reliability. However, thanks to their unknown initial state which is determined randomly after every startup, they are useful for the construction of \glspl{trng}.\cite{Holcomb2009}
 
-A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually already present in chips. If the device possesses suitable mechanism of power state control of its memory (the ability to turn off blocks of memory, power saving states that turn off memory), no additional hardware is needed. Therefore this type of \gls{puf} could potentially be implemented in devices which were not designed to contain a \gls{puf} at all.
+A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually already present in chips. If the device possesses a suitable mechanism of power state control of its memory (the ability to turn off blocks of memory, power-saving states that turn off memory), no additional hardware is needed. Therefore this type of \gls{puf} could potentially be implemented in devices that were not designed to contain a \gls{puf} at all.
 
 \subsubsection*{SRAM PUF and its properties}\label{sec:srampuf_properties}
 
@@ -553,27 +553,27 @@ A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually
 
 \begin{description}
     \item[Constructibility:] \hfill \\
-        Since known implementations of \gls{sram} \gls{puf} exist (and one is provided in this thesis), it is definitely constructible. Furthermore, the effort needed to construct the \gls{puf} is low compared the other implementations---\gls{sram} memory is usually already present in chips and no additional hardware is needed.
+        Since known implementations of \gls{sram} \gls{puf} exist (and one is provided in this thesis), it is definitely constructible. Furthermore, the effort needed to construct the \gls{puf} is low compared to the other implementations---\gls{sram} memory is usually already present in chips and no additional hardware is needed.
     \item[Evaluability:] \hfill \\
-        \gls{sram} \gls{puf} is evaluable, because it is possible to read the startup values of the \gls{sram} cells which are interpreted as the response. However, the effort to obtain the response can be rather high since the memory needs to be read fresh after power up (before the response is overwritten by other data). Depending on the device used and its capabilities, this could potentially require procedures that take a long time (for example rebooting the device or using a power saving state to turn off the \gls{sram} memory). Additional hardware could mitigate this problem, increasing manufacturing costs.
+        \gls{sram} \gls{puf} is evaluable because it is possible to read the startup values of the \gls{sram} cells which are interpreted as the response. However, the effort to obtain the response can be rather high since the memory needs to be read fresh after power up (before the response is overwritten by other data). Depending on the device used and its capabilities, this could potentially require procedures that take a long time (for example rebooting the device or using a power-saving state to turn off the \gls{sram} memory). Additional hardware could mitigate this problem, increasing manufacturing costs.
     \item[Reproducibility:] \hfill \\
-        The \gls{sram} \gls{puf} possesses the reproducibility property because memory cells have a preference for some initial state. This preference is imprinted to the cell at the time of manufacturing and does not change much afterwards (however, \gls{sram} aging effect can alter the preference of a cell over time and this is discussed later in this section). % TODO fakt jsem napsal neco o sram aging?
+        The \gls{sram} \gls{puf} possesses the reproducibility property because memory cells have a preference for some initial state. This preference is imprinted on the cell at the time of manufacturing and does not change much afterwards (however, \gls{sram} aging effect can alter the preference of a cell over time and this is discussed later in this section). % TODO fakt jsem napsal neco o sram aging?
     \item[Uniqueness:] \hfill \\
         \gls{sram} \glspl{puf} are unique, as each memory cell creates its preference for some initial state during manufacturing independently. For this reason, the resulting \gls{puf} responses from different devices should not be similar.
     \item[Identifiability:] \hfill \\
         As identifiability is the combination of reproducibility and uniqueness, both of which are already met, the \gls{sram} \gls{puf} is identifiable as well. This means that the intra-\gls{hd} and inter-\gls{hd} distributions are sufficiently separated and the responses can be used to identify devices.
     \item[Physical unclonability:] \hfill \\
-        The source of randomness of \gls{sram} \glspl{puf} is the physical variation of individual transistors that implement the memory cells. These variations take place on micro/nano scale and are technically infeasible to control fully. Even the manufacturer is unable to create two \gls{sram} memory instances with similar cell startup state preferences. Thus this construction is considered physically unclonable.
+        The source of randomness of \gls{sram} \glspl{puf} is the physical variation of individual transistors that implement the memory cells. These variations take place on a micro/nano scale and are technically infeasible to control fully. Even the manufacturer is unable to create two \gls{sram} memory instances with similar cell startup state preferences. Thus this construction is considered physically unclonable.
     \item[Unpredictability:] \hfill \\
         Unpredictability assumes, that given a limited set of challenge-response pairs, no prediction algorithm can be designed for future challenges. Responses are interpreted as memory addresses and each cell should acquire its preference for some initial state independently. Therefore the knowledge of a challenge-response pair does not reveal any information about other pairs. For this reason, \gls{sram} \glspl{puf} are unpredictable. % TODO mozna napsat neco k PUFum s jednim challengem?
     \item[Mathematical unclonability:] \hfill \\
-        Mathematical unclonability is a stronger model of unpredictability. It assumes having access to as many challenge-response pairs as can be stored. Since \gls{sram} \glspl{puf} have only a limited number of those pairs (only one in the extreme case), simple lookup table with all the possible pairs can be constructed easily. Thus, the property of mathematical unclonability is not met.
+        Mathematical unclonability is a stronger model of unpredictability. It assumes having access to as many challenge-response pairs as can be stored. Since \gls{sram} \glspl{puf} have only a limited number of those pairs (only one in the extreme case), a simple lookup table with all the possible pairs can be constructed easily. Thus, the property of mathematical unclonability is not met.
     \item[True unclonability:] \hfill \\
         A \gls{puf} is truly unclonable if it is physically and mathematically unclonable. Therefore, by definition, \gls{sram} \gls{puf} is not truly unclonable since it is not mathematically unclonable.
     \item[One-wayness:] \hfill \\
-        One-wayness (similar to mathematical unclonability) requires the \gls{puf} to have sufficiently large challenge and response sets. Because \gls{sram} \glspl{puf} are weak, they are not one-way.
+        One-wayness (similar to mathematical unclonability) requires the \gls{puf} to have a sufficiently large challenge and response sets. Because \gls{sram} \glspl{puf} are weak, they are not one-way.
     \item[Tamper evidence:] \hfill \\
-        Not enough research has been conducted to declare whether \gls{sram} \glspl{puf} are tamper evident or not\cite{Maes2012}. However, it has been shown that it is possible to strip the device of most unrelated silicon without changing the \gls{puf} response significantly\cite{Helfmaier2013}. Additionally, \cite{Nedospasov2013} showed that it is possible to extract full \gls{puf} responses from AVR microcontrollers\footnote{the experiment was conducted on an ATMega328P and an ATXMega128A1 models} by disabling the logic core and using semi-invasive laser probing technique to read the startup memory values.
+        Not enough research has been conducted to declare whether \gls{sram} \glspl{puf} are tamper evident or not\cite{Maes2012}. However, it has been shown that it is possible to strip the device of most unrelated silicon without changing the \gls{puf} response significantly\cite{Helfmaier2013}. Additionally, \cite{Nedospasov2013} showed that it is possible to extract full \gls{puf} responses from AVR microcontrollers\footnote{the experiment was conducted on an ATMega328P and an ATXMega128A1 models} by disabling the logic core and using a semi-invasive laser probing technique to read the startup memory values.
 \end{description}
 
 
