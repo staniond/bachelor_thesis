@@ -47,7 +47,7 @@
 \ctufitabstractENG{Fill in abstract of this thesis in English language. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue.}
 % TODO jeste jedno?
 \ctufitkeywordsCZE{ESP32, fyzicky neklonovatelné funkce, statická paměť, samoopravné kódy, hardwarová bezpečnost}
-\ctufitkeywordsENG{ESP32, physical unclonable functions, static random access memory, error correction code, hardware security}
+\ctufitkeywordsENG{ESP32, physical unclonable functions, static random access memory, error correction codes, hardware security}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END FILL IN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,6 +110,7 @@
 \usepackage[nopostdot,style=super,nonumberlist,nogroupskip,toc]{glossaries}
 \usepackage{subcaption}
 
+\interfootnotelinepenalty=10000
 \makeglossaries{}
 \emergencystretch=1em
 \setlist{leftmargin=9.5mm}
@@ -207,6 +208,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hen
 
 \include{text/introduction}
 \include{text/puf}
+\include{text/sram_puf}
 \include{text/esp32}
 \include{text/puf_implementation}
 \include{text/response_regeneration}
