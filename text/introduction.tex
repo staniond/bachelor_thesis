@@ -1,16 +1,61 @@
 %---------------------------------------------------------------
-\chapter{Introduction}
+\chapter{Introduction}\label{sec:introduction}
 %---------------------------------------------------------------
 
 %--------------------------------
-\section{Objectives of the thesis}
+\section{Motivation}
 %--------------------------------
 
-%The research part of the thesis will describe what is a \gls{puf} and what are the uses of this technology, focusing mainly on \gls{sram} based \glspl{puf}. Furthermore, the parameters used to evaluate performance of \glspl{puf} will be defined.
+\Gls{iot} is a fast growing field of the information age that we live in right now. Millions of cheap and connected devices are being used in a huge number of applications such as smart homes, self-driving cars, smart cities and wearables.
 
-%The main objective of the practical part of this thesis is to analyze the possibility of implementing a \gls{sram} based \gls{puf} on the ESP32 family of microcontrollers. This means finding a suitable mechanism of \gls{sram} power control and establishing a way to gather \gls{puf} response data reliably. Next, stability and uniqueness of the obtained \gls{puf} data using the defined parameters will be evaluated. An analysis of the \gls{sram} data depending on different operating temperature and power-off time will be performed as well.
+As these devices are connected to the Internet and they collect potentially sensitive data, it is crucial to make them as secure as possible. One of the key challenges of security is the generation and storage of cryptographic keys, since they play a vital role in most cryptographic algorithms used to secure the devices.
 
-%The next goal will be to implement a simple \gls{sram} based \gls{puf} based on the knowledge gained in the previous experiments. Several different models of devices from the ESP32 family will be used to test the function and performance of the resulting \gls{puf} implementation.
+Usually, the keys are randomly generated and stored in non-volatile memory. However, the non-volatile memory needs to be secured (even from invasive physical attacks) and the generation process must be unpredictable. Satisfying both of those requirements is extremely hard and expensive.
 
-\section{Structure of the thesis}
+\Glspl{puf} try to solve this issue. They are based on physical properties which are inherently random and unique for each device. A \gls{puf} can be compared to a device's fingerprint. The cryptographic key is not stored digitally anywhere on the device but is reconstructed from the unique physical properties. \Glspl{puf} can also be used for other tasks such as identification or authentication.
+
+One example of an especially popular \gls{iot} platform is ESP32. It consists of a family of cheap microcontrollers and software to enable easy application development. The main goal of this thesis is to analyze the possibility of implementing a particular type of \gls{puf}, the \gls{sram} \gls{puf}, on this platform.
+
+%--------------------------------
+\section{Objectives}
+%--------------------------------
+
+The objectives of this thesis are following:
+
+\begin{itemize}
+    \item Analyze the topic of physical unclonable functions with focus on \gls{sram} \gls{puf}.
+    \item Find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller.
+    \item Design and implement a simple \gls{sram} based \gls{puf} on the ESP32 microcontroller.
+    \item Evaluate relevant \gls{puf} parameters such as bit stability and uniqueness on the resulting \gls{puf} implementation.
+    \item Evaluate the behaviour of the \gls{puf} depending on operating temperature and \gls{sram} power-off time.
+    \item Test the function of the resulting \gls{puf} implementation on several devices.
+\end{itemize}
+
+%--------------------------------
+\section{Thesis structure}
+%--------------------------------
+
+The thesis is divided into eight chapter in the following way:
+
+\newcommand\litem[1]{\item{\bfseries #1,\\}}
+
+\begin{description}
+    \item[1. \nameref{sec:introduction}:] \hfill \\
+        Motivation and goals of this thesis are given in this chapter.
+    \item[2. \nameref{sec:puf}:] \hfill \\
+        First, description of a \gls{puf} is given in this chapter. Then, main properties and classes of \glspl{puf} are outlined and parameters used to evaluate the performance of \glspl{puf} are defined. Lastly, concrete \gls{puf} applications and implementations are explained shortly.
+    \item[3. \nameref{sec:sram_puf}:] \hfill \\
+        A thorough explanation of a \gls{sram} \gls{puf} is given. The chapter then provides a discussion on which properties the \gls{sram} \gls{puf} possesses and a brief introduction to silicon aging which affects this \gls{puf} implementation. 
+    \item[4. \nameref{sec:esp32}:] \hfill \\
+        An introduction into the ESP32 platform is provided in this chapter. A brief hardware and software description of the ESP32 microcontroller is given with focus on parts that are important to the \gls{puf} implementation.
+    \item[5. \nameref{sec:implementation}:] \hfill \\
+        Two ways of \gls{sram} power state control on ESP32 are proposed in this chapter. The raw startup memory values obtained by the two methods are then analyzed based on operating temperature and memory power-off time. Some of the evaluation parameters defined in Chapter~\ref{sec:puf} are also used during the analysis.
+    \item[6. \nameref{sec:response_extraction}:] \hfill \\
+        This chapter proposes a method to extract \gls{puf} responses reliably. This enables the \gls{puf} to be used for cryptographic key generation. In order to achieve this goal, bit selection and \glspl{ecc} are used. At the end, the \gls{puf} is tested on 16 different devices and during different operating temperatures.
+    \item[7. \nameref{sec:puflib}:] \hfill \\
+        Based on the analyses in the previous chapters a simple \gls{sram} \gls{puf} implementation is provided in an ESP32 library. Its functionality is explained in this chapter.
+    \item[8. \nameref{sec:conclusion}:] \hfill \\
+        Summarization of results of this thesis is given in this chapter together with suggestion of possible future work.
+\end{description}
+
 

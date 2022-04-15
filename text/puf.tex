@@ -1,5 +1,5 @@
 %---------------------------------------------------------------
-\chapter{Physical unclonable functions}
+\chapter{Physical unclonable functions}\label{sec:puf}
 %---------------------------------------------------------------
 
 %--------------------------------
@@ -9,7 +9,7 @@
 As \glspl{puf} are the main subject of this thesis, it is important to provide a thorough explanation of what a \gls{puf} is, what types and classes exist and what are
 the applications of this technology.
 
-Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be expressed as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a comparable way to how humans have their own fingerprints.\cite{Maes2013}
+Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be written as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a comparable way to how humans have their own unique fingerprints.\cite{Maes2013}
 
 The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \gls{powf}, which he described as a function operating on a physical system that could be easily computed but not easily inverted.\cite{Pappu2001} The first mention of the term \gls{puf} was by Gassend et al.\ in 2002. He talks about \glspl{prf} and a \gls{puf} implementation using \glspl{fpga}.\cite{Gassend2002}
 
@@ -325,10 +325,10 @@ However, the comparison of the presented \gls{puf} response is not straightforwa
 
 The property of identifiability (discussed in Section~\ref{sec:identifiability}) tells us that responses from a specific device will be similar (have low \gls{hd}) and responses from different devices will be far apart (have high \gls{hd}). Thus, a threshold value of \gls{hd} needs to be chosen. Responses with lower \gls{hd} than the threshold will be considered to have originated from the same device.
 
-\begin{figure}[ht!]
+\begin{figure}[h!]
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
-    \includegraphics[scale=0.25]{images/identification_histogram.png}
+    \includegraphics[scale=0.225]{images/identification_histogram.png}
     \caption[PUF identification: intra and inter HD distributions.]{PUF identification: intra and inter HD distributions\cite{Hori2013}.}
     \label{fig:puf_inter_intra_hd}
 \end{figure}
