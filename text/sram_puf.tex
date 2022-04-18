@@ -50,6 +50,10 @@ For the construction of a \gls{sram} \gls{puf}, stable cells are important. The 
 
 A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually already present in chips. If the device possesses a suitable mechanism of power state control of its memory (the ability to turn off blocks of memory, power-saving states that turn off memory), no additional hardware is needed. Therefore this type of \gls{puf} could potentially be implemented in devices that were not designed to contain a \gls{puf} at all.
 
+Data remanence time of \gls{sram} memory needs to be taken into account as well. The memory cell remembers its state even for a short period of time after power is lost. If power is turned on again before this time, the saved data can still be found in memory. The remanence time is greatly affected by temperature. Lower temperature results in longer retention time. This effect can be observed on the ESP32 \gls{sram} in Sections~\ref{sec:deep_sleep_analysis} and~\ref{sec:rtc_analysis}.
+
+The \gls{puf} implementation must guarantee that the memory has been unpowered long enough. Otherwise, the startup memory values used as a \gls{puf} response can be altered by a potential attacker and can be for example used to manipulate the reconstructed cryptographic key.\cite{Nikolaos2018}
+
 \section{SRAM PUF and its properties}\label{sec:srampuf_properties}
 
 \glspl{puf} constructions can be characterized by several properties. They have been discussed in Section~\ref{sec:properties}. However, not every \gls{puf} needs to exhibit all of them. Therefore a discussion about what particular properties a \gls{sram} \gls{puf} meets is provided according to \cite{Maes2013}. The summary of properties of \gls{sram} \gls{puf} can be found in Table~\ref{table:sram_puf_properties}.
@@ -58,7 +62,7 @@ A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually
 \centering
 \begin{tabular}{l c} 
     \textbf{Property} & \textbf{\gls{sram} \gls{puf}} \\
-     \hline
+     \toprule
     Constructibility & yes\\ 
     Evaluability & yes\\
     Reproducibility & yes\\
@@ -70,7 +74,7 @@ A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually
     True unclonability & no\\
     One-Wayness & no\\
     Tamper evidence & probably no\\
-     \hline
+     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
     \caption{Summarization of properties of SRAM PUF.}

@@ -47,7 +47,7 @@ ESP32 is a name for the original microcontroller from Espressif released in 2016
 
 Only the original ESP32 microcontroller was used during experiments and implementation in this thesis. However, the possibility of implementing a \gls{sram} \gls{puf} on the other versions is discussed later in Chapter~\ref{sec:implementation}.
 
-\section{Memory layout}
+\section{Memory layout}\label{sec:memory_layout}
 
 Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementation as the exact memory region used to extract the response needs to be considered. The ESP32 has several types of embedded memories and they are discussed here briefly. A detailed description of embedded memory adress mapping can be seen in Table~\ref{table:memory_mapping}. The ESP32 uses a Harvard memory architecture. This means, that instructions and data use separate memories with dedicated buses.\cite{esp322021}
 
@@ -56,8 +56,8 @@ Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementatio
         \Gls{rom} is used by the hard-coded first-stage bootloader for instructions (\gls{rom} 0) and static data (\gls{rom} 1).
     \item[SRAM 0, 1 and 2] \hfill \\
         \Gls{sram} 0 is used for program instruction. \Gls{sram} 1 is mapped to both instruction and data bus simultaneously. It can also be mapped over part of \gls{rom} 0. \Gls{sram} 2 is used for program data.
-    \item[FAST RTC SRAM] FAST \gls{rtc} \gls{sram} is mapped to both instruction and data bus and is not turned off during power-saving modes (such as deep or light sleep). It is therefore used to keep data between the power-saving modes. Only the PRO\_CPU\footnote{The two CPU cores are named PRO\_CPU and APP\_CPU} can use this memory.
-    \item[SLOW RTC SRAM] The SLOW \gls{rtc} \gls{sram} is mapped to a region shared by both the instruction and data buses. It is clocked slower compared to the other \gls{sram} memories. It is not turned off during power-saving modes and can be used to keep data between them. The \gls{ulp} co-processor also uses it as its memory.
+    \item[FAST RTC SRAM] The 8 KB FAST \gls{rtc} \gls{sram} is mapped to both instruction and data buses and is not turned off during power-saving modes (such as deep or light sleep). It is therefore used to keep data between the power-saving modes. Only the PRO\_CPU\footnote{The two CPU cores are named PRO\_CPU and APP\_CPU} can use this memory.
+    \item[SLOW RTC SRAM] The 8 KB SLOW \gls{rtc} \gls{sram} is mapped to a region shared by both the instruction and data buses. It is clocked slower compared to the other \gls{sram} memories. It is not turned off during power-saving modes and can be used to keep data between them. The \gls{ulp} co-processor also uses it as its memory.
 \end{description}
 
 Flash memory can either be embedded inside the \gls{soc} or connected externally using \gls{spi}. Maximum of 16 MB of flash is supported and up to 8 MB of external \gls{sram} can also be connected using \gls{spi}.
