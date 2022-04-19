@@ -25,7 +25,7 @@ The logical diagram of a \gls{sram} cell containing the two inverters is illustr
     \label{fig:sram_cell}
 \end{figure}
 
-The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either a `1' or a `0' state. Which state the cell stabilizes on is dependent on a relative strength\footnote{strength here means the properties of the underlying \gls{mosfet} transistors (such as delay)} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
+The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either a `1' or a `0' state. Which state the cell stabilizes on is dependent on a relative strength\footnote{Strength here means the properties of the underlying \gls{mosfet} transistors (such as delay).} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
 
 For each cell independently, the two following cases can happen:
 
@@ -149,6 +149,13 @@ The dominant effect which directly alters the stability of memory cells is calle
 
 Anti-aging techniques, which try to counteract \gls{nbti} and other effects, exist. A simple example is to store an inverse of the startup data after response extraction. However, this is a security risk as leakage of this data would directly reveal the startup memory values. Another solution could be to overwrite the memory with a random string after every power up. This results in less effective anti-aging, but avoids the security risk of a data leak.\cite{Maes2014}
 
+\section{Related work}
 
+Since the main objective of this thesis is to analyze the possibility of implementing a \gls{sram} \gls{puf} on the ESP32 microcontroller, it is important to look at the already existing solutions.
 
-% TODO intrinsicID meli nejaky whitepaper
+The authors of \cite{Deutschmann2018} have performed an analysis of \gls{sram} \gls{puf} implementations on existing \gls{iot} platforms. ESP32 was among the analyzed technologies. However, the information presented is extremely limited. The mechanism by which they obtained the \gls{puf} responses is not known and the operating conditions during the analysis were not specified. Furthermore, the analysis was performed using only two ESP32 microcontrollers. They also present uniformity and reliability evaluation of the \gls{puf}, though their results differ significantly from the findings in this thesis (presented in Chapter~\ref{sec:implementation}).
+
+\cite{Javier2020} proposed a solution for secure management of \gls{iot} devices based on blockchain non-fungible tokens. In their research, the blockchain account seed was not stored digitally but was reconstructed using a \gls{sram} \gls{puf}. A proof of concept was developed and tested on three ESP32 development boards. They successfully reconstructed the seed using direct stable bit preselection and a repetition \gls{ecc}. However, the \gls{puf} was not tested in different operating conditions and no evaluation parameters were used.
+
+To summarize, proof of concept \gls{sram} \gls{puf} implementations on the ESP32 microcontroller exist, though not enough information about how the implementations work has been provided. To the best of our knowledge, an analysis of performance of \gls{sram} \glspl{puf} on ESP32 in different operating conditions has not been published yet.
+

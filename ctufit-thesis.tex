@@ -105,7 +105,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{mathtools}
-\usepackage[bottom]{footmisc}
+%\usepackage[bottom]{footmisc} % footnote hyperref links do not work with this
 \usepackage{enumitem}
 \usepackage[nopostdot,style=super,nonumberlist,nogroupskip,toc]{glossaries}
 \usepackage{subcaption}
@@ -143,6 +143,7 @@
 \setacronymstyle{long-short}
 \loadglsentries{glossary.tex}
 \glsaddall
+\glsunset{cpu}
 
 \begin{document} 
 \frontmatter\frontmatterinit % do not remove these two commands

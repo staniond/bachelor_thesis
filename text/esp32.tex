@@ -70,7 +70,7 @@ Flash memory can either be embedded inside the \gls{soc} or connected externally
     \label{table:memory_mapping}
 \end{table}
 
-\section{Device startup}
+\section{Device startup}\label{sec:device_startup}
 
 There are several steps involved between power-up and start of the user application. It is important to understand them as some will be crucial to the implementation of the \gls{sram} \gls{puf}. The steps are following:
 
@@ -85,6 +85,8 @@ The \emph{deep sleep wake stub} is a mechanism that enables the user to run cust
 \section{ESP-IDF}
 
 ESP-IDF is an integrated development framework by Espressif. It contains libraries and source code for the ESP32 family of microcontrollers and provides a unified \gls{api} which is shared between the different microcontroller models. It also provides scripts for operating the toolchain, uploading applications and monitoring them.\cite{espidf2022}
+
+The latest stable version of ESP-IDF (on \today) is 4.4 and this version was used for all code used in this thesis on the ESP32 microcontrollers.
 
 \begin{figure}[h!]
     \centering
