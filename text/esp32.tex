@@ -6,7 +6,7 @@ In this chapter, a brief explanation of the ESP32 platform is presented. The mai
 
 \section{Hardware}
 
-ESP32 is a \gls{soc} microcontroller designed by Espressif which integrates CPUs, WiFi, Bluetooth and various specialized co-processors. The main features of the ESP32 are following:
+ESP32 is a \gls{soc} microcontroller designed by Espressif which integrates CPUs, WiFi, Bluetooth and various specialized co-processors. The main features of the ESP32 are the following:
 
 \begin{itemize}
     \item Xtensa dual-core 32-bit LX6 microprocessor running at 160 or 260 MHz
@@ -39,17 +39,17 @@ One possible form factor of the ESP32 microcontroller can be seen in Figure~\ref
 ESP32 is a name for the original microcontroller from Espressif released in 2016. However, several other models have been developed since\cite{espidf2022}:
 
 \begin{description}
-    \item[ESP32-S2] A single core version of the ESP32
+    \item[ESP32-S2] A single-core version of the ESP32
     \item[ESP32-S3] Version with added instructions to accelerate machine learning
-    \item[ESP32-C3] Single core RISV-V CPU version instead of the Xtensa LX6 CPU
-    \item[ESP32-S6] Single core RISC-V CPU with WiFi 6 support
+    \item[ESP32-C3] Single-core RISV-V CPU version instead of the Xtensa LX6 CPU
+    \item[ESP32-S6] Single-core RISC-V CPU with WiFi 6 support
 \end{description}
 
 Only the original ESP32 microcontroller was used during experiments and implementation in this thesis. However, the possibility of implementing a \gls{sram} \gls{puf} on the other versions is discussed later in Chapter~\ref{sec:implementation}.
 
 \section{Memory layout}\label{sec:memory_layout}
 
-Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementation as the exact memory region used to extract the response needs to be considered. The ESP32 has several types of embedded memories and they are discussed here briefly. A detailed description of embedded memory adress mapping can be seen in Table~\ref{table:memory_mapping}. The ESP32 uses a Harvard memory architecture. This means, that instructions and data use separate memories with dedicated buses.\cite{esp322021}
+Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementation as the exact memory region used to extract the response needs to be considered. The ESP32 has several types of embedded memories and they are discussed here briefly. A detailed description of embedded memory address mapping can be seen in Table~\ref{table:memory_mapping}. The ESP32 uses a Harvard memory architecture. This means, that instructions and data use separate memories with dedicated buses.\cite{esp322021}
 
 \begin{description}
     \item[ROM 0 and 1] \hfill \\
@@ -60,7 +60,7 @@ Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementatio
     \item[SLOW RTC SRAM] The 8 KB SLOW \gls{rtc} \gls{sram} is mapped to a region shared by both the instruction and data buses. It is clocked slower compared to the other \gls{sram} memories. It is not turned off during power-saving modes and can be used to keep data between them. The \gls{ulp} co-processor also uses it as its memory.
 \end{description}
 
-Flash memory can either be embedded inside the \gls{soc} or connected externally using \gls{spi}. Maximum of 16 MB of flash is supported and up to 8 MB of external \gls{sram} can also be connected using \gls{spi}.
+Flash memory can either be embedded inside the \gls{soc} or connected externally using \gls{spi}. A maximum of 16 MB of flash is supported and up to 8 MB of external \gls{sram} can also be connected using \gls{spi}.
 
 \begin{table}[ht!]
     \centering
@@ -72,7 +72,7 @@ Flash memory can either be embedded inside the \gls{soc} or connected externally
 
 \section{Device startup}\label{sec:device_startup}
 
-There are several steps involved between power-up and start of the user application. It is important to understand them as some will be crucial to the implementation of the \gls{sram} \gls{puf}. The steps are following:
+There are several steps involved between power-up and the start of the user application. It is important to understand them as some will be crucial to the implementation of the \gls{sram} \gls{puf}. The steps are following:
 
 \begin{enumerate}
     \item The CPU executes the first-stage bootloader located in \gls{rom}. If the device was reset from deep sleep, a \emph{deep sleep wake stub} is executed. The second-stage bootloader is then loaded from the flash and executed.
@@ -80,7 +80,7 @@ There are several steps involved between power-up and start of the user applicat
     \item C runtime and FreeRTOS are initialized. Finally, the main task of the user application is called and the booting process is complete.
 \end{enumerate}
 
-The \emph{deep sleep wake stub} is a mechanism that enables the user to run custom code early in the boot process after wake up from deep sleep. It is implemented as a function stored in the FAST \gls{rtc} \gls{sram}. This function is then called by the first-stage bootloader before it loads the second stage.\cite{espidf2022}
+The \emph{deep sleep wake stub} is a mechanism that enables the user to run custom code early in the boot process after waking up from deep sleep. It is implemented as a function stored in the FAST \gls{rtc} \gls{sram}. This function is then called by the first-stage bootloader before it loads the second stage.\cite{espidf2022}
 
 \section{ESP-IDF}
 
@@ -98,4 +98,4 @@ The latest stable version of ESP-IDF (on \today) is 4.4 and this version was use
 
 \section{FreeRTOS}
 
-A modified version of the \gls{rtos} FreeRTOS is used in ESP-IDF to create applications. Its main feature is enabling symmetric multiprocessing in order to utilize both CPU cores. Tasks play a role of threads and Wifi, Bluetooth and user tasks can be created and are managed by a real-time scheduler. The FreeRTOS also provides inter-task communication and synchronization \gls{api}.\cite{espidf2022}
+A modified version of the \gls{rtos} FreeRTOS is used in ESP-IDF to create applications. Its main feature is enabling symmetric multiprocessing in order to utilize both CPU cores. Tasks play the role of threads and Wifi, Bluetooth and user tasks can be created and are managed by a real-time scheduler. The FreeRTOS also provides inter-task communication and synchronization \gls{api}.\cite{espidf2022}

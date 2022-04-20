@@ -111,11 +111,11 @@ The \gls{puf} implementation must guarantee that the memory has been unpowered l
 \section{Stable response extraction}
 % je tahle sekce OK???
 
-Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation. The resulting key must be the same every time it is reconstructed. Therefore, stability of the response needs to be guaranteed. Several methods that increase stability exist: \gls{tmv}, \gls{ecc}, direct bit preselection and indirect bit preselection.\cite{Shifman2018}
+Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation. The resulting key must be the same every time it is reconstructed. Therefore, the stability of the response needs to be guaranteed. Several methods that increase stability exist---\gls{tmv}, \gls{ecc}, direct bit preselection and indirect bit preselection.\cite{Shifman2018}
 
 \subsubsection*{Temporal majority voting}
 
- \gls{tmv} samples the \gls{puf} response multiple times and the resulting response is based on bitwise majority vote of the samples. This increases the time it takes to obtain the response significantly. Additionally, if a cell is very unstable, the majority vote for it could be very close and thus not stable.
+ \gls{tmv} samples the \gls{puf} response multiple times and the resulting response is based on a bitwise majority vote of the samples. This increases the time it takes to obtain the response significantly. Additionally, if a cell is very unstable, the majority vote for it could be very close and thus not stable.
 
 \subsubsection*{Error correction codes}
 
@@ -125,27 +125,27 @@ Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation.
 
 Stable bit preselection methods try to indicate which bits are stable and they create a mask of stable bits. This mask is saved to a non-volatile memory of the device and is later used to ignore the unstable bits during response extraction.
 
-In direct preselection, the \gls{puf} response is first measured multiple times. Stable bits are identified based on their average startup value over multiple measurements. To identify more stable bits, measurements can be made across different operating temperatures and supply voltages. However, this is a very time consuming technique. An example of average startup \gls{sram} cells can be seen in Figure~\ref{fig:bit_stability_mask}.
+In direct preselection, the \gls{puf} response is first measured multiple times. Stable bits are identified based on their average startup value over multiple measurements. To identify more stable bits, measurements can be made across different operating temperatures and supply voltages. However, this is a very time-consuming technique. An example of average startup \gls{sram} cells can be seen in Figure~\ref{fig:bit_stability_mask}.
 
 \begin{figure}[ht!]
     \centering
     \captionsetup{justification=justified,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/bit_stability.png}
-    \caption[Average startup values of individual SRAM cells over 1000 measurements.]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black are stable `0' and the rest are unstable bits with varying amounts of instability (according to the color bar on the right). Cells with average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 in 20°C.}
+    \caption[Average startup values of individual SRAM cells over 1000 measurements.]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black bits are stable `0' and the rest are unstable bits with varying amounts of instability (according to the color bar on the right). Cells with an average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 at 20°C.}
     \label{fig:bit_stability_mask}
 \end{figure}
 
 \subsubsection*{Indirect bit preselection}
 
-Indirect preselection runs a test for each bit to identify its stability. For example, stable bit can be identified by the time it takes for it to stabilize its initial state---stable bits stabilize faster than the unstable ones. The test can be performed in the following way.
+Indirect preselection runs a test for each bit to identify its stability. For example, a stable bit can be identified by the time it takes for it to stabilize its initial state---stable bits stabilize faster than unstable ones. The test can be performed in the following way.
 
 First, set all the bits to the `0' state. Then, turn off the memory for a short amount of time and look at which bits flipped to the `1' state the fastest. They are the stable `1' bits. Stable `0' bits can be obtained respectively. It has been shown by~\cite{Liu2017} that up to 100\% stable response can be extracted by this method.
 
 \section{SRAM aging}
 
-Normal operation of \gls{sram} memory unavoidably alters its physical properties. These processes can effect the stability of \gls{sram} \gls{puf} and are called silicon aging.
+Normal operation of \gls{sram} memory unavoidably alters its physical properties. These processes can affect the stability of \gls{sram} \gls{puf} and are called silicon aging.
 
-The dominant effect which directly alters the stability of memory cells is called \gls{nbti}. \gls{nbti} is a data-dependent aging effect. If the cell stores a `1' bit, its startup state preference slowly starts to change towards the `0' state. This is the result of a threshold voltage increase on the transistors which are switched on in the currect state, whereas the swithed off transistors are unaffected. This means, that the \gls{sram} \gls{puf} has a natural tendency to become less stable over time if the startup data is left unchanged in memory.\cite{Roelke2018}
+The dominant effect which directly alters the stability of memory cells is called \gls{nbti}. \gls{nbti} is a data-dependent aging effect. If the cell stores a `1' bit, its startup state preference slowly starts to change towards the `0' state. This is the result of a threshold voltage increase on the transistors which are switched on in the current state, whereas the switched off transistors are unaffected. This means, that the \gls{sram} \gls{puf} has a natural tendency to become less stable over time if the startup data is left unchanged in memory.\cite{Roelke2018}
 
 Anti-aging techniques, which try to counteract \gls{nbti} and other effects, exist. A simple example is to store an inverse of the startup data after response extraction. However, this is a security risk as leakage of this data would directly reveal the startup memory values. Another solution could be to overwrite the memory with a random string after every power up. This results in less effective anti-aging, but avoids the security risk of a data leak.\cite{Maes2014}
 

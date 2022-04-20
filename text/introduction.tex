@@ -10,9 +10,9 @@
 \addcontentsline{toc}{section}{Motivation}
 %--------------------------------
 
-\Gls{iot} is a fast growing field of the information age that we live in right now. Millions of cheap and connected devices are being used in a huge number of applications such as smart homes, self-driving cars, smart cities and wearables.
+\Gls{iot} is a fast-growing field of the information age that we live in right now. Millions of cheap and connected devices are being used in a huge number of applications such as smart homes, self-driving cars, smart cities and wearables.
 
-As these devices are connected to the Internet and they collect potentially sensitive data, it is crucial to make them as secure as possible. One of the key challenges of security is the generation and storage of cryptographic keys, since they play a vital role in most cryptographic algorithms used to secure the devices.
+As these devices are connected to the Internet and collect potentially sensitive data, it is crucial to make them as secure as possible. One of the key challenges of security is the generation and storage of cryptographic keys since they play a vital role in most cryptographic algorithms used to secure the devices.
 
 Usually, the keys are randomly generated and stored in non-volatile memory. However, the non-volatile memory needs to be secured (even from invasive physical attacks) and the generation process must be unpredictable. Satisfying both of those requirements is extremely hard and expensive.
 
@@ -26,10 +26,10 @@ One example of an especially popular \gls{iot} platform is ESP32. It consists of
 \addcontentsline{toc}{section}{Objectives}
 %--------------------------------
 
-The objectives of this thesis are following:
+The objectives of this thesis are the following:
 
 \begin{itemize}
-    \item Analyze the topic of physical unclonable functions with focus on \gls{sram} \gls{puf}.
+    \item Analyze the topic of physical unclonable functions with a focus on \gls{sram} \gls{puf}.
     \item Find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller.
     \item Design and implement a simple \gls{sram} based \gls{puf} on the ESP32 microcontroller.
     \item Evaluate relevant \gls{puf} parameters such as bit stability and uniqueness on the resulting \gls{puf} implementation.
@@ -43,17 +43,17 @@ The objectives of this thesis are following:
 \addcontentsline{toc}{section}{Thesis structure}
 %--------------------------------
 
-The thesis is divided into eight chapter in the following way:
+The thesis is divided into eight chapters in the following way:
 
 \newcommand\litem[1]{\item{\bfseries #1,\\}}
 
 \begin{description}
     \item[1. \nameref{sec:puf}:] \hfill \\
-        First, description of a \gls{puf} is given in this chapter. Then, main properties and classes of \glspl{puf} are outlined and parameters used to evaluate the performance of \glspl{puf} are defined. Lastly, concrete \gls{puf} applications and implementations are explained shortly.
+        First, a description of a \gls{puf} is given in this chapter. Then, the main properties and classes of \glspl{puf} are outlined and parameters used to evaluate the performance of \glspl{puf} are defined. Lastly, concrete \gls{puf} applications and implementations are explained shortly.
     \item[2. \nameref{sec:sram_puf}:] \hfill \\
         A thorough explanation of a \gls{sram} \gls{puf} is given. The chapter then provides a discussion on which properties the \gls{sram} \gls{puf} possesses and a brief introduction to silicon aging which affects this \gls{puf} implementation. At the end, existing research of \gls{sram} \glspl{puf} on the ESP32 platform is summarized.
     \item[3. \nameref{sec:esp32}:] \hfill \\
-        An introduction into the ESP32 platform is provided in this chapter. A brief hardware and software description of the ESP32 microcontroller is given with focus on parts that are important to the \gls{puf} implementation.
+        An introduction to the ESP32 platform is provided in this chapter. A brief hardware and software description of the ESP32 microcontroller is given with a focus on parts that are important to the \gls{puf} implementation.
     \item[4. \nameref{sec:implementation}:] \hfill \\
         Two ways of \gls{sram} power state control on ESP32 are proposed in this chapter. The startup memory values obtained by the two methods are then analyzed based on operating temperature and memory power-off time. Some of the evaluation parameters defined in Chapter~\ref{sec:puf} are also used during the analysis.
     \item[5. \nameref{sec:response_extraction}:] \hfill \\
