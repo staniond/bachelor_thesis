@@ -1,6 +1,36 @@
 %---------------------------------------------------------------
-\chapter{Conclusion}\label{sec:conclusion}
+\chapter*{Conclusion}\label{sec:conclusion}
+\phantomsection
+\addcontentsline{toc}{chapter}{Conclusion}
 %---------------------------------------------------------------
+
+In this thesis, the possibility of implementing a \gls{sram} \gls{puf} on the ESP32 microcontroller was analyzed and a proof of concept solution was implemented. 
+
+The first chapter provides a description of the concept of a \gls{puf}. Then, \gls{puf} properties, applications, classification and evaluation parameters were described. At the end, three \gls{puf} implementations were presented.
+
+A thorough explanation of a \gls{sram} \glspl{puf} was given in the second chapter. A discussion on which properties the \gls{sram} \gls{puf} possesses was provided. Then, stable bit preselection methods and the effect of silicon aging were presented. At the end, existing research on \gls{sram} \glspl{puf} on the ESP32 platform was summarized.
+
+In the third chapter, an overview of the ESP32 \gls{iot} platform was given. Hardware and software components of the ESP32 microcontroller with focus on features specific to the \gls{sram} \gls{puf} implementation were introduced.
+
+Two \gls{sram} power state control methods on the ESP32 microcontroller were designed in the fourth chapter. Their resulting \gls{puf} responses were analyzed based on different operating temperatures and power off time of the memory. This analysis detected interesting effect of memory `freezing' for the \gls{rtc} \gls{sram} method in low operating temperatures. Then, evaluation parameters were used to test the \gls{puf} responses and the results matched the expectations from the previous analysis. Advantages and disadvantages of each method and their suitability of use were also discussed. At the end, a visualization of the \gls{puf} responses was presented, revealing an interesting pattern in the memory startup values.
+
+\todo[inline]{Chapter five: work in progress}
+\todo[inline]{Chapter six: work in progress}
+
+
+\todo[inline]{Napsat, ze cile prace byly splneny}
+
+\section*{Future work}
+\phantomsection
+\addcontentsline{toc}{section}{Future work}
+
+At the end, possible ideas for future research are presented:
+\begin{itemize}
+    \item test the \gls{puf} responses using more evaluation parameters (such as randomness or bit-aliasing)
+    \item use more advanced \glspl{ecc} to achieve greater reliability without the need of sophisticated stable bit preselection
+    \item test the \gls{sram} \gls{puf} implementation on the new RISC-V based ESP32 microcontroller models
+    \item apply the reconstructed key to secure the ESP32 wireless communication
+\end{itemize}
 
 % pro DPR staci jen nastrel
 % zopakovat cile, napsat jestli a jak jsem je splnil a future work
