@@ -200,7 +200,7 @@ Uniqueness of the responses from different \glspl{mcu} across the whole range of
 % ze tohle jde jen na puvodnim ESP32 a single coru, protoze ostatni maji jiny rezim
 As is evident from the experiments, this power control method can only be used at temperatures above 10 °C. The exact temperature where the memory starts to freeze also differs for each \gls{mcu}.
 
-Moreover, only the original ESP32 and the ESP32-S2 (the single-core version) microcontrollers have the functionality to power-control the memory sections. In the newer models, this functionality was replaced by the `retention' mode of memory. This mode enables the memory to retain its data while no read/write operations need to take place, saving power in the process.\cite{esp322021} Thus, this method cannot be applied to the newer models.
+Moreover, only the original ESP32 and the ESP32-S2 (the single-core version) microcontrollers have the functionality to power-control the memory sections. In the newer models, this functionality was replaced by the `retention' mode of memory. This mode enables the memory to retain its data while no read/write operations need to take place, saving power in the process.\cite{esp322021} Thus, this method cannot be applied to the newer models. Additionally, only 8 KB of memory is available. Though this is enough if the \gls{puf} is used for key generation, as will become evident in Chapter~\ref{sec:response_extraction}.
 
 On the other side, the ability to power-control the memory during runtime is very powerful. The response can be extracted on demand quickly because the whole device does not need to be powered down and then up which is an extremely time-consuming process.
 
@@ -368,7 +368,7 @@ Uniqueness for all \glspl{mcu} across the range of different temperatures is sho
 
 \subsection{Summary}
 
-The presented experiments show very good results across the whole tested range of temperatures. Additionally, the deep sleep functionality is available to all microcontrollers in the ESP32 family. This power-control method is therefore not restricted only to a particular subset of models.
+The presented experiments show very good results across the whole tested range of temperatures. The deep sleep functionality is available to all microcontrollers in the ESP32 family. This power-control method is therefore not restricted only to a particular subset of models. Additionally, most of the internal \gls{sram} memory (around 400 KB) is available to be used in the \gls{puf} implementation.
 
 On the other hand, the deep sleep power-control method is especially time-consuming (in comparison to the \gls{rtc} \gls{sram} method). This is mainly due to the need to go through the whole booting process. Obtaining the response can take up to several tenths of seconds, depending on the application size and speed of the connected flash memory. Moreover, most of the device state is inevitably lost during deep sleep. The application must save all data it does not want to lose to either the FAST or SLOW \gls{rtc} \gls{sram} (the only memory regions not turned off). Although, they together only provide 16 KB of space
 
@@ -430,5 +430,5 @@ However, only the \gls{rtc} \gls{sram} method shows this wide stripe behavior. T
     \label{fig:16_response_sleep}
 \end{figure}
 
-This behavior is most likely caused by the internal design of the \gls{sram} circuit and there is no way to prevent it. This explanation unfortunately cannot be confirmed as the ESP32 chip schematics are not available. It is, however, clear that the entropy of the resulting \gls{puf} response is reduced because of this behavior.
+This behavior is most likely caused by the internal design of the \gls{sram} circuit and there is probably no way to prevent it. This explanation unfortunately cannot be confirmed as the ESP32 chip schematics are not available. It is, however, clear that the entropy of the resulting \gls{puf} response is reduced because of this behavior.
 
