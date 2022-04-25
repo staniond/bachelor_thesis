@@ -125,13 +125,13 @@ Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation.
 
 Stable bit preselection methods try to indicate which bits are stable and they create a mask of stable bits. This mask is saved to a non-volatile memory of the device and is later used to ignore the unstable bits during response extraction.
 
-In direct preselection, the \gls{puf} response is first measured multiple times. Stable bits are identified based on their average startup value over multiple measurements. To identify more stable bits, measurements can be made across different operating temperatures and supply voltages. However, this is a very time-consuming technique. An example of average startup \gls{sram} cells can be seen in Figure~\ref{fig:bit_stability_mask}.
+In direct preselection, the \gls{puf} response is first measured multiple times. Stable bits are identified based on their average startup value over multiple measurements. To identify more stable bits, measurements can be made across different operating temperatures and supply voltages. However, this is a very time-consuming technique. An example of average startup values of 1 KB of \gls{sram} can be seen in Figure~\ref{fig:bit_stability_mask}.
 
 \begin{figure}[ht!]
     \centering
     \captionsetup{justification=justified,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/bit_stability.png}
-    \caption[Average startup values of individual SRAM cells over 1000 measurements.]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black bits are stable `0' and the rest are unstable bits with varying amounts of instability (according to the color bar on the right). Cells with an average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 at 20°C.}
+    \caption[Average startup values of individual SRAM cells over 1000 measurements.]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black bits are stable `0' and the rest are unstable bits with varying amounts of bias (according to the color bar on the right). Cells with an average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 at 20°C.}
     \label{fig:bit_stability_mask}
 \end{figure}
 

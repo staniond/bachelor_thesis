@@ -2,9 +2,53 @@
 \chapter{ESP32 SRAM PUF library}\label{sec:puflib}
 %---------------------------------------------------------------
 
-\todo[inline]{work in progress}
-
 %--------------------------------
 \section{Enrollment}
 %--------------------------------
+
+\newpage
+
+\begin{lstlisting}[
+                   language=C++,
+                   caption=Minimal working example of the ESP32\_puflib library.,
+                   backgroundcolor=\color{white},
+                   numbers=left,
+                   captionpos=b,
+                   style=customc,
+                  ]
+#include <stdio.h>
+#include <esp_sleep.h>
+#include <puflib.h>
+
+void app_main(void) { 
+    // needs to be called first in app_main
+    puflib_init();
+    // provisioning needs to be done only once at the beginning
+    provision_puf();
+
+    // condition will be true, if a PUF response is ready
+    // (useful after a restart)
+    if(PUF_STATE != RESPONSE_READY) {
+        bool puf_ok = get_puf_response();
+        if(!puf_ok) {
+            // the device resets now
+            get_puf_response_reset();
+        }
+    }
+
+    // PUF_RESPONSE_LEN is a PUF response length in bytes
+    for (size_t i = 0; i < PUF_RESPONSE_LEN; ++i) {
+        // PUF_RESPONSE is a buffer with the PUF response
+        printf("%02X ", PUF_RESPONSE[i]);
+    }
+
+    clean_puf_response();
+}
+
+void RTC_IRAM_ATTR esp_wake_deep_sleep(void) {
+    esp_default_wake_deep_sleep();
+    // needs to be called somewhere in wake up stub
+    puflib_wake_up_stub();
+}
+\end{lstlisting}
 

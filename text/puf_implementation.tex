@@ -432,3 +432,5 @@ However, only the \gls{rtc} \gls{sram} method shows this wide stripe behavior. T
 
 This behavior is most likely caused by the internal design of the \gls{sram} circuit and there is probably no way to prevent it. This explanation unfortunately cannot be confirmed as the ESP32 chip schematics are not available. It is, however, clear that the entropy of the resulting \gls{puf} response is reduced because of this behavior.
 
+In order to improve the statistical properties of the \gls{puf} responses, a cryptographic hash function can be applied before using it. This is especially important if the \gls{puf} is used to generate a cryptographic key.\cite{Sven2015}~\cite{Dodis2008}
+

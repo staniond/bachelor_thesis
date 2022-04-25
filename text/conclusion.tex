@@ -14,17 +14,19 @@ In the third chapter, an overview of the ESP32 \gls{iot} platform was given. Har
 
 Two \gls{sram} power state control methods on the ESP32 microcontroller were designed in the fourth chapter. Their resulting \gls{puf} responses were analyzed based on operating temperature and power-off time of the memory. This analysis detected an interesting effect of memory `freezing' for the \gls{rtc} \gls{sram} method in low operating temperatures. Then, evaluation parameters were used to test the \gls{puf} responses and the results matched the expectations from the previous analysis. The advantages and disadvantages of each method and their suitability for use were also discussed. At the end, a visualization of the \gls{puf} responses was presented, revealing an interesting pattern in the memory startup values.
 
-\todo[inline]{Chapter five: work in progress}
-\todo[inline]{Chapter six: work in progress}
+Chapter five implemented reliable \gls{puf} response reconstruction using two methods of stable bit preselection and a simple repetition \gls{ecc}. Next, a \gls{puf} design that combines the two power-control methods was presented. At the end, the proposed \gls{sram} \gls{puf} design was tested on 16 \glspl{mcu} in different operating temperatures.
 
+The final chapter introduced esp32\_puflib---a library that implements the proposed \gls{sram} \gls{puf} design.
 
-\todo[inline]{Napsat, ze cile prace byly splneny}
+To summarize, all of the goals outlined were accomplished, resulting in interesting findings and a working \gls{sram} \gls{puf} implementation on the ESP32 microcontroller.
+
+\newpage
 
 \section*{Future work}
 \phantomsection
 \addcontentsline{toc}{section}{Future work}
 
-At the end, possible ideas for future research are presented:
+At the end, ideas for possible future research are presented:
 \begin{itemize}
     \item test the \gls{puf} responses using more evaluation parameters (such as randomness or bit-aliasing)
     \item use more advanced \glspl{ecc} to achieve greater reliability without the need of sophisticated stable bit preselection
