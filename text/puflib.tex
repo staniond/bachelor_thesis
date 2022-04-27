@@ -2,11 +2,36 @@
 \chapter{ESP32 SRAM PUF library}\label{sec:puflib}
 %---------------------------------------------------------------
 
+The presented \gls{sram} \gls{puf} design with combined power-control and stable \gls{puf} response reconstruction using repetition \gls{ecc} and stable bit preselection was implemented in a library called esp32\_puflib. 
+
+The esp32\_puflib library is implemented as an ESP-IDF component. Components are modular pieces od standalone code. They are compiled as a static library and then linked into the main project by the toolchain. The ESP-IDF component manager makes it easy to add existing components into the main project.\cite{espidf2022}
+
 %--------------------------------
 \section{Enrollment}
 %--------------------------------
 
-\newpage
+In order to be able to reconstruct the \gls{puf} responses properly, the device needs to be enrolled first. This means creating the stable bit mask, calculating the \gls{ecc} helper data and saving them to non-volatile memory. Two different enrollment procedures were implemented, in-device enrollment and external enrollment.
+
+\subsubsection*{In-device enrollment}
+
+In the in-device enrollment, the ESP32 microcontroller does all of the needed calculations by itself. It is performed by the \lstinline{provision_puf} function. This method of enrollment is very straightforward to use (just a function call).
+
+Unfortunately, the stable bit mask can be calculated only in one operating temperature (which results in erroneous response reconstructions at extreme temperatures). Furthermore, the in-device enrollment process is lengthy. Stable bit mask created from 1000 \gls{puf} measurements takes about 40 minutes to calculate---each measurement executes the deep sleep restart and a write the non-volatile flash memory to save the results. Thus this method also increases wear of the flash memory.
+
+\subsubsection*{External enrollment}
+
+In the external enrollment, the ESP32 sends the \gls{puf} measurements to a server through \gls{uart}. The measurements can be repeated in different operating temperatures to increase stability. The server then calculates stable bit mask and the \gls{ecc} helper data from the received measurements. The results are then exported as a \gls{nvs} partition\footnote{\gls{nvs} is a ESP-IDF library for saving data to flash memory.} and uploaded to the device.
+
+This method is quicker (with 1000 \gls{puf} measurements the process takes about 5 minutes) and enables measurements in different operating conditions, increasing stability significantly. On the other hand, it requires a more elaborate setup (serial connection with the server that runs the enrollment scripts).
+
+%--------------------------------
+\section{Example of usage}
+%--------------------------------
+
+The minimal working example code of the esp32\_puflib library is shown in Code listing~\ref{lst:puflib_example}. The code initializes the library and reconstructs the \gls{puf} response. If the \gls{rtc} \gls{sram} method did not succeed in the reconstruction, the deep sleep method is used. In this case, the application needs to save its state and is then restarted (line 17). The \gls{puf} response is then printed to \lstinline{stdout} and erased from memory.
+
+After reconstructing the response (either by the \gls{rtc} \gls{sram} method immediately or after restart by the deep sleep method), the library sets global variables with the \gls{puf} response accordingly---\lstinline{PUF_STATE} flag to \lstinline{RESPONSE_READY}, \lstinline{PUF_RESPONSE} to the response data and \lstinline{PUF_RESPONSE_LEN} to response length in bytes.
+
 
 \begin{lstlisting}[
                    language=C++,
@@ -15,6 +40,7 @@
                    numbers=left,
                    captionpos=b,
                    style=customc,
+                   label=lst:puflib_example
                   ]
 #include <stdio.h>
 #include <esp_sleep.h>
@@ -31,7 +57,7 @@ void app_main(void) {
     if(PUF_STATE != RESPONSE_READY) {
         bool puf_ok = get_puf_response();
         if(!puf_ok) {
-            // the device resets now
+            // the device resets now, SAVE APPLICATION STATE
             get_puf_response_reset();
         }
     }
@@ -42,6 +68,7 @@ void app_main(void) {
         printf("%02X ", PUF_RESPONSE[i]);
     }
 
+    // erases the PUF response from memory
     clean_puf_response();
 }
 
