@@ -43,10 +43,25 @@
 \ctufityear{2022} % replace with the year of your defence
 \ctufitdeclarationplace{Prague} % replace with the place where you sign the declaration
 \ctufitdeclarationdate{\today} % replace with the date of signature of the declaration
-\ctufitabstractCZE{Fill in abstract of this thesis in Czech language. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue.}
-\ctufitabstractENG{Fill in abstract of this thesis in English language. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue.}
-\ctufitkeywordsCZE{ESP32, fyzicky neklonovatelné funkce, statická paměť, samoopravné kódy, hardwarová bezpečnost}
-\ctufitkeywordsENG{ESP32, physical unclonable functions, static random access memory, error correction codes, hardware security}
+
+\ctufitabstractENG{
+    This thesis analyzes the possibility of implementing a \gls{sram} \gls{puf} on the ESP32 microcontroller.
+    
+    First, literature research on the topic of \glspl{puf} is provided with focus on \gls{sram} \glspl{puf}. A discussion on which properties the \gls{sram} \glspl{puf} possess is presented.
+
+    Two power-control methods of \gls{sram} memory on the ESP32 are proposed. An analysis of behavior of startup \gls{sram} bit values depending on operating temperature is conducted for both methods. Their suitability for the \gls{puf} implementation is discussed based on the experimental results.
+
+    Then, an implementation of \gls{sram} \gls{puf} with stable response reconstruction is presented. Two different bit preselection methods are tested and a simple repetition \gls{ecc} is used to stabilize the responses. The presented \gls{puf} design combines the two power-control methods to achieve faster and more reliable response extraction.
+
+    Reliability testing revealed that it is possible to reach 100 \% success rate of response reconstruction across the temperature range of -40 to +70 °C. The responses can be used as cryptographic keys to secure the ESP32 platform. Finally, the proposed \gls{puf} design is implemented in an easy-to-use ESP32 library.
+}
+
+\ctufitabstractCZE{
+}
+
+
+\ctufitkeywordsENG{ESP32, physical unclonable functions, static random access memory, key generation, error correction codes, hardware security}
+\ctufitkeywordsCZE{ESP32, fyzicky neklonovatelné funkce, statická paměť, samoopravné kódy, generování klíčů, hardwarová bezpečnost}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END FILL IN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,8 +182,6 @@
 \setacronymstyle{long-short}
 \loadglsentries{glossary.tex}
 \glsaddall
-\glsunset{cpu}
-\glsunset{uart}
 
 \begin{document} 
 \frontmatter\frontmatterinit % do not remove these two commands
@@ -243,6 +256,10 @@ authorization is not limited in terms of time, location and quantity.
 % THE THESIS
 % MODIFY ANYTHING BELOW THIS LINE
 %%%%%%%%%%%%%%%%%%%
+
+\glsresetall
+\glsunset{cpu}
+\glsunset{uart}
 
 \include{text/introduction}
 \include{text/puf}
