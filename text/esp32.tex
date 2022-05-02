@@ -2,7 +2,7 @@
 \chapter{ESP32 platform}\label{sec:esp32}
 %---------------------------------------------------------------
 
-In this chapter, a brief explanation of the ESP32 platform is presented. The main hardware and software features of the ESP32 microcontroller, which is used in this thesis, are described. The information provided is mainly based on the official ESP-IDF (the official development framework)\cite{espidf2022} and the ESP32 Technical reference manual\cite{esp322021}.
+In this chapter, a brief explanation of the ESP32 platform is presented. The main hardware and software features of the ESP32 microcontroller, which is used in this thesis, are described. The information provided is mainly based on the official ESP-IDF (the official development framework)~\cite{espidf2022} and the ESP32 Technical reference manual~\cite{esp322021}.
 
 \section{Hardware}
 
@@ -24,7 +24,7 @@ One possible form factor of the ESP32 microcontroller can be seen in Figure~\ref
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.45\textwidth]{images/esp32_wroom_module.jpg}
-    \caption[The ESP32-WROOM-32U module back and front image.]{The ESP32-WROOM-32U module back and front image.\cite{SOSelectronic2018}}
+    \caption[The ESP32-WROOM-32U module back and front image]{The ESP32-WROOM-32U module back and front image~\cite{SOSelectronic2018}}
     \label{fig:esp32_wroom_module}
 \end{figure}
 
@@ -32,11 +32,11 @@ One possible form factor of the ESP32 microcontroller can be seen in Figure~\ref
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/esp32_diagram.pdf}
-    \caption[ESP32 Chip Function Block Diagram.]{ESP32 Chip Function Block Diagram.\cite{Krent2018}}
+    \caption[ESP32 chip function block diagram]{ESP32 chip function block diagram~\cite{Krent2018}}
     \label{fig:esp32_diagram}
 \end{figure}
 
-ESP32 is a name for the original microcontroller from Espressif released in 2016. However, several other models have been developed since\cite{espidf2022}:
+ESP32 is a name for the original microcontroller from Espressif released in 2016. However, several other models have been developed since~\cite{espidf2022}:
 
 \begin{description}
     \item[ESP32-S2] A single-core version of the ESP32
@@ -49,7 +49,7 @@ Only the original ESP32 microcontroller was used during experiments and implemen
 
 \section{Memory layout}\label{sec:memory_layout}
 
-Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementation as the exact memory region used to extract the response needs to be considered. The ESP32 has several types of embedded memories and they are discussed here briefly. A detailed description of embedded memory address mapping can be seen in Table~\ref{table:memory_mapping}. The ESP32 uses a Harvard memory architecture. This means, that instructions and data use separate memories with dedicated buses.\cite{esp322021}
+Memory layout of the ESP32 is important for a \gls{sram} \gls{puf} implementation as the exact memory region used to extract the response needs to be considered. The ESP32 has several types of embedded memories and they are discussed here briefly. A detailed description of embedded memory address mapping can be seen in Table~\ref{table:memory_mapping}. The ESP32 uses a Harvard memory architecture. This means, that instructions and data use separate memories with dedicated buses.~\cite{esp322021}
 
 \begin{description}
     \item[ROM 0 and 1] \hfill \\
@@ -66,7 +66,7 @@ Flash memory can either be embedded inside the \gls{soc} or connected externally
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/memory_mapping.pdf}
-    \caption[ESP32 embedded memory address mapping.]{ESP32 embedded memory address mapping.\cite{esp322021}}
+    \caption[ESP32 embedded memory address mapping]{ESP32 embedded memory address mapping~\cite{esp322021}}
     \label{table:memory_mapping}
 \end{table}
 
@@ -80,11 +80,11 @@ There are several steps involved between power-up and the start of the user appl
     \item C runtime and FreeRTOS are initialized. Finally, the main task of the user application is called and the booting process is complete.
 \end{enumerate}
 
-The \emph{deep sleep wake stub} is a mechanism that enables the user to run custom code early in the boot process after waking up from deep sleep. It is implemented as a function stored in the FAST \gls{rtc} \gls{sram}. This function is then called by the first-stage bootloader before it loads the second stage.\cite{espidf2022}
+The \emph{deep sleep wake stub} is a mechanism that enables the user to run custom code early in the boot process after waking up from deep sleep. It is implemented as a function stored in the FAST \gls{rtc} \gls{sram}. This function is then called by the first-stage bootloader before it loads the second stage.~\cite{espidf2022}
 
 \section{ESP-IDF}
 
-ESP-IDF is an integrated development framework by Espressif. It contains libraries and source code for the ESP32 family of microcontrollers and provides a unified \gls{api} which is shared between the different microcontroller models. It also provides scripts for operating the toolchain, uploading applications and monitoring them.\cite{espidf2022}
+ESP-IDF is an integrated development framework by Espressif. It contains libraries and source code for the ESP32 family of microcontrollers and provides a unified \gls{api} which is shared between the different microcontroller models. It also provides scripts for operating the toolchain, uploading applications and monitoring them.~\cite{espidf2022}
 
 The latest stable version of ESP-IDF (on \today) is 4.4 and this version was used for all code used in this thesis on the ESP32 microcontrollers.
 
@@ -92,10 +92,10 @@ The latest stable version of ESP-IDF (on \today) is 4.4 and this version was use
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.45\textwidth]{images/upload_process.png}
-    \caption[Development of applications for ESP32]{Development of applications for ESP32.\cite{espidf2022}}
+    \caption[Development of applications for ESP32]{Development of applications for ESP32.~\cite{espidf2022}}
     \label{fig:upload_process}
 \end{figure}
 
 \section{FreeRTOS}
 
-A modified version of the \gls{rtos} FreeRTOS is used in ESP-IDF to create applications. Its main feature is enabling symmetric multiprocessing in order to utilize both CPU cores. Tasks play the role of threads and Wifi, Bluetooth and user tasks can be created and are managed by a real-time scheduler. The FreeRTOS also provides inter-task communication and synchronization \gls{api}.\cite{espidf2022}
+A modified version of the \gls{rtos} FreeRTOS is used in ESP-IDF to create applications. Its main feature is enabling symmetric multiprocessing in order to utilize both CPU cores. Tasks play the role of threads and Wifi, Bluetooth and user tasks can be created and are managed by a real-time scheduler. The FreeRTOS also provides inter-task communication and synchronization \gls{api}.~\cite{espidf2022}

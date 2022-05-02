@@ -20,11 +20,11 @@ The stable bit mask is created by measuring a \gls{puf} response multiple times.
 
 Two techniques were used to generate the stable bit mask. First, 1000 measurements of the \gls{puf} response were taken in 20 °C and the mask was created using the above-described method.
 
-The second technique was inspired by~\cite{Hanova2020}. Twelve different intermediate masks were created, each from 1000 measurements of the \gls{puf} response. The measurements for each mask were captured in different operating conditions.\footnote{The temperatures of -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60 and 70 °C were used for the twelve masks.} Then, the final mask was calculated as a bitwise logical AND from the twelve intermediate masks---a bit is declared stable if it is stable at all twelve operating temperatures.
+The second technique was inspired by~\cite{Hanova2020}. Twelve different intermediate masks were created, each from 1000 measurements of the \gls{puf} response. The measurements for each mask were captured in different operating conditions.\footnote{The temperatures of -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60 and 70~°C were used for the twelve masks.} Then, the final mask was calculated as a bitwise logical AND from the twelve intermediate masks---a bit is declared stable if it is stable at all twelve operating temperatures.
 
 \subsubsection*{Results}
 
-Table~\ref{table:stable_bits} shows the percentage of stable bits found in a 4 KB sample \gls{puf} response for all \glspl{mcu}. Three different error rates were chosen, 10 \%, 1 \% and 0.1 \%. As expected, lower error rate reduces the number of stable bits. Moreover, the temperature range mask (created by the second technique) further reduced the percentage of stable bits by about 17 \% compared to the 20 °C mask. Only the results for the deep sleep method of power-control are presented, as the temperature range mask cannot be used for the \gls{rtc} \gls{sram} method (because of the memory freezing effect). The error rate of 0.1 \% was chosen for the \gls{sram} \gls{puf} implementation as it provides the best reliability with only a minor reduction of available bits.
+Table~\ref{table:stable_bits} shows the percentage of stable bits found in a 4 KB sample \gls{puf} response for all \glspl{mcu}. Three different error rates were chosen, 10~\%, 1~\% and 0.1~\%. As expected, lower error rate reduces the number of stable bits. Moreover, the temperature range mask (created by the second technique) further reduced the percentage of stable bits by about 17~\% compared to the 20~°C mask. Only the results for the deep sleep method of power-control are presented, as the temperature range mask cannot be used for the \gls{rtc} \gls{sram} method (because of the memory freezing effect). The error rate of 0.1~\% was chosen for the \gls{sram} \gls{puf} implementation as it provides the best reliability with only a minor reduction of available bits.
 
 \begin{table}[ht!]
     \centering
@@ -58,9 +58,9 @@ Table~\ref{table:stable_bits} shows the percentage of stable bits found in a 4 K
     \vspace{-1.5em}
 \end{table}
 
-Table~\ref{table:reliability_stable_bits} shows reliability of \gls{puf} responses at different operating temperatures and for all \glspl{mcu}. The reference response was obtained at 20 °C and only the stable bits of the responses were selected using the 20 °C mask. The table shows results using the deep sleep power-control method, but the \gls{rtc} \gls{sram} method shows nearly identical results above -10 °C.
+Table~\ref{table:reliability_stable_bits} shows reliability of \gls{puf} responses at different operating temperatures and for all \glspl{mcu}. The reference response was obtained at 20 °C and only the stable bits of the responses were selected using the 20 °C mask. The table shows results using the deep sleep power-control method, but the \gls{rtc} \gls{sram} method shows nearly identical results above -10~°C.
 
-The best reliability is observed at 20°C, since this is the temperature the reference and stable bit mask were calculated at. With increasing distance from 20°C, the reliability reduces. However, reliability was increased significantly thanks to the stable bit preselection. Reliability results without the preselection can be found in Table~\ref{table:reliability_deep_sleep}.
+The best reliability is observed at 20~°C, since this is the temperature the reference and stable bit mask were calculated at. With increasing distance from 20~°C, the reliability reduces. However, reliability was increased significantly thanks to the stable bit preselection. Reliability results without the preselection can be found in Table~\ref{table:reliability_deep_sleep}.
 
 \begin{table}[ht!]
     \centering
@@ -88,12 +88,12 @@ The best reliability is observed at 20°C, since this is the temperature the ref
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method). Preselected stable bits with error rate of 0.1 \% were used.}
+    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method). Preselected stable bits with error rate of 0.1 \% were used}
     \label{table:reliability_stable_bits}
     \vspace{-1.5em}
 \end{table}
 
-Reliability table using the temperature range mask is not presented, as the reliability values for all temperatures and \glspl{mcu} are above 99.99 \%. This technique thus increases reliability significantly. Unfortunately, the creation of the temperature mask requires a controlled temperature environment and takes much longer, making the enrollment phase more difficult and costly. On the other hand, the 20 °C mask can be calculated easily (the exact value of temperature does not matter and room temperature suffices).
+Reliability table using the temperature range mask is not presented, as the reliability values for all temperatures and \glspl{mcu} are above 99.99~\%. This technique thus increases reliability significantly. Unfortunately, the creation of the temperature mask requires a controlled temperature environment and takes much longer, making the enrollment phase more difficult and costly. On the other hand, the 20~°C mask can be calculated easily (the exact value of temperature does not matter and room temperature suffices).
 
 % poznamka ze po selekci bitu stale vypadaji uniformity, reliability (mnohem lepsi lol, asi ukazat?) a uniqueness dobre
 % mozna pridat jednu tabulku s reliability pro 20 stupnu masku a pro vsechny masku?
@@ -106,7 +106,7 @@ Reliability table using the temperature range mask is not presented, as the reli
 
 Stable bit preselection managed to increase reliability significantly. However, for successful key reconstruction the reliability must be 100 \% as only a single bit flip renders the key unusable. For this reason, \glspl{ecc} are used as an additional method to reduce the noise of the \gls{puf} responses.
 
-One method of applying an \gls{ecc} to the \gls{puf} responses is called the code-offset construction. In the enrollment phase, a reference response needs to be chosen. A random code word of the used code is then subtracted from the response and the results are stored in a non-volatile memory. This data is called the helper data. During the key reconstruction phase, a new, potentially noisy \gls{puf} response is generated. Helper data are retrieved from memory and added to the response, creating the code word of the \gls{ecc}. This (also potentially noisy) code word is then decoded by the \gls{ecc}, correcting the errors.\cite{Sven2015}\cite{Dodis2008}
+One method of applying an \gls{ecc} to the \gls{puf} responses is called the code-offset construction. In the enrollment phase, a reference response needs to be chosen. A random code word of the used code is then subtracted from the response and the results are stored in a non-volatile memory. This data is called the helper data. During the key reconstruction phase, a new, potentially noisy \gls{puf} response is generated. Helper data are retrieved from memory and added to the response, creating the code word of the \gls{ecc}. This (also potentially noisy) code word is then decoded by the \gls{ecc}, correcting the errors.~\cite{Sven2015},~\cite{Dodis2008}
 
 The repetition code of length 8 was chosen for the \gls{sram} \gls{puf} implementation. It is very simple to implement and the encoding and decoding operations are extremely fast, because the code words are byte-sized. It is capable of correcting up to 3 errors and can detect up to 4 errors per byte.
 
@@ -116,11 +116,11 @@ The above-described code-offset construction is used for extracting the key. Add
     \centering
     \captionsetup{margin=0.5cm}
     \includegraphics[width=\textwidth]{images/ecc_diagram.pdf}
-    \caption[An example of enrollment and key reconstruction phases for a repetition code of length 5.]{An example of enrollment and key reconstruction phases for a repetition code of length 5. Red bits are the error bits (flipped compared to the reference response), other colors represent individual bits of the key.\cite{Kodytek2017}}
+    \caption[An example of enrollment and key reconstruction phases for a repetition code of length 5.]{An example of enrollment and key reconstruction phases for a repetition code of length 5. Red bits are the error bits (flipped compared to the reference response), other colors represent individual bits of the key.~\cite{Kodytek2017}}
     \label{fig:ecc_diagram}
 \end{figure}
 
-Since the \gls{ecc} can correct only a limited number of errors, the \gls{puf} response can be too noisy for the key to be properly reconstructed. The probability of this happening can be modeled using the binomial distribution. Assuming that all response bits are independent and have the same probability of error\footnote{Error is understood as a bit flip compared to the reference \gls{puf} response.}, the probability of successfully decoding a single code word can be calculated using the binomial cumulative distribution function:\cite{Iluminada2015}\cite{Bosch2008}
+Since the \gls{ecc} can correct only a limited number of errors, the \gls{puf} response can be too noisy for the key to be properly reconstructed. The probability of this happening can be modeled using the binomial distribution. Assuming that all response bits are independent and have the same probability of error\footnote{Error is understood as a bit flip compared to the reference \gls{puf} response.}, the probability of successfully decoding a single code word can be calculated using the binomial cumulative distribution function:~\cite{Iluminada2015},~\cite{Bosch2008}
 
 \begin{equation}\label{eq:binomial_cdf}
     F(k, n, p) = \sum_{i=0}^{k}\binom{n}{i}p^{i}(1-p^{n-i})
@@ -132,7 +132,7 @@ $N$ is the size of the code word, $k$ is the maximum number of corrected errors 
     P_{\textrm{succ}} = F(k, n, p)^{B} 
 \end{equation}
 
-For our case of the repetition code of length 8, maximum of three errors can be corrected in 8 bits. Therefore $n = 8$, $k = 3$ and $p$ can be estimated by the intra-Hamming distance or $1 - \textrm{reliability}$.\cite{Iluminada2015} $B$ was chosen as $4096 \times 0.7223 \approx 2958$: a 4 KB response and 72.23 \% of stable bits (a mean value across all \glspl{mcu} using the 20°C mask).
+For our case of the repetition code of length 8, maximum of three errors can be corrected in 8 bits. Therefore $n = 8$, $k = 3$ and $p$ can be estimated by the intra-Hamming distance or $1 - \textrm{reliability}$.~\cite{Iluminada2015} $B$ was chosen as $4096 \times 0.7223 \approx 2958$: a 4 KB response and 72.23~\% of stable bits (a mean value across all \glspl{mcu} using the 20~°C mask).
 
 \cite{Bosch2008} states that key reconstruction should achieve $P_{\textrm{succ}}$ of at least $1 - 10^{-6}$ or less than one error in a million. In order to meet this requirement, the value of reliability must be greater than 99.85 \% according to the equations above. Using this knowledge, it can be concluded that a \gls{sram} \gls{puf} implementation using the 20°C stable bit mask and deep sleep power-control method is suitable only in temperatures between approximately 0 and 40 °C (see Table~\ref{table:reliability_stable_bits}). A stronger \gls{ecc} needs to be used to extend the temperature range. As the temperature range mask achieves reliability greater than 99.99 \% in all temperatures, it is suitable to be used in all tested conditions with this \gls{ecc}.
 
@@ -152,7 +152,7 @@ The idea is, that the \gls{rtc} \gls{sram} method will be used for temperatures 
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.85\textwidth]{images/enrollment_diagram.pdf}
-    \caption{Enrollment diagram using the combination of both power-control methods to obtain the same PUF response.}
+    \caption{Enrollment diagram using the combination of both power-control methods to obtain the same PUF response}
     \label{fig:enrollment_diagram}
 \end{figure}
 
@@ -166,7 +166,7 @@ In order to choose which method to use, a detection mechanism of the freezing ef
 
 The mathematical model from Section~\ref{sec:ecc} tells us, that reliability needs to be at least 99.85~\%. This is equivalent to $\textrm{HD-intra} < 0.15~\%$ (or about 35 bit errors) as $\textrm{reliability = 100\% - \textrm{HD-intra}}$. Since HD-intra represents the percentage of bits that flip compared to the reference response, it can be estimated by the percentage of errors detected by the \gls{ecc}.
 
-The Hamming weight threshold was chosen as 48.5 \%, which is lower than the uniformity values from Table~\ref{table:uniformity_rtc_sram} for non-frozen memory.
+The Hamming weight threshold was chosen as 48.5~\%, which is lower than the uniformity values from Table~\ref{table:uniformity_rtc_sram} for non-frozen memory.
 
 \subsubsection*{Experimental verification of the threshold values}
 
@@ -176,7 +176,7 @@ In order to confirm that the selected threshold values are viable and really det
     \centering
     \captionsetup{margin=0.5cm}
     \includegraphics[width=\textwidth]{images/correct_responses_plot.png}
-    \caption[A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction.]{A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction. The green region represents data points where the \gls{rtc} \gls{sram} response is accepted as a valid response. Data obtained from \glspl{mcu} 1--6.}
+    \caption[A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction]{A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction. The green region represents data points where the \gls{rtc} \gls{sram} response is accepted as a valid response. Data obtained from \glspl{mcu} 1--6.}
     \label{fig:correct_responses_plot}
 \end{figure}
 % TODO caru kde beru jakoze je OK RTC SRAM metoda?
@@ -224,14 +224,14 @@ In this section, the results of testing of \gls{sram} \gls{puf} with combined po
     \bottomrule
 \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption[Success rate of reliable response extraction across all MCUs and temperatures.]{Success rate (\%) of reliable response extraction across all MCUs and temperatures. The 20 °C stable bit mask was used for stable bit preselection.}
+    \caption[Success rate of reliable response extraction across all MCUs and temperatures]{Success rate (\%) of reliable response extraction across all MCUs and temperatures. The 20 °C stable bit mask was used for stable bit preselection.}
     \label{table:reconstruction_reliability}
     \vspace{-1.5em}
 \end{table}
 
-The outlier in this experiment is the \gls{mcu} 16. It is the only one with incorrect reconstructions at 70 °C (and the success rate is quite low too). As this is the same \gls{mcu} as the one from Figure~\ref{fig:16_response_sleep}, lower success rate of this chip may be linked to its weird startup memory behavior.
+The outlier in this experiment is the \gls{mcu} 16. It is the only one with incorrect reconstructions at 70~°C (and the success rate is quite low too). As this is the same \gls{mcu} as the one from Figure~\ref{fig:16_response_sleep}, lower success rate of this chip may be linked to its weird startup memory behavior.
 
-Results using the temperature range mask are not presented, as all \glspl{mcu} reached 100 \% success rate at all temperatures. This matches expectations of the stable bits reliability results (all were above 99.99 \%).
+Results using the temperature range mask are not presented, as all \glspl{mcu} reached 100 \% success rate at all temperatures. This matches expectations of the stable bits reliability results (all were above 99.99~\%).
 
-Furthermore, the \gls{rtc} \gls{sram} method stops working at about -5°C and 100~\% success rate was observed around this temperature. This proves that the fallback mechanism of the combined power-control \gls{puf} works reliably.
+Furthermore, the \gls{rtc} \gls{sram} method stops working at about -5~°C and 100~\% success rate was observed around this temperature. This proves that the fallback mechanism of the combined power-control \gls{puf} works reliably.
 

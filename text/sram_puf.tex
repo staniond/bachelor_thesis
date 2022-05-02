@@ -2,7 +2,7 @@
 
 \gls{sram} \gls{puf} is based on a random startup behaviour of individual \gls{sram} cells. It was first proposed by~\cite{Guajardo2007} in 2007.
 
-In a \gls{cmos} implementation (which is used to create 99\% of integrated circuits as of 2011\cite{Voinigescu2013}) a \gls{sram} cell is usually made up of two cross-coupled inverters. The inverters reinforce each other of their state, thus creating a bistable circuit---a circuit with only two stable states. This enables the cell to save exactly one logical bit. Each inverter is implemented using two transistors and additional two transistors are used to enable read and write operations. This means that storage of a single bit costs six transistors in hardware.\cite{Maes2010}
+In a \gls{cmos} implementation (which is used to create 99\% of integrated circuits as of 2011~\cite{Voinigescu2013}) a \gls{sram} cell is usually made up of two cross-coupled inverters. The inverters reinforce each other of their state, thus creating a bistable circuit---a circuit with only two stable states. This enables the cell to save exactly one logical bit. Each inverter is implemented using two transistors and additional two transistors are used to enable read and write operations. This means that storage of a single bit costs six transistors in hardware.~\cite{Maes2010}
 
 The logical diagram of a \gls{sram} cell containing the two inverters is illustrated in Figure~\ref{fig:sram_cell_logic} and a diagram with the transistor layout of the cell is shown in Figure~\ref{fig:sram_cell_cmos}.
 
@@ -12,20 +12,20 @@ The logical diagram of a \gls{sram} cell containing the two inverters is illustr
     \begin{subfigure}[c]{0.5\textwidth}
         \centering
         \includegraphics[width=0.85\linewidth]{images/transistor_sram_cell.pdf}
-        \caption{A CMOS diagram of a SRAM cell.}
+        \caption{A CMOS diagram of a SRAM cell}
         \label{fig:sram_cell_cmos}
     \end{subfigure}%
     \begin{subfigure}[c]{0.5\textwidth}
         \centering
         \includegraphics[width=0.6728\linewidth]{images/logic_sram_cell.pdf}
-        \caption{A logic circuit diagram of a SRAM cell.}
+        \caption{A logic circuit diagram of a SRAM cell}
         \label{fig:sram_cell_logic}
     \end{subfigure}
-    \caption[CMOS and logic circuit diagrams of a SRAM cell.]{CMOS and logic circuit diagrams of a SRAM cell.\cite{Maes2012}}
+    \caption[CMOS and logic circuit diagrams of a SRAM cell]{CMOS and logic circuit diagrams of a SRAM cell~\cite{Maes2012}}
     \label{fig:sram_cell}
 \end{figure}
 
-The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either a `1' or a `0' state. Which state the cell stabilizes on is dependent on a relative strength\footnote{Strength here means the properties of the underlying \gls{mosfet} transistors (such as delay).} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.\cite{Maes2010}
+The principle of a \gls{sram} \gls{puf} is based on the power-up values of the memory cells. The memory cells are volatile---when power is lost, the data disappears from memory. After startup, each cell has to initialize to either a `1' or a `0' state. Which state the cell stabilizes on is dependent on a relative strength\footnote{Strength here means the properties of the underlying \gls{mosfet} transistors (such as delay).} of the two inverters. Since the inverters are designed identically, their strength is determined by random process variations during manufacturing.~\cite{Maes2010}
 
 For each cell independently, the two following cases can happen:
 
@@ -40,23 +40,23 @@ During fabrication, each cell acquires its specific properties and thus its star
     \centering
     \captionsetup{justification=justified,margin=0.5cm}
     \includegraphics[width=0.5\textwidth]{images/sram_puf_stability.jpg}
-    \caption[Illustration of SRAM cell stability.]{Illustration of SRAM cell stability. A small area of SRAM cells is shown. The lightness of each cell indicates the probability that the cell's startup state will be `1'. Note that most of the cells are either nearly black or nearly white. Meaning they are stable and their preferred state is `0` or `1` respectively.~\cite{Holcomb2009}.}
+    \caption[Illustration of SRAM cell stability.]{Illustration of SRAM cell stability. A small area of SRAM cells is shown. The lightness of each cell indicates the probability that the cell's startup state will be `1'. Note that most of the cells are either nearly black or nearly white. Meaning they are stable and their preferred state is `0` or `1` respectively.~\cite{Holcomb2009}}
     \label{fig:sram_puf_stability}
 \end{figure}
 
-It turns out, that the process variations are significant enough that most \gls{sram} cells tend to be stable. This enables the startup values of memory to be used as \gls{puf} responses. Challenge can be interpreted as a concrete address in memory. The response is then read from this address.\cite{Maes2013}
+It turns out, that the process variations are significant enough that most \gls{sram} cells tend to be stable. This enables the startup values of memory to be used as \gls{puf} responses. Challenge can be interpreted as a concrete address in memory. The response is then read from this address.~\cite{Maes2013}
 
-For the construction of a \gls{sram} \gls{puf}, stable cells are important. The unstable ones can be considered harmful as they decrease reliability. However, thanks to their unknown initial state which is determined randomly after every startup, they are useful for the construction of \glspl{trng}.\cite{Holcomb2009}
+For the construction of a \gls{sram} \gls{puf}, stable cells are important. The unstable ones can be considered harmful as they decrease reliability. However, thanks to their unknown initial state which is determined randomly after every startup, they are useful for the construction of \glspl{trng}.~\cite{Holcomb2009}
 
 A huge advantage of \gls{sram} \glspl{puf} is, that \gls{sram} memory is usually already present in chips. If the device possesses a suitable mechanism of power state control of its memory (the ability to turn off blocks of memory, power-saving states that turn off memory), no additional hardware is needed. Therefore this type of \gls{puf} could potentially be implemented in devices that were not designed to contain a \gls{puf} at all.
 
 Data remanence time of \gls{sram} memory needs to be taken into account as well. The memory cell remembers its state even for a short period of time after power is lost. If power is turned on again before this time, the saved data can still be found in memory. The remanence time is greatly affected by temperature. Lower temperature results in longer retention time. This effect can be observed on the ESP32 \gls{sram} in Sections~\ref{sec:deep_sleep_analysis} and~\ref{sec:rtc_analysis}.
 
-The \gls{puf} implementation must guarantee that the memory has been unpowered long enough. Otherwise, the startup memory values used as a \gls{puf} response can be altered by a potential attacker and can be for example used to manipulate the reconstructed cryptographic key.\cite{Nikolaos2018}
+The \gls{puf} implementation must guarantee that the memory has been unpowered long enough. Otherwise, the startup memory values used as a \gls{puf} response can be altered by a potential attacker and can be for example used to manipulate the reconstructed cryptographic key.~\cite{Nikolaos2018}
 
 \section{SRAM PUF and its properties}\label{sec:srampuf_properties}
 
-\glspl{puf} constructions can be characterized by several properties. They have been discussed in Section~\ref{sec:properties}. However, not every \gls{puf} needs to exhibit all of them. Therefore a discussion about what particular properties a \gls{sram} \gls{puf} meets is provided according to \cite{Maes2013}. The summary of properties of \gls{sram} \gls{puf} can be found in Table~\ref{table:sram_puf_properties}.
+\glspl{puf} constructions can be characterized by several properties. They have been discussed in Section~\ref{sec:properties}. However, not every \gls{puf} needs to exhibit all of them. Therefore a discussion about what particular properties a \gls{sram} \gls{puf} meets is provided according to~\cite{Maes2013}. The summary of properties of \gls{sram} \gls{puf} can be found in Table~\ref{table:sram_puf_properties}.
 
 \begin{table}[ht!]
 \centering
@@ -77,7 +77,7 @@ The \gls{puf} implementation must guarantee that the memory has been unpowered l
      \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Summarization of properties of SRAM PUF.}
+    \caption{Summarization of properties of SRAM PUF}
     \label{table:sram_puf_properties}
 \end{table}
 
@@ -104,14 +104,14 @@ The \gls{puf} implementation must guarantee that the memory has been unpowered l
     \item[One-wayness:] \hfill \\
         One-wayness (similar to mathematical unclonability) requires the \gls{puf} to have a sufficiently large challenge and response sets. Because \gls{sram} \glspl{puf} are weak, they are not one-way.
     \item[Tamper evidence:] \hfill \\
-        Not enough research has been conducted to declare whether \gls{sram} \glspl{puf} are tamper evident or not\cite{Maes2012}. However, it has been shown that it is possible to strip the device of most unrelated silicon without changing the \gls{puf} response significantly\cite{Helfmaier2013}. Additionally,~\cite{Nedospasov2013} showed that it is possible to extract full \gls{puf} responses from AVR microcontrollers\footnote{the experiment was conducted on an ATMega328P and an ATXMega128A1 models} by disabling the logic core and using a semi-invasive laser probing technique to read the startup memory values.
+        Not enough research has been conducted to declare whether \gls{sram} \glspl{puf} are tamper evident or not~\cite{Maes2012}. However, it has been shown that it is possible to strip the device of most unrelated silicon without changing the \gls{puf} response significantly~\cite{Helfmaier2013}. Additionally,~\cite{Nedospasov2013} showed that it is possible to extract full \gls{puf} responses from AVR microcontrollers\footnote{the experiment was conducted on an ATMega328P and an ATXMega128A1 models} by disabling the logic core and using a semi-invasive laser probing technique to read the startup memory values.
 \end{description}
 
 
 \section{Stable response extraction}
 % je tahle sekce OK???
 
-Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation. The resulting key must be the same every time it is reconstructed. Therefore, the stability of the response needs to be guaranteed. Several methods that increase stability exist---\gls{tmv}, \gls{ecc}, direct bit preselection and indirect bit preselection.\cite{Shifman2018}
+Since \gls{sram} \glspl{puf} are weak, they are usually used for key generation. The resulting key must be the same every time it is reconstructed. Therefore, the stability of the response needs to be guaranteed. Several methods that increase stability exist---\gls{tmv}, \gls{ecc}, direct bit preselection and indirect bit preselection.~\cite{Shifman2018}
 
 \subsubsection*{Temporal majority voting}
 
@@ -131,7 +131,7 @@ In direct preselection, the \gls{puf} response is first measured multiple times.
     \centering
     \captionsetup{justification=justified,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/bit_stability.png}
-    \caption[Average startup values of individual SRAM cells over 1000 measurements.]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black bits are stable `0' and the rest are unstable bits with varying amounts of bias (according to the color bar on the right). Cells with an average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 at 20°C.}
+    \caption[Average startup values of individual SRAM cells over 1000 measurements]{Average startup values of individual SRAM cells over 1000 measurements. White bits are stable `1', black bits are stable `0' and the rest are unstable bits with varying amounts of bias (according to the color bar on the right). Cells with an average value of 0.5 are the least stable. The data was obtained from ESP32 number 12 at 20°C.}
     \label{fig:bit_stability_mask}
 \end{figure}
 
@@ -145,15 +145,15 @@ First, set all the bits to the `0' state. Then, turn off the memory for a short 
 
 Normal operation of \gls{sram} memory unavoidably alters its physical properties. These processes can affect the stability of \gls{sram} \gls{puf} and are called silicon aging.
 
-The dominant effect which directly alters the stability of memory cells is called \gls{nbti}. \gls{nbti} is a data-dependent aging effect. If the cell stores a `1' bit, its startup state preference slowly starts to change towards the `0' state. This is the result of a threshold voltage increase on the transistors which are switched on in the current state, whereas the switched off transistors are unaffected. This means, that the \gls{sram} \gls{puf} has a natural tendency to become less stable over time if the startup data is left unchanged in memory.\cite{Roelke2018}
+The dominant effect which directly alters the stability of memory cells is called \gls{nbti}. \gls{nbti} is a data-dependent aging effect. If the cell stores a `1' bit, its startup state preference slowly starts to change towards the `0' state. This is the result of a threshold voltage increase on the transistors which are switched on in the current state, whereas the switched off transistors are unaffected. This means, that the \gls{sram} \gls{puf} has a natural tendency to become less stable over time if the startup data is left unchanged in memory.~\cite{Roelke2018}
 
-Anti-aging techniques, which try to counteract \gls{nbti} and other effects, exist. A simple example is to store an inverse of the startup data after response extraction. However, this is a security risk as leakage of this data would directly reveal the startup memory values. Another solution could be to overwrite the memory with a random string after every power up. This results in less effective anti-aging, but avoids the security risk of a data leak.\cite{Maes2014}
+Anti-aging techniques, which try to counteract \gls{nbti} and other effects, exist. A simple example is to store an inverse of the startup data after response extraction. However, this is a security risk as leakage of this data would directly reveal the startup memory values. Another solution could be to overwrite the memory with a random string after every power up. This results in less effective anti-aging, but avoids the security risk of a data leak.~\cite{Maes2014}
 
 \section{Related work}
 
 Since the main objective of this thesis is to analyze the possibility of implementing a \gls{sram} \gls{puf} on the ESP32 microcontroller, it is important to look at the already existing solutions.
 
-The authors of \cite{Deutschmann2018} have performed an analysis of \gls{sram} \gls{puf} implementations on existing \gls{iot} platforms. ESP32 was among the analyzed technologies. However, the information presented is extremely limited. The mechanism by which they obtained the \gls{puf} responses is not known and the operating conditions during the analysis were not specified. Furthermore, the analysis was performed using only two ESP32 microcontrollers. They also present uniformity and reliability evaluation of the \gls{puf}, though their results differ significantly from the findings in this thesis (presented in Chapter~\ref{sec:implementation}).
+The authors of~\cite{Deutschmann2018} have performed an analysis of \gls{sram} \gls{puf} implementations on existing \gls{iot} platforms. ESP32 was among the analyzed technologies. However, the information presented is extremely limited. The mechanism by which they obtained the \gls{puf} responses is not known and the operating conditions during the analysis were not specified. Furthermore, the analysis was performed using only two ESP32 microcontrollers. They also present uniformity and reliability evaluation of the \gls{puf}, though their results differ significantly from the findings in this thesis (presented in Chapter~\ref{sec:implementation}).
 
 \cite{Javier2020} proposed a solution for secure management of \gls{iot} devices based on blockchain non-fungible tokens. In their research, the blockchain account seed was not stored digitally but was reconstructed using a \gls{sram} \gls{puf}. A proof of concept was developed and tested on three ESP32 development boards. They successfully reconstructed the seed using direct stable bit preselection and a repetition \gls{ecc}. However, the \gls{puf} was not tested in different operating conditions and no evaluation parameters were used.
 

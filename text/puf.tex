@@ -9,15 +9,15 @@
 As \glspl{puf} are the main subject of this thesis, it is important to provide a thorough explanation of what a \gls{puf} is, what types and classes exist and what are
 the applications of this technology.
 
-Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be written as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a comparable way to how humans have their own unique fingerprints.\cite{Maes2013}
+Since more and more types of \glspl{puf} are being invented, it turns out that creating a generalizable description is not a straightforward task. A dictionary definition of a \gls{puf} could be written as: \say{a PUF is an expression of an inherent and unclonable instance-specific feature of a physical object}. One can imagine a \gls{puf} being an object's fingerprint in a comparable way to how humans have their own unique fingerprints.~\cite{Maes2013}
 
-The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \gls{powf}, which he described as a function operating on a physical system that could be easily computed but not easily inverted.\cite{Pappu2001} The first mention of the term \gls{puf} was by Gassend et al.\ in 2002. He talks about \glspl{prf} and a \gls{puf} implementation using \glspl{fpga}.\cite{Gassend2002}
+The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \gls{powf}, which he described as a function operating on a physical system that could be easily computed but not easily inverted.\cite{Pappu2001} The first mention of the term \gls{puf} was by Gassend et al.\ in 2002. He talks about \glspl{prf} and a \gls{puf} implementation using \glspl{fpga}.~\cite{Gassend2002}
 
 As \gls{puf} is a function, it has inputs and outputs. However, it is not a function in a true mathematical way. It could be described as a procedure performed on a particular device. Its inputs consist of a challenge and a physical state of the device. Given the input, the \gls{puf} produces an output (called a response). Together, they form challenge-response pairs.   
 
 A hugely important property of \glspl{puf} is unclonability. It is achieved by the physical state of the device which acts as the input to the function and influences the responses produced by the \gls{puf}. The concrete details of the physical state used is what distinguishes different \gls{puf} implementations. These physical properties could be for example propagation delay in the chip circuit or bias of uninitialized memory cells to 1 or 0 state. The latter is a basis for \gls{sram} \gls{puf}, which is a topic of this thesis. These properties are fundamentally random since they are created by uncontrollable physical processes during manufacturing. This makes them physically unclonable.
 
-Since the physical state of the device can change with time and environment (for example temperature or input voltage variations), the challenge-response pairs can change as well. The requirement is, that for the same challenge, the responses should be similar enough for us to be able to recognize that they belong to the same challenge. The \gls{puf} responses are also required to differ from device to device even with the same challenge.\cite{Kodytek2020}
+Since the physical state of the device can change with time and environment (for example temperature or input voltage variations), the challenge-response pairs can change as well. The requirement is, that for the same challenge, the responses should be similar enough for us to be able to recognize that they belong to the same challenge. The \gls{puf} responses are also required to differ from device to device even with the same challenge.~\cite{Kodytek2020}
 
 Because of these properties, \glspl{puf} can be used in devices to enable secure identification, authentication as well as cryptographic key generation. More of the required properties of \glspl{puf}, their classification, possible applications and implementations will be discussed in more detail in the next sections.
 
@@ -45,7 +45,7 @@ Reproducibility requires that for a specific \gls{puf} instance, responses produ
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/reproducibility}
-    \caption[Reproducibility: responses to the same PUF challenge need to be similar.]{reproducibility: responses to the same PUF challenge need to be similar~\cite{Kodytek2017}.}
+    \caption[Reproducibility: responses to the same PUF challenge need to be similar]{Reproducibility: responses to the same PUF challenge need to be similar~\cite{Kodytek2017}}
     \label{fig:reproducibility}
 \end{figure}
 
@@ -57,7 +57,7 @@ While reproducibility talks about the behaviour of a specific \gls{puf}, uniquen
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/uniqueness}
-    \caption[Uniqueness: two PUF instances must produce different responses if given the same challenge.]{uniqueness: two PUF instances must produce different responses if given the same challenge~\cite{Kodytek2017}.}
+    \caption[Uniqueness: two PUF instances must produce different responses if given the same challenge]{Uniqueness: two PUF instances must produce different responses if given the same challenge~\cite{Kodytek2017}}
     \label{fig:uniqueness}
 \end{figure}
 
@@ -95,13 +95,13 @@ Similar to mathematical unclonability, the \gls{puf} needs to have a sufficientl
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.75\textwidth]{images/one-wayness}
-    \caption{One-wayness: it is impossible to find a challenge corresponding to a given response.}
+    \caption{One-wayness: it is impossible to find a challenge corresponding to a given response}
     \label{fig:one-wayness}
 \end{figure}
 
 \subsection*{Tamper Evidence}
 
-Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example, invasive attacks (such as microprobing) are able to extract sensitive data from the target system.\cite{Kommerling1999}
+Tampering with devices in order to compromise their integrity has proven to be a successful technique. For example, invasive attacks (such as microprobing) are able to extract sensitive data from the target system.~\cite{Kommerling1999}
 
 Tamper evidence helps to mitigate such attack vectors. The \gls{puf} must detect the attempt to tamper with the system and change its challenge-response pairs to a different set as if the \gls{puf} instance transforms itself to a completely different one.
 
@@ -111,13 +111,13 @@ To achieve this property, the \gls{puf} implementation needs to rely on physical
 \section{PUF classification}
 %--------------------------------
 
-A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation\cite{Shital2017}\cite{McGrath2019}. A diagram of the discussed \gls{puf} classes is depicted in Figure~\ref{fig:classification}.
+A lot of different \gls{puf} implementations have been proposed. They can be classified based on fabrication, security and intrinsic evaluation~\cite{Shital2017},~\cite{McGrath2019}. A diagram of the discussed \gls{puf} classes is depicted in Figure~\ref{fig:classification}.
 
 \begin{figure}[ht!]
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/classification}
-    \caption{Classification of PUFs.}
+    \caption{Classification of PUFs}
     \label{fig:classification}
 \end{figure}
 
@@ -125,16 +125,16 @@ A lot of different \gls{puf} implementations have been proposed. They can be cla
 
 Electronic \glspl{puf} source their randomness from electronic components. This means that they rely on properties such as capacitance, resistance or propagation delay of a circuit.
 
-A large subclass of electronic \glspl{puf} is silicon \glspl{puf}. They can be constructed only using \gls{cmos} technology, therefore they can be implemented on the same die together with the main chip. This prevents the need to interface with additional circuitry using external buses, lowering cost and limiting the possibility of leaking sensitive data.\cite{Maes2013}
+A large subclass of electronic \glspl{puf} is silicon \glspl{puf}. They can be constructed only using \gls{cmos} technology, therefore they can be implemented on the same die together with the main chip. This prevents the need to interface with additional circuitry using external buses, lowering cost and limiting the possibility of leaking sensitive data.~\cite{Maes2013}
 
 Examples of electronic \glspl{puf} are \gls{sram} \gls{puf}, \gls{ropuf} or arbiter \gls{puf}.
 
-Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-response pairs. While randomness introduced into the system is of non-electronic nature, the signal is usually processed and stored using electronic components. Hence the name hybrid \glspl{puf}. They can be based on optics (optical \gls{puf}), magnetism (magnetic \gls{puf}) or quantum effects (quantum \gls{puf}\cite{Koustubh2021}).
+Hybrid \glspl{puf} use non-electronic phenomena to create their challenge-response pairs. While randomness introduced into the system is of non-electronic nature, the signal is usually processed and stored using electronic components. Hence the name hybrid \glspl{puf}. They can be based on optics (optical \gls{puf}), magnetism (magnetic \gls{puf}) or quantum effects (quantum \gls{puf}~\cite{Koustubh2021}).
 
 
 \subsection{Intrinsic and non-intrinsic PUFs}\label{sec:intrinsic_nonintrinsic}
 
-A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions\cite{Maes2010}:
+A \gls{puf} implementation is said to be intrinsic if it satisfies the following two conditions~\cite{Maes2010}:
 
 \begin{enumerate}
     \item responses are evaluated internally
@@ -143,19 +143,19 @@ A \gls{puf} implementation is said to be intrinsic if it satisfies the following
 
 Internal evaluation requires the measurement equipment of the \gls{puf} to be embedded in the device. This, similar to silicon \glspl{puf}, lowers cost and is more secure.
 
-The second condition discusses the introduction of randomness into the system. Implicit randomness relies on process variations taking place during normal manufacturing, while explicit randomness needs to be created by special procedures which would have not been needed otherwise (such as doping with random dielectric particles for the construction of a coating \gls{puf}\cite{Kori2006}).
+The second condition discusses the introduction of randomness into the system. Implicit randomness relies on process variations taking place during normal manufacturing, while explicit randomness needs to be created by special procedures which would have not been needed otherwise (such as doping with random dielectric particles for the construction of a coating \gls{puf}~\cite{Kori2006}).
 
-\gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-intrinsic. For example, optical or coating \glspl{puf} are non-intrinsic.\cite{Maes2012}
+\gls{sram} and arbiter \glspl{puf} are examples of intrinsic \glspl{puf}. If the \gls{puf} construction does not satisfy the given properties, it is called non-intrinsic. For example, optical or coating \glspl{puf} are non-intrinsic.~\cite{Maes2012}
 
 \subsection{Strong and weak PUFs}
 
 Security based classification distinguishes \gls{puf} implementations according to the size of their challenge-response pair sets.
 
-In order for a \gls{puf} to be classified as strong, its challenge-response pair set needs to be sufficiently large to prevent an exhaustive search by a possible attacker. The challenge-response pair size thus scales well (preferably exponentially) with some construction parameter.\cite{Guajardo2007}
+In order for a \gls{puf} to be classified as strong, its challenge-response pair set needs to be sufficiently large to prevent an exhaustive search by a possible attacker. The challenge-response pair size thus scales well (preferably exponentially) with some construction parameter.~\cite{Guajardo2007}
 
 On the other hand, weak \glspl{puf} have only a limited set of challenge-response pairs. Some \glspl{puf} can only have one pair. They are sometimes called \gls{pok}.
 
-As the naming implies, strong \gls{puf} constructions possess, in some sense, greater security. Weak \glspl{puf} cannot be mathematically unclonable (and consequently cannot be truly unclonable or unpredictable). Strong \glspl{puf} can also be used in more applications, as explained in Section~\ref{sec:puf_applications}. However, it turns out that constructing a strong \gls{puf} is a very hard problem.\cite{Maes2013}
+As the naming implies, strong \gls{puf} constructions possess, in some sense, greater security. Weak \glspl{puf} cannot be mathematically unclonable (and consequently cannot be truly unclonable or unpredictable). Strong \glspl{puf} can also be used in more applications, as explained in Section~\ref{sec:puf_applications}. However, it turns out that constructing a strong \gls{puf} is a very hard problem.~\cite{Maes2013}
 
 %--------------------------------
 \section{PUF evaluation parameters}\label{sec:puf_evaluation}
@@ -181,7 +181,7 @@ The Hamming weight $\textrm{HW}(x)$ of a bit string \emph{x} is defined as the n
 
 The Hamming distance $\textrm{HD}(x, y)$ of two bit strings \emph{x} and \emph{y} is defined as a number of positions where the bits of \emph{x} and \emph{y} differ.
 
-The reference response $R_{i}^{'}(n)$ is the expected response of \emph{n} bits produced by the chip \emph{i}. It is usually computed as a bitwise average between \emph{m} response samples taken in normal operating conditions. However, some works choose the reference response as the first measured sample.\cite{Kodytek2020}
+The reference response $R_{i}^{'}(n)$ is the expected response of \emph{n} bits produced by the chip \emph{i}. It is usually computed as a bitwise average between \emph{m} response samples taken in normal operating conditions. However, some works choose the reference response as the first measured sample.~\cite{Kodytek2020}
 
 \begin{table}[h!]
 \centering
@@ -199,7 +199,7 @@ The reference response $R_{i}^{'}(n)$ is the expected response of \emph{n} bits 
      \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Notation used in evaluation parameters definitions.}
+    \caption{Notation used in evaluation parameters definitions}
     \label{table:notation}
 \end{table}
 
@@ -213,7 +213,7 @@ The uniformity property for one response of chip \emph{i} is defined by Equation
     U_{i} = \frac{1}{n}\sum_{j=1}^{n}r_{i,j}^{'} = \frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\% 
 \end{equation}
 
-Uniformity can also be calculated as an average value between k \gls{puf} instances of the same type by Equation~\ref{eq:avg_uniformity}\cite{Maiti2011}:
+Uniformity can also be calculated as an average value between k \gls{puf} instances of the same type by Equation~\ref{eq:avg_uniformity}~\cite{Maiti2011}:
 
 \begin{equation}\label{eq:avg_uniformity}
     U_{\textrm{avg}} = \frac{1}{k}\sum_{i=1}^{k}U_{i} = \frac{1}{k}\sum_{i=1}^{k}\frac{\textrm{HW}(R_{i}^{'}(n))}{n} \cdot 100\%
@@ -235,7 +235,7 @@ That is the first half of the response bits are ones and the second half are all
 
 Reliability is a parameter that measures the consistency of \gls{puf} responses to the same challenge. It is tied to the reproducibility property from Section~\ref{sec:reproducibility}.
 
-In order to calculate reliability, the intra-Hamming distance for a chip \emph{i} needs to be defined first\cite{Maiti2011}: 
+In order to calculate reliability, the intra-Hamming distance for a chip \emph{i} needs to be defined first~\cite{Maiti2011}: 
 
 \begin{equation}\label{eq:hd_intra}
     \textrm{HD-intra}_{i} = \frac{1}{m} \sum_{j=1}^{m}\frac{\textrm{HD}(R_{i,j}(n), R_{i}^{'}(n))}{n} \cdot 100 \%
@@ -267,7 +267,7 @@ The inter-Hamming distance takes all combinations of pairs of devices and comput
 
 Uniformity in Section~\ref{sec:uniformity} looks at the global bias of \gls{puf} responses from a single device. On the other hand, bit-aliasing measures the proportion of zero and one state of a single bit across different devices.
 
-Bit-aliasing is calculated as the percentage Hamming weight of the \emph{j}-th bit. It is defined by Equation~\ref{eq:bit_aliasing}\cite{Maiti2011}:
+Bit-aliasing is calculated as the percentage Hamming weight of the \emph{j}-th bit. It is defined by Equation~\ref{eq:bit_aliasing}~\cite{Maiti2011}:
 
 \begin{equation}\label{eq:bit_aliasing}
     \textrm{Bit-aliasing}_{j} = \frac{1}{k}\sum_{i=1}^{k}r_{i, j}^{'} \cdot 100\%
@@ -283,9 +283,9 @@ As \gls{puf} responses need to be unpredictable, they are required to contain su
 
 The \acrshort{nist} randomness test uses the \acrshort{nist} statistical test suite to determine if the data is sufficiently random. Each test from the battery is tested for the null hypothesis that the response data is truly random on some set significance level.
 
-Furthermore, each test is executed multiple times on different sequences of the data and a p-value for each run is calculated. These p-values are then tested for the null hypothesis that they are from a uniform distribution, as would be the case for truly random data.\cite{NIST2010}
+Furthermore, each test is executed multiple times on different sequences of the data and a p-value for each run is calculated. These p-values are then tested for the null hypothesis that they are from a uniform distribution, as would be the case for truly random data.~\cite{NIST2010}
 
-However, not all tests can be used as they require more input data than is practically possible to generate by the \gls{puf}. Tests for which only 170-bit string suffices are listed here\cite{Leest2010}:
+However, not all tests can be used as they require more input data than is practically possible to generate by the \gls{puf}. Tests for which only 170-bit string suffices are listed here~\cite{Leest2010}:
 
 \begin{itemize}
     \item Frequency (monobit) test
@@ -299,9 +299,9 @@ However, not all tests can be used as they require more input data than is pract
 
 \subsubsection*{Compression test}
 
-The idea behind compression test is simple. If a lossless compression algorithm is able to reduce the size of the tested data, it does not have full entropy\footnote{Meaning the entropy in bits is the same as the length of the data in bits.}\cite{Leest2010}.
+The idea behind compression test is simple. If a lossless compression algorithm is able to reduce the size of the tested data, it does not have full entropy\footnote{Meaning the entropy in bits is the same as the length of the data in bits.}~\cite{Leest2010}.
 
-A good example of a compression algorithm to use is the \gls{ctw} algorithm as it was shown to produce the best results out of the commonly used entropy estimators\cite{Yun2008}.
+A good example of a compression algorithm to use is the \gls{ctw} algorithm as it was shown to produce the best results out of the commonly used entropy estimators~\cite{Yun2008}.
 
 \section{PUF applications}\label{sec:puf_applications}
 %--------------------------------
@@ -313,7 +313,7 @@ Thanks to the properties described in Section~\ref{sec:properties}, \glspl{puf} 
 
 A \gls{puf} can be compared to a device's fingerprint. The \gls{puf} provides an inherent identifying feature\footnote{Inherent identity is a unique characteristic of the device itself (a \gls{puf} response), while assigned identity is an artificially made up property (a serial number).} to the entity encapsulating it.  Therefore, device identification is a natural application for \glspl{puf}. A simple identification protocol using the device's \gls{puf} is described.
 
-The process of device identification consists of two phases: enrollment and identification\cite{Maes2012}.
+The process of device identification consists of two phases: enrollment and identification~\cite{Maes2012}.
 
 \begin{description}
     \item[Enrollment phase:] \hfill \\ In this phase, the inherent identifying feature of every considered device is collected. This means saving a \gls{puf} response from each device to a database.
@@ -328,7 +328,7 @@ The property of identifiability (discussed in Section~\ref{sec:identifiability})
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[scale=0.225]{images/identification_histogram.png}
-    \caption[PUF identification: intra and inter HD distributions.]{PUF identification: intra and inter HD distributions\cite{Hori2013}.}
+    \caption[PUF identification: intra and inter HD distributions]{PUF identification: intra and inter HD distributions~\cite{Hori2013}}
     \label{fig:puf_inter_intra_hd}
 \end{figure}
 
@@ -340,9 +340,9 @@ If the distributions overlap, a compromise between \gls{far} and \gls{frr} must 
 
 \subsection{Authentication}
 
-Authentication requires the entity, which wants to authenticate itself to a verifier, to provide proof of its identity. The entity also needs to convince the verifier that it actively participated in the creation of the proof.\cite{Maes2012}
+Authentication requires the entity, which wants to authenticate itself to a verifier, to provide proof of its identity. The entity also needs to convince the verifier that it actively participated in the creation of the proof.~\cite{Maes2012}
 
-A simple protocol based on the challenge-response pairs of \glspl{puf} will be presented here. It is divided into two distinct phases: enrollment and authentication.\cite{Devadas2008}
+A simple protocol based on the challenge-response pairs of \glspl{puf} will be presented here. It is divided into two distinct phases: enrollment and authentication.~\cite{Devadas2008}
 
 \begin{description}
     \item[Enrollment phase:] \hfill \\ During this phase, a trusted third party (the verifier) is in possession of the device which will later be authenticated. A sufficient number of randomly generated challenges along with the corresponding responses (obtained from the device) is saved to a database.
@@ -355,7 +355,7 @@ The whole process of this \gls{puf}-based authentication protocol is illustrated
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.7\textwidth]{images/authentication_process.png}
-    \caption[PUF-based authentication protocol.]{PUF-based authentication protocol\cite{Barbareschi2018}.}
+    \caption[PUF-based authentication protocol]{PUF-based authentication protocol~\cite{Barbareschi2018}}
     \label{fig:authentication_process}
 \end{figure}
 
@@ -369,7 +369,7 @@ More advanced \gls{puf}-based authentication protocols that address some of the 
 
 \subsection{Key generation}
 
-Keys are required in the majority of cryptographic applications. They need to contain true randomness in order to be unpredictable and unique. The cryptographic key then needs to be stored and retrieved securely. These conditions are hard to meet and a myriad of cryptographic systems have been broken because of bad generation or handling of keys.\cite{Maes2012_2}
+Keys are required in the majority of cryptographic applications. They need to contain true randomness in order to be unpredictable and unique. The cryptographic key then needs to be stored and retrieved securely. These conditions are hard to meet and a myriad of cryptographic systems have been broken because of bad generation or handling of keys.~\cite{Maes2012_2}
 
 \gls{puf}-based cryptographic key generation tries to solve those problems. The key is not stored in any memory and is generated by the \gls{puf} on demand. In some way, it is imprinted in the \gls{puf} itself. Furthermore, the uniqueness and unpredictability property of \glspl{puf}, which arise from their uncontrollable physical properties, introduce the necessary randomness.
 
@@ -379,24 +379,24 @@ Since the \gls{puf} responses are noisy and not 100\% reliable, care needs to be
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/key_generation.pdf}
-    \caption[PUF-based key generation mechanism.]{PUF-based key generation mechanism, inspired by~\cite{Gao2017}.}
+    \caption[PUF-based key generation mechanism]{PUF-based key generation mechanism, inspired by~\cite{Gao2017}}
     \label{fig:key_generation}
 \end{figure}
 
-The process of \gls{puf}-based key generation is divided into two phases: enrollment and key reconstruction\cite{Mispan2018}. It is illustrated in Figure~\ref{fig:key_generation}.
+The process of \gls{puf}-based key generation is divided into two phases: enrollment and key reconstruction~\cite{Mispan2018}. It is illustrated in Figure~\ref{fig:key_generation}.
 
 \begin{description}
     \item[Enrollment phase:] \hfill \\ In this phase, \gls{puf} responses are generated and processed by the \gls{ecc} algorithm to construct the cryptographic key. The \gls{ecc} calculates helper data from the key and saves it to non-volatile memory. This data will later be used to reconstruct the key. The helper data can also contain a \gls{puf} configuration.
     \item[Key regeneration phase:] \hfill \\ When the key is needed, the \gls{puf} produces a response and feeds it to the \gls{ecc} algorithm. The key is then reconstructed by the \gls{ecc} using the response and the corresponding helper data saved in the non-volatile memory.
 \end{description}
 
-The \gls{ecc} used is usually a simple repetition code or a \gls{bch} code. However, any \gls{ecc} can be used and the codes can even be concatenated in order to increase efficiency.\cite{Bosch2008}
+The \gls{ecc} used is usually a simple repetition code or a \gls{bch} code. However, any \gls{ecc} can be used and the codes can even be concatenated in order to increase efficiency.~\cite{Bosch2008}
 
 After key regeneration, a raw bit string key is obtained. It can be used immediately with some cryptosystems (typically symmetric ciphers such as AES). However, some systems put restrictions on the key (RSA needs two prime numbers), thus requiring further processing. % TODO kde jsem ztratil zdroj?
 
-Key generation is a typical application of weak \glspl{puf}\cite{Herder2014}. As the \gls{sram} \gls{puf} implemented in this thesis is classified as weak, a simple key generation algorithm will be tested on top of the \gls{puf}.
+Key generation is a typical application of weak \glspl{puf}~\cite{Herder2014}. As the \gls{sram} \gls{puf} implemented in this thesis is classified as weak, a simple key generation algorithm will be tested on top of the \gls{puf}.
 
-It is even possible for a weak \gls{puf} to provide authentication without the need for a large number of challenge-response pairs. Once the key is generated by the weak \gls{puf}, it can be used in other cryptographic algorithms which provide authentication such as \gls{mac} or digital signatures (at the cost of additional hardware/software).\cite{Herder2014}
+It is even possible for a weak \gls{puf} to provide authentication without the need for a large number of challenge-response pairs. Once the key is generated by the weak \gls{puf}, it can be used in other cryptographic algorithms which provide authentication such as \gls{mac} or digital signatures (at the cost of additional hardware/software).~\cite{Herder2014}
 
 
 % TODO hash po rekonstrukci klice? (zdroj FPGA Intrinsic PUFs and Their Use for IP Protection jako privacy amplification)
@@ -415,13 +415,13 @@ A design of optical \gls{puf} was first proposed by~\cite{Pappu2001} in 2001 and
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.65\textwidth]{images/optical_puf.png}
-    \caption[Operation of the optical PUF.]{Operation of the optical PUF.}
+    \caption[Operation of the optical PUF]{Operation of the optical PUF}
     \label{fig:optical_puf}
 \end{figure}
 
 The heart of the \gls{puf} is an optical token that contains microscopic refractive particles randomly mixed in a transparent epoxy plate. This optical microstructure is then irradiated with a laser which produces a random speckle pattern. This pattern is captured using a camera and digitally processed by an algorithm called Gabor hashing. The resulting hash works as the \gls{puf} response. Challenge is represented as a specific orientation of the laser. The operation of optical \gls{puf} is represented in Figure~\ref{fig:optical_puf}.
 
-Experiments showed, that this optical \gls{puf} has the one-wayness property and the optical tokens are tamper evident.\cite{Pappu2002} Together with the fact that it is classified as strong (has a large number of challenge-response pairs) makes this \gls{puf} construction the only one with these properties. However, it is also expensive and laborious to use because of its rather large and mechanical setup.\cite{Maes2012}
+Experiments showed, that this optical \gls{puf} has the one-wayness property and the optical tokens are tamper evident.~\cite{Pappu2002} Together with the fact that it is classified as strong (has a large number of challenge-response pairs) makes this \gls{puf} construction the only one with these properties. However, it is also expensive and laborious to use because of its rather large and mechanical setup.~\cite{Maes2012}
 
 A more integrated implementation of an optical \gls{puf} was proposed by~\cite{Rhrmair2013}.
 
@@ -429,7 +429,7 @@ A more integrated implementation of an optical \gls{puf} was proposed by~\cite{R
 
 The arbiter \gls{puf} was first proposed by~\cite{Lee2004}. It is a delay-based silicon \gls{puf} implementation. The idea behind this construction is to create a race condition for two digital signal paths which end in an arbiter circuit. The arbiter determines which of the two digital lines finished the race first and outputs a bit.
 
-If the two paths have an identically designed delay in the chip, the two following cases can happen\cite{Maes2013}:
+If the two paths have an identically designed delay in the chip, the two following cases can happen~\cite{Maes2013}:
 
 \begin{enumerate}
     \item The delay for one of the paths is shorter due to the manufacturing variations and the arbiter circuit will decide the race accordingly. This effect is the basis of the arbiter \gls{puf} since the variations are random for every device and stay static after fabrication of the circuit.
@@ -440,7 +440,7 @@ If the two paths have an identically designed delay in the chip, the two followi
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/arbiter_puf.pdf}
-    \caption[Construction of an arbiter PUF.]{Construction of an arbiter PUF as proposed by~\cite{Lee2004}, image from~\cite{Maes2012}.}
+    \caption[Construction of an arbiter PUF]{Construction of an arbiter PUF as proposed by~\cite{Lee2004}, image from~\cite{Maes2012}}
     \label{fig:arbiter_puf}
 \end{figure}
 
@@ -448,13 +448,13 @@ The initial design of the arbiter \gls{puf} by~\cite{Lee2004} used serially conn
 
 Connecting \emph{n} switch boxes results in $2^n$ possible delay configurations. These configuration bits are then considered to be the challenge of the \gls{puf}. The schematic of the described arbiter \gls{puf} is shown in Figure~\ref{fig:arbiter_puf}.
 
-However, the $2^n$ possible challenges are not unpredictable with this design. The final delay of the path is the sum of delays on each switch box. This fact makes it possible to create a highly accurate mathematical model of the \gls{puf} while only observing a limited amount of challenge-response pairs.\cite{Lee2004}
+However, the $2^n$ possible challenges are not unpredictable with this design. The final delay of the path is the sum of delays on each switch box. This fact makes it possible to create a highly accurate mathematical model of the \gls{puf} while only observing a limited amount of challenge-response pairs.~\cite{Lee2004}
 
-In order to prevent the model building attacks, extensions to the original design were proposed by introducing non-linear features. One example is a feed-forward arbiter \gls{puf}, where some of the configuration bits are set by evaluating the race at an intermediate point of the path rather than by the challenge.\cite{Lee2005}
+In order to prevent the model building attacks, extensions to the original design were proposed by introducing non-linear features. One example is a feed-forward arbiter \gls{puf}, where some of the configuration bits are set by evaluating the race at an intermediate point of the path rather than by the challenge.~\cite{Lee2005}
 
 \subsection{Coating PUF}
 
-The design of a coating \gls{puf} was first proposed by~\cite{Tuyls2006}. It gathers its randomness from measuring the capacitance by comb-shaped sensors placed in the top metal layer of an integrated circuit. The randomness is introduced into the system by spraying a passive dielectric coating on top of the sensors. The need for a special step during manufacturing to create the coating classifies this \gls{puf} construction as non-intrinsic (it breaks the second necessary condition of intrinsic \glspl{puf} as discussed in Section~\ref{sec:intrinsic_nonintrinsic}).\cite{Maes2010}
+The design of a coating \gls{puf} was first proposed by~\cite{Tuyls2006}. It gathers its randomness from measuring the capacitance by comb-shaped sensors placed in the top metal layer of an integrated circuit. The randomness is introduced into the system by spraying a passive dielectric coating on top of the sensors. The need for a special step during manufacturing to create the coating classifies this \gls{puf} construction as non-intrinsic (it breaks the second necessary condition of intrinsic \glspl{puf} as discussed in Section~\ref{sec:intrinsic_nonintrinsic}).~\cite{Maes2010}
 
 Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_puf}.
 
@@ -462,11 +462,11 @@ Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_pu
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=0.85\textwidth]{images/coating_puf.png}
-    \caption[Construction of a coating PUF.]{Construction of a coating PUF~\cite{Maes2012}.}
+    \caption[Construction of a coating PUF]{Construction of a coating PUF~\cite{Maes2012}}
     \label{fig:coating_puf}
 \end{figure}
 
-As the coating is inert and opaque, it provides strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.\cite{Tuyls2006}
+As the coating is inert and opaque, it provides strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.~\cite{Tuyls2006}
 
 % \subsection{Glitch PUF} % TODO glitch puf, Maes has a nice picture
 
