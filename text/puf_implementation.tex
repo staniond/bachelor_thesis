@@ -1,5 +1,5 @@
 %---------------------------------------------------------------
-\chapter{SRAM PUF implementation on ESP32}\label{sec:implementation}
+\chapter{SRAM PUF experiments and implementation on ESP32}\label{sec:implementation}
 %---------------------------------------------------------------
 
 % uvod s tim ze pouzivam esp32, cislovani, jake desky?, komoru, jake teploty?, nominal voltage...
@@ -99,7 +99,7 @@ Since the evaluation parameters require \gls{puf} responses for their calculatio
 
 \subsubsection*{Uniformity}
 
-Uniformity of all \glspl{mcu} in different temperatures can be seen in Table~\ref{table:uniformity_rtc_sram}. The values look very good at temperatures above 10~°C, hovering around the desired value of 50~\%. However, in lower temperatures, the effect of memory freezing can be seen clearly. The values plummet and hit nearly 0 \% at -40~°C. This is due to the choice of default initial value of `0' bits. Uniformity rises towards 100~\% if the default value is a `1' bit.
+Uniformity of all \glspl{mcu} in different temperatures can be seen in Table~\ref{table:uniformity_rtc_sram}. The values look very good at temperatures above 10~°C, hovering around the desired value of 50~\%. However, in lower temperatures, the effect of memory freezing can be seen clearly. The values plummet and hit nearly 0~\% at -40~°C. This is due to the choice of default initial value of `0' bits. Uniformity rises towards 100~\% if the default value is a `1' bit.
 
 \begin{table}[ht!]
     \centering
@@ -127,15 +127,15 @@ Uniformity of all \glspl{mcu} in different temperatures can be seen in Table~\re
 \bottomrule
 \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniformity (\%) across all MCUs and temperatures (RTC SRAM method)}
+    \caption{Uniformity (\%) across all MCUs and temperatures (RTC SRAM method, 10 mS turn off interval)}
     \label{table:uniformity_rtc_sram}
 \end{table}
 
 \subsubsection*{Reliability}
 
-Reliability values of all \glspl{mcu} in different temperatures are displayed in Table~\ref{table:reliability_rtc_sram}. The reference response used for the calculations was obtained at 20°C.
+Reliability values of all \glspl{mcu} in different temperatures are displayed in Table~\ref{table:reliability_rtc_sram}. The reference response used for the calculations was obtained at 20~°C.
 
-Once again, the values look good in temperatures above 10 °C, being fairly close to the ideal 100 \%. The highest reliability can be observed at 20 °C. This is the result of the reference response being calculated at this temperature. The effect of freezing is once again evident in low temperatures. Reliability goes down toward 50 \%, which is the worst possible value.\footnote{The value of 0 \% would mean that the response bits are just inverted compared to the reference.} 
+Once again, the values look good in temperatures above 10 °C, being fairly close to the ideal 100~\%. The highest reliability can be observed at 20~°C. This is the result of the reference response being calculated at this temperature. The effect of freezing is once again evident in low temperatures. Reliability goes down toward 50~\%, which is the worst possible value.\footnote{The value of 0~\% would mean that the response bits are just inverted compared to the reference.} 
 
 \begin{table}[ht!]
     \centering
@@ -163,7 +163,7 @@ Once again, the values look good in temperatures above 10 °C, being fairly clos
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Reliability (\%) across all MCUs and temperatures (RTC SRAM method)}
+    \caption{Reliability (\%) across all MCUs and temperatures (RTC SRAM method, 10~mS turn off interval)}
     \label{table:reliability_rtc_sram}
 \end{table}
 
@@ -192,7 +192,7 @@ Uniqueness of the responses from different \glspl{mcu} across the whole range of
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniqueness (\%) across all MCUs and temperatures (RTC SRAM method)}
+    \caption{Uniqueness (\%) across all MCUs and temperatures (RTC SRAM method, 10~mS turn off interval)}
     \label{table:uniqueness_rtc_sram}
 \end{table}
 
@@ -297,7 +297,7 @@ Uniformity of all \glspl{mcu} across the whole range of temperatures can be seen
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniformity (\%) across all MCUs and temperatures (deep sleep method)}
+    \caption{Uniformity (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
     \label{table:uniformity_deep_sleep}
 \end{table}
 
@@ -333,7 +333,7 @@ The best reliability is achieved at 20~°C since the reference response was calc
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method)}
+    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
     \label{table:reliability_deep_sleep}
 \end{table}
 
@@ -362,7 +362,7 @@ Uniqueness for all \glspl{mcu} across the range of different temperatures is sho
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniqueness (\%) across all MCUs and temperatures (deep sleep method)}
+    \caption{Uniqueness (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
     \label{table:uniqueness_deep_sleep}
 \end{table}
 

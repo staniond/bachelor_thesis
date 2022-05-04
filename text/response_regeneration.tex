@@ -106,7 +106,7 @@ Reliability table using the temperature range mask is not presented, as the reli
 
 Stable bit preselection managed to increase reliability significantly. However, for successful key reconstruction the reliability must be 100 \% as only a single bit flip renders the key unusable. For this reason, \glspl{ecc} are used as an additional method to reduce the noise of the \gls{puf} responses.
 
-One method of applying an \gls{ecc} to the \gls{puf} responses is called the code-offset construction. In the enrollment phase, a reference response needs to be chosen. A random code word of the used code is then subtracted from the response and the results are stored in a non-volatile memory. This data is called the helper data. During the key reconstruction phase, a new, potentially noisy \gls{puf} response is generated. Helper data are retrieved from memory and added to the response, creating the code word of the \gls{ecc}. This (also potentially noisy) code word is then decoded by the \gls{ecc}, correcting the errors.~\cite{Sven2015},~\cite{Dodis2008}
+One method of applying an \gls{ecc} to the \gls{puf} responses is called the code-offset construction. In the enrollment phase, a reference response $R$ needs to be chosen. A random code word $C$ of the used code is then subtracted from the response $H = R - C$ and the results are stored in a non-volatile memory. The $H$ is called the helper data. During the key reconstruction phase, a new, potentially noisy \gls{puf} response $R'$ is generated. Helper data are retrieved from memory and added to the response, creating the code word $C' = H + R'$. This (also potentially noisy) code word $C'$ is then decoded by the \gls{ecc}, correcting the errors.~\cite{Sven2015},~\cite{Dodis2008}
 
 The repetition code of length 8 was chosen for the \gls{sram} \gls{puf} implementation. It is very simple to implement and the encoding and decoding operations are extremely fast, because the code words are byte-sized. It is capable of correcting up to 3 errors and can detect up to 4 errors per byte.
 
@@ -176,7 +176,7 @@ In order to confirm that the selected threshold values are viable and really det
     \centering
     \captionsetup{margin=0.5cm}
     \includegraphics[width=\textwidth]{images/correct_responses_plot.png}
-    \caption[A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction]{A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction. The green region represents data points where the \gls{rtc} \gls{sram} response is accepted as a valid response. Data obtained from \glspl{mcu} 1--6.}
+    \caption[A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction]{A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction. The green region represents data points where the \gls{rtc} \gls{sram} response is accepted as a valid response. Data obtained from \glspl{mcu} 1--6. RTC SRAM method with 10~mS turn off interval was used.}
     \label{fig:correct_responses_plot}
 \end{figure}
 % TODO caru kde beru jakoze je OK RTC SRAM metoda?
@@ -189,7 +189,7 @@ First, the enrollment phase is executed as is illustrated in Figure~\ref{fig:enr
 \begin{enumerate}
     \item Try to reconstruct the \gls{puf} response using the \gls{rtc} \gls{sram} power-control method. Calculate the Hamming weight and the \gls{ecc} detected error percentage in the process.
     \item If the Hamming weight is above the threshold of 48.5~\% and the error percentage is lower than the threshold of 0.15~\%, use the reconstructed \gls{puf} response as a result and end.
-    \item Reconstruct the \gls{puf} response using the deep sleep method (since the \gls{rtc} \gls{sram} method could have produced incorrect response).
+    \item Reconstruct the \gls{puf} response using the deep sleep method (since the \gls{rtc} \gls{sram} method could have produced incorrect response). The \gls{mcu} needs to be rebooted bacause of the deep sleep.
 \end{enumerate}
 
 %--------------------------------
