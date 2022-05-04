@@ -6,21 +6,19 @@
 
 In this thesis, the possibility of implementing a \gls{sram} \gls{puf} on the ESP32 microcontroller was analyzed and a proof of concept solution was implemented. 
 
-The first chapter provides a description of the concept of a \gls{puf}. Then, \gls{puf} properties, applications, classification and evaluation parameters were described. At the end, three \gls{puf} implementations were presented.
+First, a description of the concept of a \gls{puf} was provided. \gls{puf} properties, applications, classification and evaluation parameters were described and three \gls{puf} implementations were presented.
 
-A thorough explanation of \gls{sram} \glspl{puf} was given in the second chapter. A discussion on which properties the \gls{sram} \gls{puf} possesses was provided. Then, stable bit preselection methods and the effect of silicon aging were presented. At the end, existing research on \gls{sram} \glspl{puf} on the ESP32 platform was summarized.
+A thorough explanation of \gls{sram} \glspl{puf} was given. A discussion on which properties the \gls{sram} \gls{puf} possesses was provided. Then, stable bit preselection methods and the effect of silicon aging were presented and existing research on \gls{sram} \glspl{puf} on the ESP32 platform was summarized. An overview of the ESP32 platform was also provided. The presented theory was used in the \gls{sram} \gls{puf} experiments and implementation in this thesis.
 
-In the third chapter, an overview of the ESP32 \gls{iot} platform was given. Hardware and software components of the ESP32 microcontroller with a focus on features specific to the \gls{sram} \gls{puf} implementation were introduced.
+Then, two power-control methods of the \gls{sram} memory were presented, the \gls{rtc} \gls{sram} method and the deep sleep method. To assess the performance of the \gls{sram} \gls{puf} that will use these methods, several experiments were conducted. Data remanence of the \gls{sram} memory and evaluation parameters were analyzed across a range of temperatures. The \gls{rtc} \gls{sram} method showed a surprising effect of memory `freezing' and was found to be suitable for use only at temperatures above about 10 °C. The deep sleep method showed very good results according to the evaluation parameters and data remanence testing. However, it is significantly slower compared to the former method. Additionally, \gls{puf} response visualization revealed an interesting pattern of the uninitialized \gls{sram} data in some \glspl{mcu}, which reduces the entropy of the \gls{puf} responses.
 
-Two \gls{sram} power state control methods on the ESP32 microcontroller were designed in the fourth chapter. Their resulting \gls{puf} responses were analyzed based on operating temperature and power-off time of the memory. This analysis detected an interesting effect of memory `freezing' for the \gls{rtc} \gls{sram} method in low operating temperatures. Then, evaluation parameters were used to test the \gls{puf} responses and the results matched the expectations from the previous analysis. The advantages and disadvantages of each method and their suitability for use were also discussed. At the end, a visualization of the \gls{puf} responses was presented, revealing an interesting pattern in the memory startup values.
+Based on the analyses conducted, a \gls{sram} \gls{puf} implementation with reliable response extraction was designed. Two methods of stable bit preselection were implemented and tested. Then, a simple repetition \gls{ecc} was used to further stabilize the responses. A simple mathematical model of reconstruction success was used to evaluate the reliability of the \gls{puf}. Next, a \gls{puf} design that combines the two power-control methods was presented. By default, the fast \gls{rtc} \gls{sram} method is used, with the slower deep sleep method used as a fallback mechanism. This design was successfully tested on 16 \glspl{mcu} across a range of temperatures.
 
-Chapter five implemented reliable \gls{puf} response reconstruction using two methods of stable bit preselection and a simple repetition \gls{ecc}. Next, a \gls{puf} design that combines the two power-control methods was presented. At the end, the proposed \gls{sram} \gls{puf} design was tested on 16 \glspl{mcu} in different operating temperatures.
-
-The final chapter introduced esp32\_puflib---a library that implements the proposed \gls{sram} \gls{puf} design.
+Finally, the described \gls{sram} \gls{puf} design was implemented in an easy-to-use ESP32 library together with an in-device and external enrollment. The \gls{puf} responses can be used to generate and preserve cryptographic keys safely, increasing the security of the ESP32 platform.
 
 To summarize, all of the goals outlined were accomplished, resulting in interesting findings and a working \gls{sram} \gls{puf} implementation on the ESP32 microcontroller.
 
-\newpage
+\pagebreak
 
 \section*{Future work}
 \phantomsection
