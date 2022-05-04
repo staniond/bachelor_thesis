@@ -373,7 +373,7 @@ The presented experiments show very good results across the whole tested range o
 On the other hand, the deep sleep power-control method is especially time-consuming (in comparison to the \gls{rtc} \gls{sram} method). This is mainly due to the need to go through the whole booting process. Obtaining the response can take up to several tenths of seconds, depending on the application size and speed of the connected flash memory. Moreover, most of the device state is inevitably lost during deep sleep. The application must save all data it does not want to lose to either the FAST or SLOW \gls{rtc} \gls{sram} (the only memory regions not turned off). Although, they together only provide 16~KB of space
 
 %--------------------------------
-\section{PUF response data visualization} % TODO how to name this section?
+\section{PUF response data visualization}
 %--------------------------------
 
 The above-described experiments and evaluation parameters only looked at the response data globally and reduced the entire response bit string to a single number. As will become clear, it can be useful to look at the data more locally. Therefore the following visualization is presented.

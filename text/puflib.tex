@@ -14,7 +14,7 @@ In order to be able to reconstruct the \gls{puf} responses properly, the device 
 
 \subsubsection*{In-device enrollment}
 
-In the in-device enrollment, the ESP32 microcontroller does all of the needed calculations by itself. It is performed by the \lstinline{provision_puf} function. This method of enrollment is very straightforward to use (just a function call).
+In the in-device enrollment, the ESP32 microcontroller does all of the needed calculations by itself. It is performed by the \lstinline{enroll_puf} function. This method of enrollment is very straightforward to use (just a function call).
 
 Unfortunately, the stable bit mask can be calculated only at one operating temperature (which results in erroneous response reconstructions at extreme temperatures). Furthermore, the in-device enrollment process is lengthy. A stable bit mask created from 1000 \gls{puf} measurements takes about 40 minutes to calculate---each measurement executes the deep sleep restart and a write the non-volatile flash memory to save the results. Thus this method also increases the wear of the flash memory.
 
@@ -49,8 +49,8 @@ After reconstructing the response (either by the \gls{rtc} \gls{sram} method imm
 void app_main(void) { 
     // needs to be called first in app_main
     puflib_init();
-    // provisioning needs to be done only once at the beginning
-    provision_puf();
+    // enrollment needs to be done only once at the beginning
+    enroll_puf();
 
     // condition will be true, if a PUF response is ready
     // (useful after a restart)

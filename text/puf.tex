@@ -15,13 +15,11 @@ The first concept of \gls{puf} was proposed by Pappu in 2001. He used the term \
 
 As \gls{puf} is a function, it has inputs and outputs. However, it is not a function in a true mathematical way. It could be described as a procedure performed on a particular device. Its inputs consist of a challenge and a physical state of the device. Given the input, the \gls{puf} produces an output (called a response). Together, they form challenge-response pairs.   
 
-A hugely important property of \glspl{puf} is unclonability. It is achieved by the physical state of the device which acts as the input to the function and influences the responses produced by the \gls{puf}. The concrete details of the physical state used is what distinguishes different \gls{puf} implementations. These physical properties could be for example propagation delay in the chip circuit or bias of uninitialized memory cells to 1 or 0 state. The latter is a basis for \gls{sram} \gls{puf}, which is a topic of this thesis. These properties are fundamentally random since they are created by uncontrollable physical processes during manufacturing. This makes them physically unclonable.
+A hugely important property of \glspl{puf} is unclonability. It is achieved by the physical state of the device which acts as the input to the function and influences the responses produced by the \gls{puf}. The concrete details of the physical state used is what distinguishes different \gls{puf} implementations. These physical properties could be for example propagation delay in the chip circuit or bias of uninitialized memory cells to `0' or `1' state. The latter is a basis for \gls{sram} \gls{puf}, which is a topic of this thesis. These properties are fundamentally random since they are created by uncontrollable physical processes during manufacturing. This makes them physically unclonable.
 
 Since the physical state of the device can change with time and environment (for example temperature or input voltage variations), the challenge-response pairs can change as well. The requirement is, that for the same challenge, the responses should be similar enough for us to be able to recognize that they belong to the same challenge. The \gls{puf} responses are also required to differ from device to device even with the same challenge.~\cite{Kodytek2020}
 
 Because of these properties, \glspl{puf} can be used in devices to enable secure identification, authentication as well as cryptographic key generation. More of the required properties of \glspl{puf}, their classification, possible applications and implementations will be discussed in more detail in the next sections.
-
-% TODO zero and one states or 0 and 1 states everywhere? Now is mixed!!!
 
 %--------------------------------
 \section{PUF properties}\label{sec:properties}
@@ -79,7 +77,7 @@ While physical unclonability talks about the impossibility of creating a real-wo
 
 Mathematical unclonability is a stronger model of unpredictability. It assumes unlimited physical access to a specific \gls{puf} instance. The potential adversary can learn as many challenge-response pairs as he is capable of storing and can potentially make use of other \gls{puf} observations. Even in this situation, it should be impossible for the adversary to create a prediction algorithm capable of outputting a response based on a given challenge. 
 
-Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, a simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability. % TODO mention strong PUFs?
+Mathematical unclonability implies that the specific \gls{puf} implementation has a large number of possible challenges (more than the adversary could theoretically store). If this was not true, a simple lookup table of challenge-response pairs could be constructed, breaking mathematical unclonability.
 
 \subsection*{True unclonability}
 
@@ -205,7 +203,7 @@ The reference response $R_{i}^{'}(n)$ is the expected response of \emph{n} bits 
 
 \subsection{Uniformity}\label{sec:uniformity}
 
-Uniformity represents a proportion of zero and one states of the response bits. It is useful to determine if there exists a global bias towards any of these states. Since the \gls{puf} responses need to be unpredictable, there should not be any bias. Thus, the ideal value of uniformity is 50\%.
+Uniformity represents a proportion of `0' and `1' states of the response bits. It is useful to determine if there exists a global bias towards any of these states. Since the \gls{puf} responses need to be unpredictable, there should not be any bias. Thus, the ideal value of uniformity is 50\%.
 
 The uniformity property for one response of chip \emph{i} is defined by Equation~\ref{eq:uniformity}:
 
@@ -399,8 +397,6 @@ Key generation is a typical application of weak \glspl{puf}~\cite{Herder2014}. A
 It is even possible for a weak \gls{puf} to provide authentication without the need for a large number of challenge-response pairs. Once the key is generated by the weak \gls{puf}, it can be used in other cryptographic algorithms which provide authentication such as \gls{mac} or digital signatures (at the cost of additional hardware/software).~\cite{Herder2014}
 
 
-% TODO hash po rekonstrukci klice? (zdroj FPGA Intrinsic PUFs and Their Use for IP Protection jako privacy amplification)
-
 %--------------------------------
 \section{PUF implementations}
 %--------------------------------
@@ -467,8 +463,4 @@ Construction of a coating \gls{puf} is illustrated in Figure~\ref{fig:coating_pu
 \end{figure}
 
 As the coating is inert and opaque, it provides strong protection against physical attacks. It has also been shown that the resulting \gls{puf} is tamper evident.~\cite{Tuyls2006}
-
-% \subsection{Glitch PUF} % TODO glitch puf, Maes has a nice picture
-
-
 

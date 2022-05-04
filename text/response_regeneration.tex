@@ -1,5 +1,5 @@
 %---------------------------------------------------------------
-\chapter{Reliable PUF response reconstruction}\label{sec:response_extraction} % TODO should this be its own section or part of the previous one?
+\chapter{Reliable PUF response reconstruction}\label{sec:response_extraction}
 %---------------------------------------------------------------
 
 Since \gls{sram} \glspl{puf} are classified as weak (they do not have a large challenge-response pair set), their main use is for cryptographic key generation. The keys need to be extracted without error, otherwise, the cryptographic algorithms that use the keys will not work. Therefore, methods of reliable response reconstruction are used to stabilize the \gls{puf} response.
@@ -179,7 +179,6 @@ In order to confirm that the selected threshold values are viable and really det
     \caption[A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction]{A scatter plot showing the effect of Hamming weight and error count on correct response reconstruction. The green region represents data points where the \gls{rtc} \gls{sram} response is accepted as a valid response. Data obtained from \glspl{mcu} 1--6. RTC SRAM method with 10~mS turn off interval was used.}
     \label{fig:correct_responses_plot}
 \end{figure}
-% TODO caru kde beru jakoze je OK RTC SRAM metoda?
 
 The scatter plot is zoomed-in on the part where, as the temperature increases, the responses are starting to be reconstructed properly. This happens at slightly different temperatures for each \gls{mcu}, but generally at about -5°C (the exact temperature does not matter since the threshold values do not depend on it). As expected, the error count and Hamming weight are highly negatively correlated. As the temperature increases, the Hamming weight increases and the error count decreases. Once the error count is low enough (and the Hamming weight high enough), the responses can be correctly reconstructed. The lowest error rate, where the response was not reconstructed properly, is 2.45 \% (or about 580-bit errors). This proves that there is an extremely large safety margin.
 
