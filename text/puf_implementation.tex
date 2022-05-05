@@ -6,7 +6,7 @@
 
 % uvod s tim ze pouzivam esp32, cislovani, jake desky?, komoru, jake teploty?, nominal voltage...
 
-The goal of this chapter is to find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller. Two different methods are presented and their result (the startup memory values used as a \gls{puf} response) are analyzed. The first method, named the \gls{rtc} \gls{sram} method, directly controls the power state of the memory. It provides fast response extraction but has shown strange behavior at low temperatures. The second method, named the deep sleep method, uses the deep sleep power saving mode to control the memory power state. Its behavior is reliable across the whoel temperature range, however it requires the reboot of the whole chip and is therefore slower. 
+The goal of this chapter is to find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller. Two different methods are presented and their result (the startup memory values used as a \gls{puf} response) are analyzed. The first method, named the \gls{rtc} \gls{sram} method, directly controls the power state of the memory. It provides fast response extraction but has shown a strange behavior at low temperatures. The second method, named the deep sleep method, uses the deep sleep power saving mode to control the memory power state. Its behavior is reliable across the whole temperature range. However, it requires the reboot of the whole chip and is therefore slower. 
 
 First, an analysis based on temperature and \gls{sram} power off-time is performed. The temperature is controlled by a temperature chamber Binder MK-56obj. It is capable of producing temperatures from -40~°C to +180~°C~\cite{Binder2021}. However, only the range of -40~°C to +70~°C is used for the analysis as higher temperatures could potentially damage the components. This analysis is performed mainly to understand the data retention time of the \gls{sram} and set an adequate minimum interval the memory needs to stay off before extracting the response.
 
@@ -434,7 +434,7 @@ However, only the \gls{rtc} \gls{sram} method shows this wide stripe behavior. T
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/16_response_sleep.png}
-    \caption{Visualization of PUF response from MCU 16 in a $256 \times 128$ bit grid (RTC SRAM method)}
+    \caption{Visualization of PUF response from MCU 16 in a $512 \times 64$ bit grid (RTC SRAM method)}
     \label{fig:16_response_sleep}
 \end{figure}
 
