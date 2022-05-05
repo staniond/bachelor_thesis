@@ -2,9 +2,11 @@
 \chapter{SRAM PUF experiments and implementation on ESP32}\label{sec:implementation}
 %---------------------------------------------------------------
 
+\vspace{-1cm}
+
 % uvod s tim ze pouzivam esp32, cislovani, jake desky?, komoru, jake teploty?, nominal voltage...
 
-The goal of this chapter is to find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller. Two different methods are presented and their result (the startup memory values used as a \gls{puf} response) are analyzed. 
+The goal of this chapter is to find a suitable mechanism for \gls{sram} power state control on the ESP32 microcontroller. Two different methods are presented and their result (the startup memory values used as a \gls{puf} response) are analyzed. The first method, named the \gls{rtc} \gls{sram} method, directly controls the power state of the memory. It provides fast response extraction but has shown strange behavior at low temperatures. The second method, named the deep sleep method, uses the deep sleep power saving mode to control the memory power state. Its behavior is reliable across the whoel temperature range, however it requires the reboot of the whole chip and is therefore slower. 
 
 First, an analysis based on temperature and \gls{sram} power off-time is performed. The temperature is controlled by a temperature chamber Binder MK-56obj. It is capable of producing temperatures from -40~°C to +180~°C~\cite{Binder2021}. However, only the range of -40~°C to +70~°C is used for the analysis as higher temperatures could potentially damage the components. This analysis is performed mainly to understand the data retention time of the \gls{sram} and set an adequate minimum interval the memory needs to stay off before extracting the response.
 
@@ -38,7 +40,7 @@ Because of these drawbacks, the \gls{rtc} FAST \gls{sram} section was selected. 
 
 The power state of the FAST \gls{rtc} \gls{sram} is controlled by the \gls{rtc} domain power management register. Functions of the individual register bits are shown in Figure~\ref{fig:rtc_register}. Bits number 13 (\lstinline{RTC_CNTL_FASTMEM_FORCE_PU}\footnote{\lstinline{RTC_CNTL_FASTMEM_FORCE_PD} = \gls{rtc} control fast memory force power up}) and 12 (\lstinline{RTC_CNTL_FASTMEM_FORCE_PD}\footnote{\lstinline{RTC_CNTL_FASTMEM_FORCE_PD} = \gls{rtc} control fast memory force power down}) are important. They can be set to control the power state of the memory.~\cite{esp322021}
 
-\subsection{SRAM analysis based on temperature and power-off time}\label{sec:rtc_analysis}
+\subsection[SRAM analysis based on temperature and power-off time]{SRAM analysis based on temperature and power-off time of the RTC SRAM method}\label{sec:rtc_analysis}
 
 Data remanence of the \gls{rtc} FAST \gls{sram}, power controlled using the above-described method, is analyzed in this section. Several experiments for each \gls{mcu} have been conducted according to this algorithm:
 
@@ -54,7 +56,7 @@ Observing the contents of memory, in this case, means calculating the percentage
 
 The expected result is that, at the beginning for a very small turn off interval, no bits will flip. The biggest interval under which no bits flip is the \emph{data remanence time}. With increasing turn off interval, more and more bits start to flip. The percentage of flipped bits should stabilize around 50\% which is the ideal value of uniformity. At this point, all data previously saved in memory should be lost and the contents of memory after power up should depend only on the preferred initial state of the memory cells. The smallest interval under which this happens will be called the \emph{fade-out time}. The \gls{sram} \gls{puf} implementation should set the turn off interval to a greater value than the maximum \emph{fade-out time} of the \gls{sram} under varying conditions (such as temperature or voltage). This prevents data remanence from affecting the \gls{puf} response.
 
-The results of the first experiment are displayed in Figure~\ref{fig:all_plus_20_rtc}. The graph shows the percentage of flipped bits at 20 °C with the turn off interval ranging from 0 to 1000 $\mu{}S$. The results are as expected. The \emph{data remanence time} is around 180 $\mu{}S$, the \emph{fade-out time} is around 900 $\mu{}S$ and the percentage of flipped bits stabilizes around 50\% for all \glspl{mcu}.
+The results of the first experiment are displayed in Figure~\ref{fig:all_plus_20_rtc}. The graph shows the percentage of flipped bits at 20 °C with the turn off interval ranging from 0 to 1000 $\mu{}s$. The results are as expected. The \emph{data remanence time} is around 180 $\mu{}s$, the \emph{fade-out time} is around 900 $\mu{}s$ and the percentage of flipped bits stabilizes around 50\% for all \glspl{mcu}.
 
 \begin{figure}[ht!]
     \centering
@@ -75,9 +77,9 @@ The second experiment shows the behavior of one \gls{mcu} (number 6 was chosen b
     \label{fig:6_across_temps_rtc}
 \end{figure}
 
-The next experiment, therefore, looks at the behavior of all \glspl{mcu} at -20~°C. The turn off interval was significantly increased to 50 000~$\mu{}S$. The results are displayed in Figure~\ref{fig:all_minus_20_rtc}. A very strange behavior can be seen. It looks as if the memory does not fade-out at all, only a limited number of bits flip and the rest of the bits retain their original state. Furthermore, for each board, a wildly different number of bits flip in this temperature. Nearly no bits flip for \gls{mcu} 4, but about 33 percent of bits flip for \gls{mcu} 6.\footnote{Note the values on the Y-axis of the graph, they do not even reach 50~\%.}
+The next experiment, therefore, looks at the behavior of all \glspl{mcu} at -20~°C. The turn off interval was significantly increased to 50 000~$\mu{}s$. The results are displayed in Figure~\ref{fig:all_minus_20_rtc}. A very strange behavior can be seen. It looks as if the memory does not fade-out at all, only a limited number of bits flip and the rest of the bits retain their original state. Furthermore, for each board, a wildly different number of bits flip in this temperature. Nearly no bits flip for \gls{mcu} 4, but about 33 percent of bits flip for \gls{mcu} 6.\footnote{Note the values on the Y-axis of the graph, they do not even reach 50~\%.}
 
-This was confirmed by extending the range of the turn off interval to 1 S and then to 100 S. The number of flipped bits does not change anymore with increased turn off time and the memory `freezes'. At -40~°C only about 1 \% of bits flip no matter the turn off interval for each \gls{mcu}. The initial value of the memory cell does not matter either, `0' and `1' states both freeze in the same way. 
+This was confirmed by extending the range of the turn off interval to 1 s and then to 100 S. The number of flipped bits does not change anymore with increased turn off time and the memory `freezes'. At -40~°C only about 1 \% of bits flip no matter the turn off interval for each \gls{mcu}. The initial value of the memory cell does not matter either, `0' and `1' states both freeze in the same way. 
 
 \begin{figure}[ht!]
     \centering
@@ -93,9 +95,9 @@ As is evident from the Figure~\ref{fig:all_minus_20_rtc}, different \glspl{mcu} 
 
 This can explain the `freezing' effect of memory in low temperatures. However, this explanation could not be confirmed.
 
-\subsection{PUF evaluation parameters}\label{sec:rtc_evaluation}
+\subsection[PUF evaluation parameters]{PUF evaluation parameters of the RTC SRAM}\label{sec:rtc_evaluation}
 
-Since the evaluation parameters require \gls{puf} responses for their calculation, they need to be obtained. The response was chosen to be a 4~KB bit string of the (first half of) \gls{rtc} FAST \gls{sram}. Only one response is extracted, no memory address based challenge system was considered because of the limited size of the used memory region (8 KB). The turn off interval was set to 10 000~$\mu{}S$. This is a lot higher value than the \emph{fade-out time} of the memory for warmer temperatures (above 0~°C). There is no point in considering lower temperatures since the memory freezes while using this power control technique. The reference response was calculated using a bitwise average of 1000 measured responses.
+Since the evaluation parameters require \gls{puf} responses for their calculation, they need to be obtained. The response was chosen to be a 4~KB bit string of the (first half of) \gls{rtc} FAST \gls{sram}. Only one response is extracted, no memory address based challenge system was considered because of the limited size of the used memory region (8 KB). The turn off interval was set to 10 000~$\mu{}s$. This is a lot higher value than the \emph{fade-out time} of the memory for warmer temperatures (above 0~°C). There is no point in considering lower temperatures since the memory freezes while using this power control technique. The reference response was calculated using a bitwise average of 1000 measured responses.
 
 \subsubsection*{Uniformity}
 
@@ -127,8 +129,9 @@ Uniformity of all \glspl{mcu} in different temperatures can be seen in Table~\re
 \bottomrule
 \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniformity (\%) across all MCUs and temperatures (RTC SRAM method, 10 mS turn off interval)}
+    \caption{Uniformity (\%) across all MCUs and temperatures (RTC SRAM method, 10 ms turn off interval)}
     \label{table:uniformity_rtc_sram}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsubsection*{Reliability}
@@ -163,8 +166,9 @@ Once again, the values look good in temperatures above 10 °C, being fairly clos
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Reliability (\%) across all MCUs and temperatures (RTC SRAM method, 10~mS turn off interval)}
+    \caption{Reliability (\%) across all MCUs and temperatures (RTC SRAM method, 10~ms turn off interval)}
     \label{table:reliability_rtc_sram}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsubsection*{Uniqueness}
@@ -192,8 +196,9 @@ Uniqueness of the responses from different \glspl{mcu} across the whole range of
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniqueness (\%) across all MCUs and temperatures (RTC SRAM method, 10~mS turn off interval)}
+    \caption{Uniqueness (\%) across all MCUs and temperatures (RTC SRAM method, 10~ms turn off interval)}
     \label{table:uniqueness_rtc_sram}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsection{Summary}
@@ -236,13 +241,9 @@ The statically allocated buffer is not overwritten during the boot process becau
 Copying the data to this buffer by the \emph{deep sleep wake stub} is necessary as the \emph{no-init} section can be moved by the linker to a different memory address. This could be prevented by altering the linker script in the ESP-IDF source. Though this would make the deployment of the resulting \gls{puf} implementation significantly more difficult.
 
 
-\subsection{SRAM analysis based on temperature and power-off time}\label{sec:deep_sleep_analysis}
+\subsection[SRAM analysis based on temperature and power-off time]{SRAM analysis based on temperature and power-off time of the deep sleep method}\label{sec:deep_sleep_analysis}
 
 All of the experiments shown in this section were conducted using the same method that was explained at the beginning of Section~\ref{sec:rtc_analysis}. The above-described deep sleep power-control mechanism was used and the number of bit flips was calculated from 4~KB memory samples.
-
-The first experiment shows the percentage of flipped bits across all \glspl{mcu} at -40~°C. The lowest temperature is shown as it is the most indicative of what value to choose for the turn off interval. The resulting graph can be seen in Figure~\ref{fig:all_minus_40_deep_sleep}. The \emph{data remanence time} for the \glspl{mcu} is approximately 1~200~$\mu{}S$ (this is more evident if the graph is zoomed in) and the \emph{fade-out time} is around 50~000~$\mu{}S$.
-
-The effect of memory freezing in low temperatures is not present while using the deep sleep power-control method, as all the \glspl{mcu} stabilize around 50 \% of flipped bits.
 
 \begin{figure}[ht!]
     \centering
@@ -252,9 +253,13 @@ The effect of memory freezing in low temperatures is not present while using the
     \label{fig:all_minus_40_deep_sleep}
 \end{figure}
 
+The first experiment shows the percentage of flipped bits across all \glspl{mcu} at -40~°C. The lowest temperature is shown as it is the most indicative of what value to choose for the turn off interval. The resulting graph can be seen in Figure~\ref{fig:all_minus_40_deep_sleep}. The \emph{data remanence time} for the \glspl{mcu} is approximately 1~200~$\mu{}s$ (this is more evident if the graph is zoomed in) and the \emph{fade-out time} is around 50~000~$\mu{}s$.
+
+The effect of memory freezing in low temperatures is not present while using the deep sleep power-control method, as all the \glspl{mcu} stabilize around 50 \% of flipped bits.
+
 The second experiment looks at the behavior of one \gls{mcu} (again, the number 6 was chosen but results for the others are similar) across the whole range of -40 to +70 °C. The results are shown in Figure~\ref{fig:6_across_temps_deep_sleep}. This time, since no memory freezing effect is present, the memory stabilizes around the value of 50 \% of flipped bits for all temperatures. It is also evident that the \emph{fade-out time} and the \emph{data remanence time} increase significantly with decreasing temperatures.
 
-Note the data points for temperatures above 0~°C. Unexpectedly, they show a significant number of bit flips for very small turn off intervals (even for 0~$\mu{}S$). This behavior is caused by the \gls{rtc} controller that wakes up the chip from deep sleep. Even if the sleep time is set to 0~$\mu{}S$, the whole chip is put into deep sleep for at least 1~000~$\mu{}S$. This is probably caused by the design of the \gls{rtc} controller or the internal ESP-IDF software components. However, the deep sleep mode behaves as expected if the turn off interval is greater than 1~000~$\mu{}S$.
+Note the data points for temperatures above 0~°C. Unexpectedly, they show a significant number of bit flips for very small turn off intervals (even for 0~$\mu{}s$). This behavior is caused by the \gls{rtc} controller that wakes up the chip from deep sleep. Even if the sleep time is set to 0~$\mu{}s$, the whole chip is put into deep sleep for at least 1~000~$\mu{}s$. This is probably caused by the design of the \gls{rtc} controller or the internal ESP-IDF software components. However, the deep sleep mode behaves as expected if the turn off interval is greater than 1~000~$\mu{}s$.
 
 \begin{figure}[ht!]
     \centering
@@ -263,9 +268,9 @@ Note the data points for temperatures above 0~°C. Unexpectedly, they show a sig
     \caption{Percentage of flipped bits of MCU 6 across a range of temperatures (deep sleep method)}
     \label{fig:6_across_temps_deep_sleep}
 \end{figure}
-\subsection{PUF evaluation parameters}\label{sec:deepsleep_evaluation}
+\subsection[PUF evaluation parameters]{PUF evaluation parameters of the deep sleep method}\label{sec:deepsleep_evaluation}
 
-The \gls{puf} responses needed for the calculation of the evaluation parameters were obtained by the deep sleep power-control method. The responses were chosen to be 4~KB bit strings of the internal \gls{sram} 2 startup values. The turn off interval was set to 100~000~$\mu{}S$ since the maximal \emph{fade-out time} of memory was found to be 50~000~$\mu{}S$ plus a conservative safety margin. The reference response was calculated using a bitwise average of 1000 measured responses.
+The \gls{puf} responses needed for the calculation of the evaluation parameters were obtained by the deep sleep power-control method. The responses were chosen to be 4~KB bit strings of the internal \gls{sram} 2 startup values. The turn off interval was set to 100~000~$\mu{}s$ since the maximal \emph{fade-out time} of memory was found to be 50~000~$\mu{}s$ plus a conservative safety margin. The reference response was calculated using a bitwise average of 1000 measured responses.
 
 \subsubsection*{Uniformity}
 
@@ -297,8 +302,9 @@ Uniformity of all \glspl{mcu} across the whole range of temperatures can be seen
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniformity (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
+    \caption{Uniformity (\%) across all MCUs and temperatures (deep sleep method, 100~ms turn off interval)}
     \label{table:uniformity_deep_sleep}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsubsection*{Reliability}
@@ -333,8 +339,9 @@ The best reliability is achieved at 20~°C since the reference response was calc
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
+    \caption{Reliability (\%) across all MCUs and temperatures (deep sleep method, 100~ms turn off interval)}
     \label{table:reliability_deep_sleep}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsubsection*{Uniqueness}
@@ -362,8 +369,9 @@ Uniqueness for all \glspl{mcu} across the range of different temperatures is sho
     \bottomrule
     \end{tabular}
     \captionsetup{justification=centering,margin=0.5cm}
-    \caption{Uniqueness (\%) across all MCUs and temperatures (deep sleep method, 100~mS turn off interval)}
+    \caption{Uniqueness (\%) across all MCUs and temperatures (deep sleep method, 100~ms turn off interval)}
     \label{table:uniqueness_deep_sleep}
+    \vspace{-0.7cm}
 \end{table}
 
 \subsection{Summary}
@@ -414,7 +422,7 @@ Both power-control methods produce the same result. Additionally, some of the \g
             \caption{MCU 3 (RTC SRAM method)}    
             \label{fig:mcu_3}
         \end{subfigure}
-        \caption{Visualization of PUF responses from different MCUs} 
+        \caption{Visualization of PUF responses from different MCUs in a $256 \times 128$ bit grid} 
         \label{fig:puf_response_visualization}
 \end{figure}
 
@@ -426,7 +434,7 @@ However, only the \gls{rtc} \gls{sram} method shows this wide stripe behavior. T
     \centering
     \captionsetup{justification=centering,margin=0.5cm}
     \includegraphics[width=\textwidth]{images/16_response_sleep.png}
-    \caption{Visualization of PUF response from MCU 16 (RTC SRAM method).}
+    \caption{Visualization of PUF response from MCU 16 in a $256 \times 128$ bit grid (RTC SRAM method)}
     \label{fig:16_response_sleep}
 \end{figure}
 
